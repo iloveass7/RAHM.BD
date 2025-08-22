@@ -1,4 +1,7 @@
 using RAHM.BD.Services;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +21,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseRouting();
 app.UseAuthorization();
+app.UseStaticFiles();
 
 app.MapStaticAssets();
 
@@ -27,3 +31,6 @@ app.MapControllerRoute(
     .WithStaticAssets();
 
 app.Run();
+
+
+
