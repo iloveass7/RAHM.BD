@@ -1,8 +1,56 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
 }
+<section class="hero hero-tight">
+    <div class="slider" id="heroSlider">
+        <div class="slides">
+            <article class="slide">
+                <img src="https://images.unsplash.com/photo-1584036561566-baf8f5f1b144?w=1600&q=80&auto=format&fit=crop" alt="Public health news" />
+                <div class="caption">
+                    <h2>Seasonal Flu Advisory</h2>
+                    <p>Stay protected this season. Learn symptoms, when to test, and how to recover safely.</p>
+                </div>
+            </article>
+            <article class="slide">
+                <img src="https://images.unsplash.com/photo-1587502536263-3e1cf0a0b5a0?w=1600&q=80&auto=format&fit=crop" alt="Vaccination info" />
+                <div class="caption">
+                    <h2>Vaccine Updates</h2>
+                    <p>Find the latest vaccine availability, eligibility, and reminders.</p>
+                </div>
+            </article>
+            <article class="slide">
+                <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=1600&q=80&auto=format&fit=crop" alt="Healthy living" />
+                <div class="caption">
+                    <h2>Heart Health Tips</h2>
+                    <p>Small daily habits, big impact. Move more, stress less, and eat smart.</p>
+                </div>
+            </article>
+        </div>
+        <div class="dots" id="heroDots"></div>
+    </div>
+</section>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<section class="actions">
+    <div class="cards">
+        <a asp-controller="Home" asp-action="RequestCenter" class="card">
+            <div class="card-icon">🏥</div>
+            <h3>Request healthcare center</h3>
+            <p>Locate and request contact from a nearby healthcare center.</p>
+            <span class="card-cta">Go →</span>
+        </a>
+
+        <a asp-controller="Home" asp-action="RequestVaccine" class="card">
+            <div class="card-icon">💉</div>
+            <h3>Request Vaccine</h3>
+            <p>Check eligibility and request a vaccine appointment.</p>
+            <span class="card-cta">Go →</span>
+        </a>
+
+        <a asp-controller="Home" asp-action="Tips" class="card">
+            <div class="card-icon">💡</div>
+            <h3>Tips</h3>
+            <p>Evidence‑based articles on staying healthy and safe.</p>
+            <span class="card-cta">Go →</span>
+        </a>
+    </div>
+</section>

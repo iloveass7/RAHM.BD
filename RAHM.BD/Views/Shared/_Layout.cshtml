@@ -1,50 +1,58 @@
-﻿<!DOCTYPE html>
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - RAHM.BD</title>
-    <script type="importmap"></script>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>RAHMBD</title>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/RAHM.BD.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">RAHM.BD</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+    <div class="layout-wrapper">
+        <!-- Top Navbar -->
+        <header class="nav">
+            <div class="container nav-inner">
+                <a asp-controller="Home" asp-action="Index" class="brand">
+                    <span class="brand-logo">❤</span> RAHMBD
+                </a>
+                <nav class="nav-links">
+                    <a asp-controller="Home" asp-action="Index" class="nav-link">Home</a>
+                    <a asp-controller="Home" asp-action="RequestCenter" class="nav-link">Request</a>
+                    <a asp-controller="Home" asp-action="RequestVaccine" class="nav-link">Vaccine</a>
+                    <a asp-controller="Home" asp-action="Tips" class="nav-link">Tips</a>
+                </nav>
+                <div class="nav-cta">
+                    <a asp-controller="Home" asp-action="Signup" class="btn btn-light">Signup</a>
+                    <a asp-controller="Home" asp-action="Login" class="btn btn-outline">Login</a>
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+        </header>
+
+        <!-- Page Content -->
+        <main class="container page">
+            @if (TempData["Msg"] != null)
+            {
+                <div class="toast">@TempData["Msg"]</div>
+            }
             @RenderBody()
         </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container footer-inner">
+                <div>© @DateTime.UtcNow.Year RAHMBD</div>
+                <div class="footer-links">
+                    <a asp-controller="Home" asp-action="Tips">Health Tips</a>
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                </div>
+            </div>
+        </footer>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - RAHM.BD - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+    @RenderSection("Scripts", required: false)
 </body>
 </html>
