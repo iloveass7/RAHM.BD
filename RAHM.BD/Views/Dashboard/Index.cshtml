@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "User Dashboard";
+}
+
+<div class="user-dashboard container">
+    <h2>User Dashboard</h2>
+
+    <div class="user-profile">
+        <img src="~/images/user.png" alt="User Avatar" class="profile-pic" />
+
+        <div class="profile-info">
+            <h3>@User.Identity?.Name ?? "Demo User"</h3>
+            <p>Email: user@example.com</p>
+            <p>Phone: +880 1234 567890</p>
+
+            <div class="profile-actions">
+                <a href="#" class="btn btn-primary">Edit Profile</a>
+                <a href="/Account/Logout" class="btn btn-outline">↪ Logout</a>
+            </div>
+        </div>
+    </div>
+</div>

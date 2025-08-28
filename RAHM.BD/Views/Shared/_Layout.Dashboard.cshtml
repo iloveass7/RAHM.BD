@@ -1,0 +1,58 @@
+﻿@{
+    Layout = null; // this is a layout, not a view
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"] - Admin Panel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="admin-wrapper">
+        <!-- Sidebar (blue design you wanted) -->
+        <aside class="sidebar">
+            <h2 class="brand">Admin Panel</h2>
+            <ul class="menu">
+                <li>
+                    <a asp-controller="Admin" asp-action="Index"
+                       class="nav-link @(ViewData["Title"] == "Admin Dashboard" ? "active" : "")">📊 Dashboard</a>
+                </li>
+                <li>
+                    <a asp-controller="Admin" asp-action="Users"
+                       class="nav-link @(ViewData["Title"] == "View Users" ? "active" : "")">👥 View Users</a>
+                </li>
+                <li>
+                    <a asp-controller="Admin" asp-action="Vaccine"
+                       class="nav-link @(ViewData["Title"] == "Vaccine Management" ? "active" : "")">💉 Vaccine</a>
+                </li>
+                <li>
+                    <a asp-controller="Admin" asp-action="SendSms"
+                       class="nav-link @(ViewData["Title"] == "Send SMS" ? "active" : "")">📩 Send SMS</a>
+                </li>
+                <li>
+                    <a asp-controller="Admin" asp-action="SendMail"
+                       class="nav-link @(ViewData["Title"] == "Send Mail" ? "active" : "")">✉️ Send Mail</a>
+                </li>
+                <li>
+                    <a asp-controller="Admin" asp-action="UploadContent"
+                       class="nav-link @(ViewData["Title"] == "Upload Content" ? "active" : "")">📰 Upload Content</a>
+                </li>
+            </ul>
+
+            <div class="logout">
+                <a href="/Account/Logout">↪ Logout</a>
+            </div>
+        </aside>
+
+        <!-- REQUIRED: this is where each page renders -->
+        <main class="content">
+            @RenderBody()
+        </main>
+    </div>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
