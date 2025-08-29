@@ -103,7 +103,7 @@ namespace RAHM.BD.Controllers
             HttpContext.Session.SetInt32("UserId", user.Id);
             HttpContext.Session.SetString("UserName", user.Name);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "UserDashboard");
         }
 
         public IActionResult Logout()
