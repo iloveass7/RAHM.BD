@@ -48,6 +48,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVmFjY2luZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Codes/C\#/RAHM.BD/RAHM.BD/Views/Health/ConditionTips.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSGVhbHRoXENvbmRpdGlvblRpcHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Codes/C\#/RAHM.BD/RAHM.BD/Views/Health/Tips.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSGVhbHRoXFRpcHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Codes/C\#/RAHM.BD/RAHM.BD/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -70,10 +78,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/Codes/C\#/RAHM.BD/RAHM.BD/Views/Home/Signup.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxTaWdudXAuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Codes/C\#/RAHM.BD/RAHM.BD/Views/Home/Tips.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxUaXBzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Codes/C\#/RAHM.BD/RAHM.BD/Views/Shared/Error.cshtml]

@@ -1,0 +1,5 @@
+{
+  "cough": [ "Common Cold", "Flu", "Bronchitis" ],
+  "fever": [ "Flu", "Malaria", "Dengue" ],
+  "rash": [ "Chickenpox", "Measles", "Allergic Reaction" ]
+}

@@ -1,0 +1,180 @@
+﻿@{
+    ViewData["Title"] = "Health Tips";
+}
+
+<section class="page-section">
+    <h1 class="mb-4">🩺 Health Tips & Symptom Checker</h1>
+
+    <div class="alert alert-info mb-4">
+        <strong>💡 How to use:</strong>
+        <ul class="mb-0">
+            <li>Describe symptoms clearly (e.g., "headache", "chest pain", "skin rash")</li>
+            <li>Use common medical terms for better results</li>
+            <li>Results are based on FDA adverse event reports</li>
+        </ul>
+    </div>
+
+    <!-- Search bar -->
+    <div class="input-group mb-3">
+        <input type="text" id="symptomInput" class="form-control" placeholder="Enter symptoms (e.g., headache, nausea, rash)" value="headache">
+        <button class="btn btn-primary" id="checkBtn">
+            <span id="btnText">Search FDA Database</span>
+            <span id="btnSpinner" class="spinner-border spinner-border-sm" style="display: none;"></span>
+        </button>
+    </div>
+
+    <!-- Quick examples -->
+    <div class="mb-4">
+        <small class="text-muted">Try: </small>
+        <span class="badge bg-light text-dark me-1 cursor-pointer" onclick="setSymptom('headache')">headache</span>
+        <span class="badge bg-light text-dark me-1 cursor-pointer" onclick="setSymptom('nausea')">nausea</span>
+        <span class="badge bg-light text-dark me-1 cursor-pointer" onclick="setSymptom('rash')">rash</span>
+        <span class="badge bg-light text-dark me-1 cursor-pointer" onclick="setSymptom('fever')">fever</span>
+        <span class="badge bg-light text-dark me-1 cursor-pointer" onclick="setSymptom('chest pain')">chest pain</span>
+    </div>
+
+    <!-- Results -->
+    <div id="results" class="mt-4" style="display: none;">
+        <h4>📊 Conditions Associated with "<span id="searchedTerm"></span>"</h4>
+        <div class="alert alert-warning">
+            <small>⚠️ <strong>Important:</strong> This data comes from FDA adverse event reports and may not represent actual medical conditions. Always consult a healthcare professional for proper diagnosis.</small>
+        </div>
+        <div id="diagnosisList" class="list-group mt-3"></div>
+    </div>
+
+    <!-- Error message -->
+    <div id="errorMessage" class="alert alert-danger mt-3" style="display: none;"></div>
+
+    <!-- Data source info -->
+    <div class="mt-4 alert alert-secondary">
+        <small>🔍 <strong>Data Source:</strong> U.S. FDA Adverse Event Reporting System (FAERS). This tool searches reports of symptoms and associated conditions.</small>
+    </div>
+
+    <!-- General tips -->
+    <div class="mt-5">
+        <h4>💡 General Health Tips</h4>
+        <ul class="list-group">
+            <li class="list-group-item">✅ Always consult healthcare professionals for medical advice</li>
+            <li class="list-group-item">✅ Maintain regular health check-ups</li>
+            <li class="list-group-item">✅ Follow prescribed medications and treatments</li>
+            <li class="list-group-item">✅ Report any adverse effects to your doctor</li>
+        </ul>
+    </div>
+</section>
+
+<style>
+    .cursor-pointer {
+        cursor: pointer;
+    }
+
+        .cursor-pointer:hover {
+            background-color: #e9ecef !important;
+        }
+</style>
+
+<script>
+    function setSymptom(symptom) {
+        document.getElementById('symptomInput').value = symptom;
+        checkSymptoms();
+    }
+
+    async function checkSymptoms() {
+        const symptoms = document.getElementById("symptomInput").value.trim();
+        const list = document.getElementById("diagnosisList");
+        const results = document.getElementById("results");
+        const errorDiv = document.getElementById("errorMessage");
+        const btnText = document.getElementById("btnText");
+        const btnSpinner = document.getElementById("btnSpinner");
+        const searchedTerm = document.getElementById("searchedTerm");
+
+        // Reset UI
+        results.style.display = "none";
+        errorDiv.style.display = "none";
+        list.innerHTML = "";
+        btnText.style.display = "none";
+        btnSpinner.style.display = "inline-block";
+
+        if (!symptoms) {
+            showError("Please enter symptoms to search.");
+            resetButton();
+            return;
+        }
+
+        searchedTerm.textContent = symptoms;
+
+        try {
+            const res = await fetch('/Health/SearchConditions', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({ symptoms: symptoms })
+            });
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                throw new Error(data.error || `Server error: ${res.status}`);
+            }
+
+            resetButton();
+
+            if (!data.conditions || data.conditions.length === 0) {
+                list.innerHTML = `
+                    <div class="list-group-item text-center text-muted">
+                        <p>🔍 No conditions found for "${symptoms}"</p>
+                        <small>Try using different terms or more specific symptoms</small>
+                    </div>`;
+                results.style.display = "block";
+                return;
+            }
+
+            // Display results
+            data.conditions.forEach((item, index) => {
+                const listItem = document.createElement("div");
+                listItem.className = "list-group-item";
+                listItem.innerHTML = `
+                    <div class="d-flex align-items-start">
+                        <span class="badge bg-primary me-2 mt-1">${index + 1}</span>
+                        <div>
+                            <strong class="condition-name">${item.name}</strong>
+                            <br>
+                            <small class="text-muted">Reported in FDA adverse event data</small>
+                        </div>
+                    </div>
+                `;
+                list.appendChild(listItem);
+            });
+
+            results.style.display = "block";
+
+        } catch (err) {
+            resetButton();
+            console.error("Error:", err);
+            showError("Unable to connect to FDA database. Please try again later.");
+        }
+    }
+
+    function resetButton() {
+        document.getElementById("btnText").style.display = "inline-block";
+        document.getElementById("btnSpinner").style.display = "none";
+    }
+
+    function showError(message) {
+        const errorDiv = document.getElementById("errorMessage");
+        errorDiv.innerHTML = `<strong>⚠️ Error:</strong> ${message}`;
+        errorDiv.style.display = "block";
+    }
+
+    // Event listeners
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById("checkBtn").addEventListener("click", checkSymptoms);
+        document.getElementById("symptomInput").addEventListener("keypress", function(e) {
+            if (e.key === 'Enter') checkSymptoms();
+        });
+
+        // Auto-focus on input
+        document.getElementById("symptomInput").focus();
+    });
+</script>
