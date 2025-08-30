@@ -1,0 +1,60 @@
+﻿@{
+    Layout = "_Layout.Dashboard";
+    ViewData["Title"] = "Medicine Management";
+}
+
+<h2 class="mb-3">@ViewData["Title"]</h2>
+
+<!-- Add Medicine Form -->
+<div class="card p-3 mb-4">
+    <h5>Add New Medicine</h5>
+    <form method="post" asp-action="AddMedicine" asp-controller="Admin">
+        <div class="row mb-2">
+            <div class="col-md-6">
+                <label>Disease</label>
+                <select name="DiseaseId" class="form-control" required>
+                    <option value="">-- Select Disease --</option>
+                    <option value="1">Flu</option>
+                    <option value="2">Covid-19</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label>Medicine Name</label>
+                <input type="text" name="MedName" class="form-control" required />
+            </div>
+        </div>
+        <button type="submit" class="btn btn-success mt-2">Add Medicine</button>
+    </form>
+</div>
+
+<!-- Medicines Table -->
+<div class="card p-3">
+    <h5>Existing Medicines</h5>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Disease</th>
+                <th>Medicine Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Example rows -->
+            <tr>
+                <td>1</td>
+                <td>Flu</td>
+                <td>Paracetamol</td>
+                <td>
+                    <button class="btn btn-sm btn-primary">Edit</button>
+                    <button class="btn btn-sm btn-danger">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}

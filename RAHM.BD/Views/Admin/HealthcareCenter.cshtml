@@ -1,0 +1,77 @@
+﻿@{
+    Layout = "_Layout.Dashboard";
+    ViewData["Title"] = "Healthcare Center Management";
+}
+
+<h2 class="mb-3">@ViewData["Title"]</h2>
+
+<!-- Add Healthcare Center Form -->
+<div class="card p-3 mb-4">
+    <h5>Add New Healthcare Center</h5>
+    <form method="post" asp-action="AddHealthcareCenter" asp-controller="Admin">
+        <div class="row mb-2">
+            <div class="col-md-6">
+                <label>Name</label>
+                <input type="text" name="Name" class="form-control" required />
+            </div>
+            <div class="col-md-6">
+                <label>Road</label>
+                <input type="text" name="Road" class="form-control" required />
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-md-4">
+                <label>District</label>
+                <input type="text" name="District" class="form-control" required />
+            </div>
+            <div class="col-md-4">
+                <label>Division</label>
+                <input type="text" name="Division" class="form-control" required />
+            </div>
+            <div class="col-md-2">
+                <label>Latitude</label>
+                <input type="number" step="any" name="Lat" class="form-control" required />
+            </div>
+            <div class="col-md-2">
+                <label>Longitude</label>
+                <input type="number" step="any" name="Lng" class="form-control" required />
+            </div>
+        </div>
+        <button type="submit" class="btn btn-success mt-2">Add Center</button>
+    </form>
+</div>
+
+<!-- Healthcare Centers Table -->
+<div class="card p-3">
+    <h5>Existing Healthcare Centers</h5>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Road</th>
+                <th>District</th>
+                <th>Division</th>
+                <th>Lat</th>
+                <th>Lng</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Example rows -->
+            <tr>
+                <td>1</td>
+                <td>Dhaka Medical</td>
+                <td>Kazi Nazrul Ave</td>
+                <td>Dhaka</td>
+                <td>Dhaka Division</td>
+                <td>23.726</td>
+                <td>90.389</td>
+                <td>
+                    <button class="btn btn-sm btn-primary">Edit</button>
+                    <button class="btn btn-sm btn-danger">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

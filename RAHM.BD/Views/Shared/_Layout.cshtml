@@ -24,9 +24,27 @@
                     <a asp-controller="Health" asp-action="Tips" class="nav-link">Tips</a>
                 </nav>
                 <div class="nav-cta">
-                    <a asp-controller="Home" asp-action="Signup" class="btn btn-light">Signup</a>
-                    <a asp-controller="Home" asp-action="Login" class="btn btn-outline">Login</a>
+                    @if (Context.Session.GetInt32("UserId") != null)
+                    {
+                        <!-- Show profile -->
+                        <a href="/UserDashboard" class="nav-link">
+                            <img src="~/images/user.png" alt="Profile"
+                                 style="width:32px;height:32px;border-radius:50%; border:2px solid #fff; background:#eee; padding:2px;" />
+                        </a>
+
+                    }
+                    else
+                    {
+                        <!-- Show Login/Signup -->
+                        <a asp-controller="Account" asp-action="Signup" class="btn btn-light">Signup</a>
+                        <a asp-controller="Account" asp-action="Login" class="btn btn-light">Login</a>
+                    }
+
                 </div>
+
+
+
+
             </div>
         </header>
 
