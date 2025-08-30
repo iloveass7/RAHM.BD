@@ -1,7 +1,109 @@
 ﻿@{
     ViewData["Title"] = "Request Healthcare Center";
 }
-<section class="page-section">
-    <h1>Request Healthcare Center</h1>
-    <p>This is a placeholder page. Add your form or flow here.</p>
+
+<section class="page-section d-flex">
+    <div style="flex: 1; padding-right: 20px;">
+        <h1>Request Healthcare Center</h1>
+        <button id="findNearestBtn" class="btn btn-primary mb-3">📍 Find Nearest Centers</button>
+
+        <div id="sidebar">
+            <h4>Nearest Healthcare Centers:</h4>
+            <ul id="centerList" style="list-style: none; padding-left: 0;"></ul>
+        </div>
+    </div>
+
+    <div id="map" style="flex: 2; height: 500px;"></div>
 </section>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+
+<script>
+    let map; // persistent map object
+
+    document.getElementById("findNearestBtn").addEventListener("click", async function () {
+        if (!navigator.geolocation) { alert("Geolocation not supported."); return; }
+
+        navigator.geolocation.getCurrentPosition(async function (pos) {
+            const userLat = pos.coords.latitude;
+            const userLng = pos.coords.longitude;
+
+            // Save user location in DB
+            await fetch('/UserDashboard/SetLocation', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ lat: userLat, lng: userLng })
+            });
+
+            // Fetch nearest centers
+            const res = await fetch('/UserDashboard/GetNearestCenters', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ lat: userLat, lng: userLng })
+            });
+            const centers = await res.json();
+
+            if (!centers || centers.length === 0) {
+                alert("No healthcare centers found.");
+                return;
+            }
+
+            // Initialize map if not already
+            if (!map) {
+                map = L.map('map').setView([userLat, userLng], 13);
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
+            }
+            map.setView([userLat, userLng], 13);
+
+            L.marker([userLat, userLng]).addTo(map).bindPopup("You are here").openPopup();
+
+            const centerList = document.getElementById("centerList");
+            centerList.innerHTML = ""; // clear previous
+
+            const colors = ['red', 'blue', 'green'];
+
+            centers.forEach((center, index) => {
+                // SAFETY CHECK
+                if (center.lat == null || center.lng == null) {
+                    console.warn("Skipping center with invalid coordinates:", center);
+                    return;
+                }
+
+                const marker = L.marker([center.lat, center.lng])
+                    .addTo(map)
+                    .bindPopup(`${center.name}<br>${center.road}, ${center.district}`);
+
+                const control = L.Routing.control({
+                    waypoints: [
+                        L.latLng(userLat, userLng),
+                        L.latLng(center.lat, center.lng)
+                    ],
+                    lineOptions: { styles: [{ color: colors[index % colors.length], weight: 5 }] },
+                    createMarker: () => null,
+                    addWaypoints: false,
+                    routeWhileDragging: false,
+                    show: false
+                }).addTo(map);
+
+                control.on('routesfound', function(e) {
+                    const route = e.routes[0];
+                    const distance = (route.summary.totalDistance / 1000).toFixed(2);
+                    const duration = Math.ceil(route.summary.totalTime / 60);
+
+                    marker.bindPopup(`${center.name}<br>${center.road}, ${center.district}<br>
+                        <b>Distance:</b> ${distance} km, <b>ETA:</b> ${duration} min`);
+
+                    const li = document.createElement("li");
+                    li.innerHTML = `<b>${center.name}</b> - ${distance} km, ETA: ${duration} min`;
+                    centerList.appendChild(li);
+                });
+            }); // <-- end of forEach
+        }, function () {
+            alert("Allow location access to use this feature.");
+        }, { enableHighAccuracy: true });
+    });
+</script>
