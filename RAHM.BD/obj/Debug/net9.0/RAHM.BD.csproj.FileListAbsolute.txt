@@ -294,3 +294,5 @@ D:\Codes\C#\RAHM.BD\RAHM.BD\obj\Debug\net9.0\RAHMBD.dll
 D:\Codes\C#\RAHM.BD\RAHM.BD\obj\Debug\net9.0\refint\RAHMBD.dll
 D:\Codes\C#\RAHM.BD\RAHM.BD\obj\Debug\net9.0\RAHMBD.pdb
 D:\Codes\C#\RAHM.BD\RAHM.BD\obj\Debug\net9.0\ref\RAHMBD.dll
+D:\Codes\C#\RAHM.BD\RAHM.BD\bin\Debug\net9.0\Newtonsoft.Json.dll
+D:\Codes\C#\RAHM.BD\RAHM.BD\obj\Debug\net9.0\compressed\yqw9rirx6m-1r6g66bc17.gz

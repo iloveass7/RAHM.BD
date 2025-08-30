@@ -1,0 +1,25 @@
+﻿<input type="text" id="conditionInput" placeholder="Enter a condition (e.g., Diabetes)">
+<button id="getTipsBtn">Get Tips</button>
+<ul id="tipsList"></ul>
+
+<script>
+    document.getElementById("getTipsBtn").addEventListener("click", async function() {
+        const condition = document.getElementById("conditionInput").value.trim();
+        if (!condition) return alert("Enter a condition");
+
+        const res = await fetch('/Health/GetHealthTips', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ condition })
+        });
+
+        const data = await res.json();
+        const list = document.getElementById("tipsList");
+        list.innerHTML = "";
+        data.tips.forEach(tip => {
+            const li = document.createElement("li");
+            li.textContent = tip;
+            list.appendChild(li);
+        });
+    });
+</script>
