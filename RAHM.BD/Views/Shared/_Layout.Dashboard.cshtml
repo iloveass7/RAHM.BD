@@ -40,6 +40,18 @@
                     <a asp-controller="Admin" asp-action="UploadContent"
                        class="nav-link @(ViewData["Title"] == "Upload Content" ? "active" : "")">📰 Upload Content</a>
                 </li>
+                <li>
+                    <a asp-controller="Admin" asp-action="HealthcareCenter"
+                       class="nav-link @(ViewData["Title"] == "Healthcare Centers" ? "active" : "")">🏥 Healthcare Centers</a>
+                </li>
+                <li>
+                    <a asp-controller="Admin" asp-action="Medicine"
+                       class="nav-link @(ViewData["Title"] == "Medicine Management" ? "active" : "")">💊 Medicine</a>
+                </li>
+                <li>
+                    <a asp-controller="Admin" asp-action="Disease"
+                       class="nav-link @(ViewData["Title"] == "Disease Management" ? "active" : "")">🦠 Disease</a>
+                </li>
             </ul>
 
             <div class="logout">

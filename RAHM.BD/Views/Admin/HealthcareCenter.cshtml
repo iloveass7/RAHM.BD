@@ -1,0 +1,87 @@
+﻿@model IEnumerable<RAHM.BD.Models.HealthCenter>
+@{
+    Layout = "_Layout.Dashboard";
+    ViewData["Title"] = "Healthcare Center Management";
+}
+
+<h2 class="mb-3">@ViewData["Title"]</h2>
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success">@TempData["Message"]</div>
+}
+
+<!-- Add Healthcare Center Form -->
+<div class="card p-3 mb-4">
+    <h5>Add New Healthcare Center</h5>
+    <form method="post" asp-action="AddHealthcareCenter" asp-controller="Admin">
+        <div class="row mb-2">
+            <div class="col-md-6">
+                <label>Name</label>
+                <input type="text" name="Name" class="form-control" required />
+            </div>
+            <div class="col-md-6">
+                <label>Road</label>
+                <input type="text" name="Road" class="form-control" required />
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-md-4">
+                <label>District</label>
+                <input type="text" name="District" class="form-control" required />
+            </div>
+            <div class="col-md-4">
+                <label>Division</label>
+                <input type="text" name="Division" class="form-control" required />
+            </div>
+            <div class="col-md-2">
+                <label>Latitude</label>
+                <input type="number" step="any" name="Lat" class="form-control" required />
+            </div>
+            <div class="col-md-2">
+                <label>Longitude</label>
+                <input type="number" step="any" name="Lng" class="form-control" required />
+            </div>
+        </div>
+        <button type="submit" class="btn btn-success mt-2">Add Center</button>
+    </form>
+</div>
+
+<!-- Healthcare Centers Table -->
+<div class="card p-3">
+    <h5>Existing Healthcare Centers</h5>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Road</th>
+                <th>District</th>
+                <th>Division</th>
+                <th>Lat</th>
+                <th>Lng</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var center in Model)
+            {
+                <tr>
+                    <td>@center.Id</td>
+                    <td>@center.Name</td>
+                    <td>@center.Road</td>
+                    <td>@center.District</td>
+                    <td>@center.Division</td>
+                    <td>@center.Lat</td>
+                    <td>@center.Lng</td>
+                    <td>
+                        <form asp-action="DeleteHealthcareCenter" asp-controller="Admin" method="post" style="display:inline">
+                            <input type="hidden" name="id" value="@center.Id" />
+                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
