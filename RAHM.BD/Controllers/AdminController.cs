@@ -43,11 +43,11 @@ public class AdminController : Controller
     //    return View();
     //}
 
-    public IActionResult Vaccine()
-    {
-        ViewData["Title"] = "Vaccine Management";
-        return View();
-    }
+    //public IActionResult Vaccine()
+    //{
+    //    ViewData["Title"] = "Vaccine Management";
+    //    return View();
+    //}
 
     public IActionResult SendSms()
     {
@@ -67,11 +67,11 @@ public class AdminController : Controller
         return View();
     }
 
-    public IActionResult Medicine()
-    {
-        ViewData["Title"] = "Medicine Management";
-        return View();
-    }
+    //public IActionResult Medicine()
+    //{
+    //    ViewData["Title"] = "Medicine Management";
+    //    return View();
+    //}
 
     //public IActionResult Disease()
     //{
@@ -356,7 +356,128 @@ public class AdminController : Controller
         TempData["Message"] = "Disease assigned successfully!";
         return RedirectToAction("AssignDisease");
     }
+    // GET: /Admin/Medicine
+    public async Task<IActionResult> Medicine()
+    {
+        // Get all diseases from DB
+        var diseases = await _db.QueryAsync(
+            "SELECT Id, Name FROM Diseases ORDER BY Name",
+            r => new { Id = r.GetInt32(0), Name = r.GetString(1) }
+        );
 
+        // Get all medicines with their disease name
+        string sql = @"
+        SELECT m.Id, d.Name AS DiseaseName, m.MedName
+        FROM Medications m
+        INNER JOIN Diseases d ON m.DiseaseId = d.Id
+        ORDER BY d.Name, m.MedName";
+
+        var meds = await _db.QueryAsync(sql, r => new
+        {
+            Id = r.GetInt32(0),
+            DiseaseName = r.GetString(1),
+            MedName = r.GetString(2)
+        });
+
+        ViewBag.Diseases = diseases;   // pass diseases to dropdown
+        return View(meds);             // pass meds list to table
+    }
+
+    // POST: /Admin/AddMedicine
+    [HttpPost]
+    public async Task<IActionResult> AddMedicine(int DiseaseId, string MedName)
+    {
+        if (DiseaseId == 0 || string.IsNullOrWhiteSpace(MedName))
+        {
+            TempData["Error"] = "Please select a disease and enter a medicine name.";
+            return RedirectToAction("Medicine");
+        }
+
+        string sql = "INSERT INTO Medications (DiseaseId, MedName) VALUES (@DiseaseId, @MedName)";
+        await _db.ExecuteAsync(sql,
+            new SqlParameter("@DiseaseId", DiseaseId),
+            new SqlParameter("@MedName", MedName)
+        );
+
+        TempData["Message"] = "Medicine added successfully!";
+        return RedirectToAction("Medicine");
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> DeleteMedicine(int Id)
+    {
+        await _db.ExecuteAsync("DELETE FROM Medications WHERE Id=@Id", new SqlParameter("@Id", Id));
+        TempData["Message"] = "Medicine deleted successfully!";
+        return RedirectToAction("Medicine");
+    }
+    // GET: /Admin/Vaccine
+    public async Task<IActionResult> Vaccine()
+    {
+        // Get all diseases
+        var diseases = await _db.QueryAsync(
+            "SELECT Id, Name FROM Diseases ORDER BY Name",
+            r => new { Id = r.GetInt32(0), Name = r.GetString(1) }
+        );
+
+        // Get all healthcare centers
+        var centers = await _db.QueryAsync(
+            "SELECT Id, Name, District, Division FROM HealthCenters ORDER BY Name",
+            r => new { Id = r.GetInt32(0), Name = r.GetString(1), District = r.GetString(2), Division = r.GetString(3) }
+        );
+
+        // Get vaccine inventory list (join across tables)
+        string sql = @"
+        SELECT vi.Id, v.Name AS VaccineName, d.Name AS DiseaseName,
+               hc.Name AS CenterName, vi.QuantityAvailable
+        FROM VaccineInventories vi
+        INNER JOIN Vaccines v ON vi.VaccineId = v.Id
+        INNER JOIN Diseases d ON v.DiseaseId = d.Id
+        INNER JOIN HealthCenters hc ON vi.HealthCenterId = hc.Id
+        ORDER BY v.Name";
+
+        var inventory = await _db.QueryAsync(sql, r => new
+        {
+            Id = r.GetInt32(0),
+            VaccineName = r.GetString(1),
+            DiseaseName = r.GetString(2),
+            CenterName = r.GetString(3),
+            QuantityAvailable = r.GetInt32(4)
+        });
+
+        ViewBag.Diseases = diseases;
+        ViewBag.Centers = centers;
+
+        return View(inventory); // Vaccine.cshtml
+    }
+
+    // POST: /Admin/AddVaccine
+    [HttpPost]
+    public async Task<IActionResult> AddVaccine(int DiseaseId, string VaccineName, int HealthCenterId, int QuantityAvailable)
+    {
+        if (DiseaseId == 0 || string.IsNullOrWhiteSpace(VaccineName) || HealthCenterId == 0)
+        {
+            TempData["Error"] = "All fields are required.";
+            return RedirectToAction("Vaccine");
+        }
+
+        // Insert vaccine
+        string insertVaccineSql = "INSERT INTO Vaccines (DiseaseId, Name) OUTPUT INSERTED.Id VALUES (@DiseaseId, @Name)";
+        int vaccineId = await _db.QuerySingleAsync(insertVaccineSql, r => r.GetInt32(0),
+            new SqlParameter("@DiseaseId", DiseaseId),
+            new SqlParameter("@Name", VaccineName)
+        );
+
+        // Insert into inventory
+        string insertInventorySql = "INSERT INTO VaccineInventories (HealthCenterId, VaccineId, QuantityAvailable) VALUES (@HealthCenterId, @VaccineId, @Quantity)";
+        await _db.ExecuteAsync(insertInventorySql,
+            new SqlParameter("@HealthCenterId", HealthCenterId),
+            new SqlParameter("@VaccineId", vaccineId),
+            new SqlParameter("@Quantity", QuantityAvailable)
+        );
+
+        TempData["Message"] = "Vaccine added successfully!";
+        return RedirectToAction("Vaccine");
+    }
 
 }
 //public class UserWithLocation : User

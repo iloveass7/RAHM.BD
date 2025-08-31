@@ -1,25 +1,78 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.Dashboard.cshtml";
     ViewData["Title"] = "Vaccine Management";
+    var diseases = ViewBag.Diseases as IEnumerable<dynamic>;
+    var centers = ViewBag.Centers as IEnumerable<dynamic>;
 }
 
-<h2>Vaccine Management</h2>
+<h2>@ViewData["Title"]</h2>
 
-<input type="text" placeholder="Search vaccines..." class="search-box" />
+<!-- Add Vaccine Form -->
+<div class="card p-3 mb-4">
+    <h5>Add New Vaccine</h5>
+    <form method="post" asp-action="AddVaccine" asp-controller="Admin">
+        <div class="row mb-2">
+            <div class="col-md-3">
+                <label>Disease</label>
+                <select name="DiseaseId" class="form-control" required>
+                    <option value="">-- Select Disease --</option>
+                    @foreach (var d in diseases)
+                    {
+                        <option value="@d.Id">@d.Name</option>
+                    }
+                </select>
+            </div>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Stock</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr><td>1</td><td>BCG</td><td>Child</td><td>250</td></tr>
-        <tr><td>2</td><td>COVID-19</td><td>Adult</td><td>1000</td></tr>
-    </tbody>
-</table>
+            <div class="col-md-3">
+                <label>Vaccine Name</label>
+                <input type="text" name="VaccineName" class="form-control" required />
+            </div>
 
-<a class="btn" asp-controller="Admin" asp-action="AddVaccine">➕ Add New Vaccine</a>
+            <div class="col-md-3">
+                <label>Health Center</label>
+                <select name="HealthCenterId" class="form-control" required>
+                    <option value="">-- Select Health Center --</option>
+                    @foreach (var c in centers)
+                    {
+                        <option value="@c.Id">@c.Name (@c.District, @c.Division)</option>
+                    }
+                </select>
+            </div>
+
+            <div class="col-md-3">
+                <label>Quantity Available</label>
+                <input type="number" name="QuantityAvailable" class="form-control" required min="1" />
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-success mt-2">Add Vaccine</button>
+    </form>
+</div>
+
+<!-- Vaccine Inventory Table -->
+<div class="card p-3">
+    <h5>Vaccine Inventory</h5>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Vaccine</th>
+                <th>Disease</th>
+                <th>Health Center</th>
+                <th>Stock</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.VaccineName</td>
+                    <td>@item.DiseaseName</td>
+                    <td>@item.CenterName</td>
+                    <td>@item.QuantityAvailable</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

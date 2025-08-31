@@ -105,8 +105,10 @@ namespace RAHM.BD.Controllers
             if (dto.Lat == null || dto.Lng == null)
                 return BadRequest("Location required");
 
-            // Replace with actual userId from session/auth
-            int userId = 1;
+            int? userId = HttpContext.Session.GetInt32("UserId");
+            if (userId == null)
+                return Unauthorized("User not logged in");
+
 
             string sqlCheck = "SELECT COUNT(*) FROM Locations WHERE UserId=@UserId";
             int exists = await _db.QuerySingleAsync<int>(sqlCheck, r => r.GetInt32(0), new SqlParameter("@UserId", userId));
@@ -137,15 +139,20 @@ namespace RAHM.BD.Controllers
             if (dto.Lat == null || dto.Lng == null)
                 return BadRequest("Location required");
 
+            // Validate coordinate ranges
+            if (dto.Lat < -90 || dto.Lat > 90 || dto.Lng < -180 || dto.Lng > 180)
+                return BadRequest("Invalid coordinates");
+
             string sql = @"
-                SELECT TOP 3 Id, Name, Road, District, Division, Lat, Lng,
-                    (6371 * acos(
-                        cos(radians(@Lat)) * cos(radians(Lat)) *
-                        cos(radians(Lng) - radians(@Lng)) +
-                        sin(radians(@Lat)) * sin(radians(Lat))
-                    )) AS DistanceKm
-                FROM HealthCenters
-                ORDER BY DistanceKm";
+        SELECT TOP 3 Id, Name, Road, District, Division, Lat, Lng,
+            (6371 * acos(
+                cos(radians(@Lat)) * cos(radians(Lat)) *
+                cos(radians(Lng) - radians(@Lng)) +
+                sin(radians(@Lat)) * sin(radians(Lat))
+            )) AS DistanceKm
+        FROM HealthCenters
+        WHERE Lat IS NOT NULL AND Lng IS NOT NULL
+        ORDER BY DistanceKm";
 
             var centers = await _db.QueryAsync(sql, reader => new {
                 Id = reader.GetInt32(0),
@@ -153,20 +160,21 @@ namespace RAHM.BD.Controllers
                 Road = reader.GetString(2),
                 District = reader.GetString(3),
                 Division = reader.GetString(4),
-                Lat = reader.GetDouble(5),
-                Lng = reader.GetDouble(6),
+                Lat = reader.GetDouble(5),    
+                Lng = reader.GetDouble(6),    
                 DistanceKm = reader.GetDouble(7)
             },
             new SqlParameter("@Lat", dto.Lat),
             new SqlParameter("@Lng", dto.Lng));
 
+            // Return with uppercase properties to match JavaScript expectations
             return Json(centers.Select(c => new {
                 c.Id,
                 c.Name,
                 c.Road,
                 c.District,
-                c.Lat,
-                c.Lng,
+                c.Lat,        
+                c.Lng,        
                 DistanceKm = Math.Round(c.DistanceKm, 2)
             }));
         }
