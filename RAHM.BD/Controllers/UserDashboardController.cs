@@ -126,7 +126,8 @@ namespace RAHM.BD.Controllers
                     new SqlParameter("@Lng", dto.Lng));
             }
 
-            return Ok();
+            return Json(new { success = true, message = "Location saved successfully!" });
+
         }
 
         // Get top 3 nearest centers

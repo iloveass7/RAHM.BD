@@ -1,11 +1,12 @@
-﻿@{
+﻿@model IEnumerable<dynamic>
+
+@{
     Layout = "_Layout.Dashboard";
     ViewData["Title"] = "Disease Management";
 }
 
 <h2 class="mb-3">@ViewData["Title"]</h2>
 
-<!-- Add Disease Form -->
 <div class="card p-3 mb-4">
     <h5>Add New Disease</h5>
     <form method="post" asp-action="AddDisease" asp-controller="Admin">
@@ -14,16 +15,11 @@
                 <label>Disease Name</label>
                 <input type="text" name="Name" class="form-control" required />
             </div>
-            <div class="col-md-4">
-                <label>Category</label>
-                <input type="text" name="Category" class="form-control" placeholder="e.g., Viral, Bacterial" />
-            </div>
         </div>
         <button type="submit" class="btn btn-success mt-2">Add Disease</button>
     </form>
 </div>
 
-<!-- Diseases Table -->
 <div class="card p-3">
     <h5>Existing Diseases</h5>
     <table class="table table-striped">
@@ -31,21 +27,21 @@
             <tr>
                 <th>Id</th>
                 <th>Disease Name</th>
-                <th>Category</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-            <!-- Example rows -->
-            <tr>
-                <td>1</td>
-                <td>Covid-19</td>
-                <td>Viral</td>
-                <td>
-                    <button class="btn btn-sm btn-primary">Edit</button>
-                    <button class="btn btn-sm btn-danger">Delete</button>
-                </td>
-            </tr>
+            @foreach (var disease in Model)
+            {
+                <tr>
+                    <td>@disease.Id</td>
+                    <td>@disease.Name</td>
+                    <td>
+                        <button class="btn btn-sm btn-primary">Edit</button>
+                        <button class="btn btn-sm btn-danger">Delete</button>
+                    </td>
+                </tr>
+            }
         </tbody>
     </table>
 </div>

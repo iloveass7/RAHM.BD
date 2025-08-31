@@ -1,9 +1,15 @@
-﻿@{
+﻿@model IEnumerable<RAHM.BD.Models.HealthCenter>
+@{
     Layout = "_Layout.Dashboard";
     ViewData["Title"] = "Healthcare Center Management";
 }
 
 <h2 class="mb-3">@ViewData["Title"]</h2>
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success">@TempData["Message"]</div>
+}
 
 <!-- Add Healthcare Center Form -->
 <div class="card p-3 mb-4">
@@ -58,20 +64,24 @@
             </tr>
         </thead>
         <tbody>
-            <!-- Example rows -->
-            <tr>
-                <td>1</td>
-                <td>Dhaka Medical</td>
-                <td>Kazi Nazrul Ave</td>
-                <td>Dhaka</td>
-                <td>Dhaka Division</td>
-                <td>23.726</td>
-                <td>90.389</td>
-                <td>
-                    <button class="btn btn-sm btn-primary">Edit</button>
-                    <button class="btn btn-sm btn-danger">Delete</button>
-                </td>
-            </tr>
+            @foreach (var center in Model)
+            {
+                <tr>
+                    <td>@center.Id</td>
+                    <td>@center.Name</td>
+                    <td>@center.Road</td>
+                    <td>@center.District</td>
+                    <td>@center.Division</td>
+                    <td>@center.Lat</td>
+                    <td>@center.Lng</td>
+                    <td>
+                        <form asp-action="DeleteHealthcareCenter" asp-controller="Admin" method="post" style="display:inline">
+                            <input type="hidden" name="id" value="@center.Id" />
+                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
         </tbody>
     </table>
 </div>

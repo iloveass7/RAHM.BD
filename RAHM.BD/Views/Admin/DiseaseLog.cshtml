@@ -1,0 +1,53 @@
+﻿@model IEnumerable<dynamic>
+
+@{
+    Layout = "_Layout.Dashboard";
+    ViewData["Title"] = "Disease Logs";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form method="get" class="mb-3">
+    <div class="row">
+        <div class="col-md-4">
+            <input type="text" name="diseaseName" class="form-control" placeholder="Search by Disease" />
+        </div>
+        <div class="col-md-3">
+            <input type="text" name="district" class="form-control" placeholder="District" />
+        </div>
+        <div class="col-md-3">
+            <input type="text" name="division" class="form-control" placeholder="Division" />
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </div>
+</form>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>User</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Road</th>
+            <th>District</th>
+            <th>Division</th>
+            <th>Disease</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var log in Model)
+        {
+            <tr>
+                <td>@log.UserName</td>
+                <td>@log.Email</td>
+                <td>@log.MobileNo</td>
+                <td>@log.Road</td>
+                <td>@log.District</td>
+                <td>@log.Division</td>
+                <td>@log.DiseaseName</td>
+            </tr>
+        }
+    </tbody>
+</table>
