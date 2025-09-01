@@ -64,6 +64,97 @@
             @RenderBody()
         </main>
     </div>
+    <div class="toast-container"></div>
+
+    <!-- Toast Notification System -->
+    <script>
+        class ToastManager {
+            constructor() {
+                this.container = this.createContainer();
+                this.init();
+            }
+
+            createContainer() {
+                let container = document.querySelector('.toast-container');
+                if (!container) {
+                    container = document.createElement('div');
+                    container.className = 'toast-container';
+                    document.body.appendChild(container);
+                }
+                return container;
+            }
+
+            init() {
+                this.checkForMessages();
+            }
+
+            checkForMessages() {
+                const tempDataMessage = document.querySelector('.alert-success');
+                if (tempDataMessage) {
+                    const message = tempDataMessage.textContent.trim();
+                    this.show(message, 'success');
+                }
+            }
+
+            show(message, type = 'success', duration = 2000) {
+                const toast = this.createToast(message, type);
+                this.container.appendChild(toast);
+
+                setTimeout(() => {
+                    toast.classList.add('show');
+                }, 10);
+
+                setTimeout(() => {
+                    this.hide(toast);
+                }, duration);
+
+                return toast;
+            }
+
+            createToast(message, type) {
+                const toast = document.createElement('div');
+                toast.className = `toast-notification toast-${type}`;
+
+                const icons = {
+                    success: '✓',
+                    error: '✕',
+                    warning: '⚠',
+                    info: 'ℹ'
+                };
+
+                toast.innerHTML = `
+                    <div class="toast-content">
+                        <div class="toast-icon">${icons[type] || icons.success}</div>
+                        <div class="toast-message">${message}</div>
+                        <button class="toast-close" onclick="toastManager.hide(this.closest('.toast-notification'))">&times;</button>
+                    </div>
+                `;
+
+                return toast;
+            }
+
+            hide(toast) {
+                toast.classList.remove('show');
+                toast.classList.add('hide');
+
+                setTimeout(() => {
+                    if (toast.parentNode) {
+                        toast.parentNode.removeChild(toast);
+                    }
+                }, 300);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            window.toastManager = new ToastManager();
+        });
+
+        function showToast(message, type = 'success', duration = 2000) {
+            if (window.toastManager) {
+                window.toastManager.show(message, type, duration);
+            }
+        }
+    </script>
 
     @RenderSection("Scripts", required: false)
 </body>
