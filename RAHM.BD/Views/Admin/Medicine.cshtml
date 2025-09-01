@@ -5,6 +5,10 @@
 }
 
 <h2 class="mb-3">@ViewData["Title"]</h2>
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success" style="display: none;">@TempData["Message"]</div>
+}
 
 <!-- Add Medicine Form -->
 <div class="card p-3 mb-4">

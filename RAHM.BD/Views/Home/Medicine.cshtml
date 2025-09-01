@@ -1,0 +1,166 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medicine Lookup</title>
+   
+</head>
+<body>
+    <div class="container">
+        <div class="page">
+            <!-- Page Header -->
+            <div class="medicine-header">
+                <h1>Medicine Lookup</h1>
+                <p class="subtitle">Find appropriate medicines based on your symptoms or condition</p>
+            </div>
+
+            <!-- Important Disclaimer -->
+            <div class="disclaimer-card">
+                <div class="disclaimer-icon">⚠️</div>
+                <div class="disclaimer-content">
+                    <h4>Important Medical Disclaimer</h4>
+                    <p>This tool provides general information only and should not replace professional medical advice. Always consult with a qualified healthcare provider before taking any medication.</p>
+                </div>
+            </div>
+
+            <!-- Search Form -->
+            <div class="medicine-search-card">
+                <h3>Describe Your Condition</h3>
+                <form id="medicineSearchForm" class="medicine-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="symptoms">Symptoms or Condition</label>
+                            <textarea id="symptoms" name="symptoms" placeholder="Describe your symptoms (e.g., fever, headache, cough, stomach pain...)" required></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="severity">Severity Level</label>
+                            <select id="severity" name="severity">
+                                <option value="">Select severity</option>
+                                <option value="mild">Mild</option>
+                                <option value="moderate">Moderate</option>
+                                <option value="severe">Severe</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="duration">Duration</label>
+                            <select id="duration" name="duration">
+                                <option value="">How long have you had these symptoms?</option>
+                                <option value="1day">Less than 1 day</option>
+                                <option value="2-3days">2-3 days</option>
+                                <option value="1week">About a week</option>
+                                <option value="longer">More than a week</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="search-btn">
+                        <span class="btn-icon">🔍</span>
+                        Find Medicine Recommendations
+                    </button>
+                </form>
+            </div>
+
+            <!-- Results Section -->
+            <div id="medicineResults" class="medicine-results" style="display: none;">
+                <h3>Recommended Medicines</h3>
+                <div id="resultsContainer" class="results-container">
+                    <!-- Results will be populated here -->
+                </div>
+            </div>
+
+            <!-- Loading State -->
+            <div id="loadingState" class="loading-card" style="display: none;">
+                <div class="loading-spinner"></div>
+                <p>Searching for medicine recommendations...</p>
+            </div>
+
+            <!-- Emergency Notice -->
+            <div class="emergency-card">
+                <div class="emergency-icon">🚨</div>
+                <div class="emergency-content">
+                    <h4>Emergency Situations</h4>
+                    <p>If you're experiencing severe symptoms, chest pain, difficulty breathing, or any life-threatening condition, seek immediate medical attention or call emergency services.</p>
+                    <a href="tel:999" class="emergency-btn">Call Emergency: 999</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Navbar glass effect on scroll
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('.nav');
+            if (nav) {
+                if (window.scrollY > 50) {
+                    nav.classList.add('nav--glass');
+                } else {
+                    nav.classList.remove('nav--glass');
+                }
+            }
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('medicineSearchForm');
+            const resultsSection = document.getElementById('medicineResults');
+            const loadingState = document.getElementById('loadingState');
+            const resultsContainer = document.getElementById('resultsContainer');
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                const symptoms = document.getElementById('symptoms').value.trim();
+                const severity = document.getElementById('severity').value;
+                const duration = document.getElementById('duration').value;
+
+                if (!symptoms) {
+                    alert('Please describe your symptoms');
+                    return;
+                }
+
+                // Show loading state
+                resultsSection.style.display = 'none';
+                loadingState.style.display = 'block';
+
+                // Simulate API call (replace with actual backend call)
+                setTimeout(() => {
+                    loadingState.style.display = 'none';
+                    displayMockResults(symptoms, severity, duration);
+                    resultsSection.style.display = 'block';
+                }, 1500);
+            });
+
+            function displayMockResults(symptoms, severity, duration) {
+                // Mock data - your backend will replace this
+                const mockMedicines = [
+                    {
+                        name: 'Paracetamol',
+                        purpose: 'For fever and mild to moderate pain relief',
+                        dosage: '500mg every 6 hours as needed (max 4g/day)'
+                    },
+                    {
+                        name: 'Ibuprofen',
+                        purpose: 'For inflammation, pain, and fever reduction',
+                        dosage: '400mg every 8 hours with food (max 1200mg/day)'
+                    },
+                    {
+                        name: 'ORS Solution',
+                        purpose: 'For dehydration and electrolyte balance',
+                        dosage: 'One packet dissolved in 1 liter of clean water'
+                    }
+                ];
+
+                resultsContainer.innerHTML = mockMedicines.map(med => `
+                    <div class="medicine-item">
+                        <div class="medicine-name">${med.name}</div>
+                        <div class="medicine-purpose">${med.purpose}</div>
+                        <div class="medicine-dosage">Dosage: ${med.dosage}</div>
+                    </div>
+                `).join('');
+            }
+        });
+    </script>
+</body>
+</html>
