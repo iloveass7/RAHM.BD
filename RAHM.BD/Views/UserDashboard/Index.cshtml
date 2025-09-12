@@ -1,6 +1,7 @@
 ﻿@model RAHM.BD.Models.User
 @{
     ViewData["Title"] = "User Dashboard";
+    
 }
 
 <div class="user-dashboard container">
@@ -19,15 +20,10 @@
                 <a asp-controller="UserDashboard" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit Profile</a>
 
                 <!-- Logout goes to Home/Logout -->
-                <a asp-controller="Home" asp-action="Logout" class="btn btn-outline">↪ Logout</a>
+                <a asp-controller="Account" asp-action="Logout" class="btn btn-outline">↪ Logout</a>
             </div>
         </div>
     </div>
-
-    @if (TempData["Message"] != null)
-    {
-        <div class="alert alert-success">@TempData["Message"]</div>
-    }
     <button id="setLocationBtn" class="btn btn-primary">📍 Set Location</button>
 
     <script>

@@ -43,7 +43,7 @@ namespace RAHM.BD.Controllers
                 HttpContext.Session.Clear();
                 return RedirectToAction("Login", "Home");
             }
-
+            TempData["Message"] = "Login Successful";
             return View(user); // 👈 IMPORTANT
         }
 

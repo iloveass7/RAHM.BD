@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RAHMBD")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+354b4b5ae2452a231d16d542be1cd00be2446782")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7018587d2c77da8febb8419afd03b59578307306")]
 [assembly: System.Reflection.AssemblyProductAttribute("RAHMBD")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RAHMBD")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

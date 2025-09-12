@@ -7,9 +7,10 @@ wwwroot\images\admin.png
 wwwroot\images\img1.jpeg
 wwwroot\images\img2.jpg
 wwwroot\images\img3.jpg
-wwwroot\images\login.jpg
+wwwroot\images\login2.jpg
 wwwroot\images\signup.jpg
 wwwroot\images\user.png
+wwwroot\js\finisher-header.es5.min.js
 wwwroot\js\site.js
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map
@@ -71,8 +72,10 @@ wwwroot\lib\jquery\dist\jquery.slim.js
 wwwroot\lib\jquery\dist\jquery.slim.min.js
 wwwroot\lib\jquery\dist\jquery.slim.min.map
 wwwroot\lib\jquery\LICENSE.txt
-E:\RAHM.BD\RAHM.BD\wwwroot\lib\jquery\LICENSE.txt
+E:\RAHM.BD\RAHM.BD\wwwroot\css\admin.css
+E:\RAHM.BD\RAHM.BD\wwwroot\data\symptoms.json
 E:\RAHM.BD\RAHM.BD\wwwroot\favicon.ico
+E:\RAHM.BD\RAHM.BD\wwwroot\js\finisher-header.es5.min.js
 E:\RAHM.BD\RAHM.BD\wwwroot\js\site.js
 E:\RAHM.BD\RAHM.BD\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
 E:\RAHM.BD\RAHM.BD\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map
@@ -131,7 +134,6 @@ E:\RAHM.BD\RAHM.BD\wwwroot\lib\jquery\dist\jquery.min.js
 E:\RAHM.BD\RAHM.BD\wwwroot\lib\jquery\dist\jquery.min.map
 E:\RAHM.BD\RAHM.BD\wwwroot\lib\jquery\dist\jquery.slim.js
 E:\RAHM.BD\RAHM.BD\wwwroot\lib\jquery\dist\jquery.slim.min.js
-E:\RAHM.BD\RAHM.BD\wwwroot\css\admin.css
-E:\RAHM.BD\RAHM.BD\wwwroot\data\symptoms.json
 E:\RAHM.BD\RAHM.BD\wwwroot\lib\jquery\dist\jquery.slim.min.map
+E:\RAHM.BD\RAHM.BD\wwwroot\lib\jquery\LICENSE.txt
 E:\RAHM.BD\RAHM.BD\wwwroot\css\site.css
