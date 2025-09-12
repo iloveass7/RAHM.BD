@@ -34,5 +34,11 @@ namespace RAHM.BD.Controllers
             ViewData["Title"] = "Blog Post";
             return View();
         }
+        public IActionResult Ambulance()
+        {
+            ViewData["Title"] = "Ambulance Numbers";
+            return View();
+        }
+
     }
 }

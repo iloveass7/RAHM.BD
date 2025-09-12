@@ -211,7 +211,6 @@ E:\RAHM.BD\RAHM.BD\obj\Debug\net9.0\RAHMBD.dll
 E:\RAHM.BD\RAHM.BD\obj\Debug\net9.0\refint\RAHMBD.dll
 E:\RAHM.BD\RAHM.BD\obj\Debug\net9.0\RAHMBD.pdb
 E:\RAHM.BD\RAHM.BD\obj\Debug\net9.0\ref\RAHMBD.dll
-E:\RAHM.BD\RAHM.BD\obj\Debug\net9.0\compressed\zjuzk2eimu-nx5er053a0.gz
 D:\Codes\C#\RAHM.BD\RAHM.BD\bin\Debug\net9.0\RAHMBD.staticwebassets.runtime.json
 D:\Codes\C#\RAHM.BD\RAHM.BD\bin\Debug\net9.0\RAHMBD.staticwebassets.endpoints.json
 D:\Codes\C#\RAHM.BD\RAHM.BD\bin\Debug\net9.0\RAHMBD.exe
@@ -297,4 +296,6 @@ D:\Codes\C#\RAHM.BD\RAHM.BD\obj\Debug\net9.0\compressed\yqw9rirx6m-1r6g66bc17.gz
 E:\RAHM.BD\RAHM.BD\bin\Debug\net9.0\Newtonsoft.Json.dll
 E:\RAHM.BD\RAHM.BD\obj\Debug\net9.0\compressed\yqw9rirx6m-1r6g66bc17.gz
 E:\RAHM.BD\RAHM.BD\obj\Debug\net9.0\compressed\n0jcf39aei-zsixiepq4d.gz
-E:\RAHM.BD\RAHM.BD\obj\Debug\net9.0\compressed\dx8vi71n84-npfli2lt6z.gz
+E:\RAHM.BD\RAHM.BD\obj\Debug\net9.0\compressed\zjuzk2eimu-nx5er053a0.gz
+E:\RAHM.BD\RAHM.BD\obj\Debug\net9.0\compressed\rqv84z3vyq-7bw52syqrc.gz
+E:\RAHM.BD\RAHM.BD\obj\Debug\net9.0\compressed\dx8vi71n84-9uetowg8ol.gz

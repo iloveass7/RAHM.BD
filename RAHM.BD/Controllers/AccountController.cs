@@ -64,6 +64,7 @@ namespace RAHM.BD.Controllers
             }
 
             TempData["Message"] = "Signup successful! Please log in.";
+
             return RedirectToAction("Login");
         }
 
@@ -99,12 +100,14 @@ namespace RAHM.BD.Controllers
             HttpContext.Session.SetInt32("UserId", user.Id);
             HttpContext.Session.SetString("UserName", user.Name);
 
+            TempData["Message"] = "Login Successful";
             return RedirectToAction("Index", "UserDashboard");
         }
 
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
+            TempData["Message"] = "Logout Successfully!";
             return RedirectToAction("Login");
         }
 
