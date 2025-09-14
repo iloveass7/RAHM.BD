@@ -1,0 +1,41 @@
+﻿@model dynamic
+@{
+    Layout = "_Layout.Dashboard";  // 👈 Forces this page to use the Admin Dashboard layout
+    ViewData["Title"] = "Edit User";
+}
+
+
+
+<h2>Edit User</h2>
+
+<form asp-action="EditUser" method="post">
+    <input type="hidden" name="Id" value="@Model.Id" />
+
+    <div class="mb-2">
+        <label>Name</label>
+        <input name="Name" value="@Model.Name" class="form-control" />
+    </div>
+    <div class="mb-2">
+        <label>Email</label>
+        <input name="Email" value="@Model.Email" class="form-control" />
+    </div>
+    <div class="mb-2">
+        <label>Phone</label>
+        <input name="MobileNo" value="@Model.MobileNo" class="form-control" />
+    </div>
+    <div class="mb-2">
+        <label>Road</label>
+        <input name="Road" value="@Model.Road" class="form-control" />
+    </div>
+    <div class="mb-2">
+        <label>District</label>
+        <input name="District" value="@Model.District" class="form-control" />
+    </div>
+    <div class="mb-2">
+        <label>Division</label>
+        <input name="Division" value="@Model.Division" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-success">Save</button>
+    <a asp-action="Users" class="btn btn-secondary">Cancel</a>
+</form>

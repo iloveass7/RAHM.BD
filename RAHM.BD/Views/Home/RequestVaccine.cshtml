@@ -1,0 +1,193 @@
+﻿@{
+    ViewData["Title"] = "Request Vaccine";
+}
+
+<section class="page-section">
+    <h1>💉 Request Vaccine</h1>
+
+    <div class="mb-3">
+        <label for="diseaseSelect" class="form-label">Select Disease:</label>
+        <select id="diseaseSelect" class="form-select">
+            <option value="">-- Choose Disease --</option>
+        </select>
+    </div>
+
+    <div id="vaccineOptions" style="display:none;">
+        <h4>Available Vaccines & Healthcare Centers</h4>
+        <div id="vaccineList"></div>
+    </div>
+
+    <div id="message" class="mt-3"></div>
+</section>
+
+<script>
+    const diseaseSelect = document.getElementById("diseaseSelect");
+    const vaccineOptions = document.getElementById("vaccineOptions");
+    const vaccineList = document.getElementById("vaccineList");
+    const message = document.getElementById("message");
+
+    // Load diseases
+    async function loadDiseases() {
+        try {
+            const res = await fetch("/Vaccine/Diseases");
+            const diseases = await res.json();
+
+            diseases.forEach(d => {
+                const opt = document.createElement("option");
+                opt.value = d.id;
+                opt.textContent = d.name;
+                diseaseSelect.appendChild(opt);
+            });
+        } catch (error) {
+            console.error("Error loading diseases:", error);
+            showMessage("Error loading diseases", "danger");
+        }
+    }
+
+    // Disease selection handler
+    diseaseSelect.addEventListener("change", async () => {
+        vaccineOptions.style.display = "none";
+        vaccineList.innerHTML = "";
+
+        if (!diseaseSelect.value) return;
+
+        try {
+            const res = await fetch(`/Vaccine/ByDisease/${diseaseSelect.value}`);
+            const vaccines = await res.json();
+
+            if (vaccines.length > 0) {
+                let html = "";
+
+                vaccines.forEach(vaccine => {
+                    html += `
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                <h5>🩹 ${vaccine.vaccineName}</h5>
+                            </div>
+                            <div class="card-body">
+                                <h6>Available at:</h6>
+                                <div class="row">
+                    `;
+
+                    vaccine.centers.forEach(center => {
+                        html += `
+                            <div class="col-md-6 mb-2">
+                                <div class="border rounded p-3">
+                                    <strong>🏥 ${center.centerName}</strong><br>
+                                    <small class="text-muted">📍 ${center.location}</small><br>
+                                    <span class="badge bg-success">Stock: ${center.quantityAvailable}</span>
+                                    <button class="btn btn-primary btn-sm mt-2 take-vaccine-btn"
+                                            data-vaccine-id="${vaccine.vaccineId}"
+                                            data-center-id="${center.centerId}"
+                                            data-vaccine-name="${vaccine.vaccineName}"
+                                            data-center-name="${center.centerName}">
+                                        Get Vaccine
+                                    </button>
+                                </div>
+                            </div>
+                        `;
+                    });
+
+                    html += `
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                vaccineList.innerHTML = html;
+                vaccineOptions.style.display = "block";
+
+                // Add click handlers to all take vaccine buttons
+                document.querySelectorAll('.take-vaccine-btn').forEach(btn => {
+                    btn.addEventListener('click', handleTakeVaccine);
+                });
+            } else {
+                showMessage("No vaccines available for this disease", "info");
+            }
+        } catch (error) {
+            console.error("Error loading vaccines:", error);
+            showMessage("Error loading vaccines", "danger");
+        }
+    });
+
+    // Handle take vaccine
+        async function handleTakeVaccine(event) {
+        const btn = event.target;
+        const userId = 1; // Make sure this is a valid user ID from your database
+        const vaccineId = parseInt(btn.dataset.vaccineId);
+        const healthCenterId = parseInt(btn.dataset.centerId); // Note: using 'centerId', not 'healthCenterId'
+        const vaccineName = btn.dataset.vaccineName;
+        const centerName = btn.dataset.centerName;
+
+        console.log('🔍 Debug - Request data:', { userId, vaccineId, healthCenterId });
+
+        if (!confirm(`Are you sure you want to get ${vaccineName} at ${centerName}?`)) {
+            return;
+        }
+
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+
+        try {
+            const response = await fetch("/Vaccine/Take", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    userId: userId,
+                    vaccineId: vaccineId,
+                    healthCenterId: healthCenterId
+                })
+            });
+
+            console.log('🔍 Debug - Response status:', response.status);
+            console.log('🔍 Debug - Response headers:', [...response.headers.entries()]);
+
+            // Get raw response text to see what we're actually receiving
+            const responseText = await response.text();
+            console.log('🔍 Debug - Raw response:', responseText);
+
+            // Try to parse as JSON
+            let result;
+            try {
+                result = JSON.parse(responseText);
+                console.log('🔍 Debug - Parsed JSON:', result);
+            } catch (jsonError) {
+                console.error('❌ JSON Parse Error:', jsonError);
+                console.error('❌ Raw response that failed to parse:', responseText);
+                showMessage("Server returned invalid response. Check console for details.", "danger");
+                return;
+            }
+
+            if (response.ok && result.success) {
+                showMessage(result.message, "success");
+                diseaseSelect.dispatchEvent(new Event('change'));
+            } else {
+                showMessage(result.message || 'An error occurred', "danger");
+            }
+        } catch (error) {
+            console.error("❌ Network error:", error);
+            showMessage("Network error occurred", "danger");
+        } finally {
+            btn.disabled = false;
+            btn.innerHTML = 'Get Vaccine';
+        }
+    }
+
+
+    function showMessage(text, type) {
+        message.innerHTML = `<div class="alert alert-${type}">${text}</div>`;
+
+        // Auto-hide success messages
+        if (type === "success") {
+            setTimeout(() => {
+                message.innerHTML = "";
+            }, 5000);
+        }
+    }
+
+    // Initialize
+    loadDiseases();
+</script>

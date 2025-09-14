@@ -1,0 +1,108 @@
+﻿@model IEnumerable<dynamic>
+@{
+    Layout = "_Layout.Dashboard";
+    ViewData["Title"] = "Disease Log";
+}
+
+<div class="admin-content">
+    <div class="admin-header">
+        <h2>@ViewData["Title"]</h2>
+        <p class="subtitle">Monitor disease reports and outbreaks across regions</p>
+    </div>
+
+    @if (TempData["Message"] != null)
+    {
+        <div class="toast">@TempData["Message"]</div>
+    }
+
+    <!-- Search Filters -->
+    <div class="card" style="background: var(--card); border: 1px solid #e5e7eb; border-radius: 16px; padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+        <h5 style="margin: 0 0 1rem 0; font-weight: 600; color: var(--ink);">Search & Filter</h5>
+        <form method="get">
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr auto; gap: 1rem; align-items: end;">
+                <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                    <label style="font-weight: 600; color: var(--ink); font-size: 0.9rem;">Disease Name</label>
+                    <input type="text" name="diseaseName" class="form-control" placeholder="Search by Disease"
+                           style="padding: 12px 14px; border: 1px solid #e5e7eb; border-radius: 12px; outline: none; transition: border-color 0.2s, box-shadow 0.2s;" />
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                    <label style="font-weight: 600; color: var(--ink); font-size: 0.9rem;">District</label>
+                    <input type="text" name="district" class="form-control" placeholder="Enter District"
+                           style="padding: 12px 14px; border: 1px solid #e5e7eb; border-radius: 12px; outline: none; transition: border-color 0.2s, box-shadow 0.2s;" />
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                    <label style="font-weight: 600; color: var(--ink); font-size: 0.9rem;">Division</label>
+                    <input type="text" name="division" class="form-control" placeholder="Enter Division"
+                           style="padding: 12px 14px; border: 1px solid #e5e7eb; border-radius: 12px; outline: none; transition: border-color 0.2s, box-shadow 0.2s;" />
+                </div>
+                <button type="submit" class="btn btn-primary" style="padding: 12px 20px; border-radius: 12px;">
+                    🔍 Search
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Results Table -->
+    <div class="card" style="background: var(--card); border: 1px solid #e5e7eb; border-radius: 16px; padding: 1.5rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+        <h5 style="margin: 0 0 1.5rem 0; font-weight: 600; color: var(--ink);">Disease Reports</h5>
+
+        <div style="overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 0.95rem;">
+                <thead>
+                    <tr style="border-bottom: 2px solid #e5e7eb;">
+                        <th style="padding: 12px 8px; text-align: left; font-weight: 600; color: var(--ink); background: #f8fafc;">User</th>
+                        <th style="padding: 12px 8px; text-align: left; font-weight: 600; color: var(--ink); background: #f8fafc;">Email</th>
+                        <th style="padding: 12px 8px; text-align: left; font-weight: 600; color: var(--ink); background: #f8fafc;">Phone</th>
+                        <th style="padding: 12px 8px; text-align: left; font-weight: 600; color: var(--ink); background: #f8fafc;">Road</th>
+                        <th style="padding: 12px 8px; text-align: left; font-weight: 600; color: var(--ink); background: #f8fafc;">District</th>
+                        <th style="padding: 12px 8px; text-align: left; font-weight: 600; color: var(--ink); background: #f8fafc;">Division</th>
+                        <th style="padding: 12px 8px; text-align: left; font-weight: 600; color: var(--ink); background: #f8fafc;">Disease</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var log in Model)
+                    {
+                        <tr style="border-bottom: 1px solid #f3f4f6; transition: background-color 0.2s;">
+                            <td style="padding: 12px 8px; color: var(--ink);">@log.UserName</td>
+                            <td style="padding: 12px 8px; color: var(--muted);">@log.Email</td>
+                            <td style="padding: 12px 8px; color: var(--muted);">@log.MobileNo</td>
+                            <td style="padding: 12px 8px; color: var(--muted);">@log.Road</td>
+                            <td style="padding: 12px 8px; color: var(--muted);">@log.District</td>
+                            <td style="padding: 12px 8px; color: var(--muted);">@log.Division</td>
+                            <td style="padding: 12px 8px;">
+                                <span style="background: rgba(229,9,20,0.1); color: var(--red); padding: 4px 10px; border-radius: 20px; font-size: 0.85rem; font-weight: 600;">
+                                    @log.DiseaseName
+                                </span>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        @if (!Model.Any())
+        {
+            <div style="text-align: center; padding: 3rem; color: var(--muted);">
+                <div style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;">📊</div>
+                <h4 style="margin: 0 0 0.5rem 0;">No Disease Logs Found</h4>
+                <p style="margin: 0;">Try adjusting your search criteria or check back later.</p>
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    /* Enhanced table hover effects */
+    tbody tr:hover {
+        background-color: #f8fafc !important;
+    }
+
+    /* Focus styles for inputs */
+    .form-control:focus {
+        border-color: var(--red) !important;
+        box-shadow: 0 0 0 4px var(--ring) !important;
+    }
+
+   
+    
+</style>

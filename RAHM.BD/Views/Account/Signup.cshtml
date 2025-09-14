@@ -1,0 +1,70 @@
+﻿@{
+    Layout = "_AuthLayout";
+    ViewData["Title"] = "Signup";
+}
+<section class="auth hero-bg">
+    <div class="glass">
+        <h1>Create your RAHMBD account</h1>
+        <p class="muted">Please provide the details below.</p>
+
+        <form asp-action="Signup" method="post" class="grid2">
+            <!-- Users table -->
+            <div class="field">
+                <label>Name</label>
+                <input name="Name" required />
+            </div>
+
+            <div class="field">
+                <label>Mobile No</label>
+                <input name="MobileNo" type="tel" required />
+            </div>
+
+            <div class="field">
+                <label>Email</label>
+                <input name="Email" type="email" required />
+            </div>
+
+            <div class="field">
+                <label>Password</label>
+                <input name="Password" type="password" required />
+            </div>
+
+            <div class="field">
+                <label>Confirm Password</label>
+                <input name="ConfirmPassword" type="password" required />
+            </div>
+
+            <!-- Locations table -->
+            <div class="field">
+                <label>Road</label>
+                <input name="Road" required />
+            </div>
+
+            <div class="field">
+                <label>District</label>
+                <input name="District" required />
+            </div>
+
+            <div class="field">
+                <label>Division</label>
+                <input name="Division" required />
+            </div>
+
+            <div class="field">
+                <label>Latitude (optional)</label>
+                <input name="Lat" type="number" step="any" />
+            </div>
+
+            <div class="field">
+                <label>Longitude (optional)</label>
+                <input name="Lng" type="number" step="any" />
+            </div>
+
+            <div class="full">
+                <button class="btn btn-primary w-100" type="submit">Create Account</button>
+            </div>
+        </form>
+
+        <p class="muted small">Already have an account? <a asp-action="Login">Log in</a>.</p>
+    </div>
+</section>

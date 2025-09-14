@@ -1,0 +1,546 @@
+{
+  "cold": {
+    "conditions": [
+      {
+        "name": "Common Cold",
+        "confidence": 90,
+        "symptoms": [ "runny nose", "sneezing", "sore throat", "cough" ],
+        "related": [ "stuffy nose", "mild headache", "fatigue" ]
+      },
+      {
+        "name": "Seasonal Allergies",
+        "confidence": 60,
+        "symptoms": [ "runny nose", "sneezing", "itchy eyes" ],
+        "related": [ "watery eyes", "congestion" ]
+      }
+    ]
+  },
+  "fever": {
+    "conditions": [
+      {
+        "name": "Viral Infection",
+        "confidence": 80,
+        "symptoms": [ "fever", "body aches", "fatigue" ],
+        "related": [ "headache", "chills", "sweating" ]
+      },
+      {
+        "name": "Bacterial Infection",
+        "confidence": 70,
+        "symptoms": [ "fever", "chills", "severe fatigue" ],
+        "related": [ "rapid heartbeat", "confusion" ]
+      },
+      {
+        "name": "Flu",
+        "confidence": 85,
+        "symptoms": [ "fever", "body aches", "headache", "fatigue" ],
+        "related": [ "cough", "sore throat", "nausea" ]
+      },
+      {
+        "name": "COVID-19",
+        "confidence": 75,
+        "symptoms": [ "fever", "dry cough", "loss of taste", "loss of smell" ],
+        "related": [ "shortness of breath", "fatigue", "body aches" ]
+      }
+    ]
+  },
+  "headache": {
+    "conditions": [
+      {
+        "name": "Tension Headache",
+        "confidence": 75,
+        "symptoms": [ "headache", "neck stiffness" ],
+        "related": [ "stress", "eye strain", "fatigue" ]
+      },
+      {
+        "name": "Migraine",
+        "confidence": 60,
+        "symptoms": [ "severe headache", "nausea", "light sensitivity" ],
+        "related": [ "visual disturbances", "vomiting" ]
+      },
+      {
+        "name": "Dehydration",
+        "confidence": 50,
+        "symptoms": [ "headache", "dizziness", "dry mouth" ],
+        "related": [ "fatigue", "dark urine" ]
+      },
+      {
+        "name": "Sinusitis",
+        "confidence": 65,
+        "symptoms": [ "headache", "facial pressure", "nasal congestion" ],
+        "related": [ "thick nasal discharge", "fever", "bad breath" ]
+      },
+      {
+        "name": "Cluster Headache",
+        "confidence": 70,
+        "symptoms": [ "severe one-sided headache", "eye redness", "tearing" ],
+        "related": [ "nasal congestion", "restlessness", "face sweating" ]
+      }
+    ]
+  },
+  "cough": {
+    "conditions": [
+      {
+        "name": "Bronchitis",
+        "confidence": 75,
+        "symptoms": [ "persistent cough", "mucus production" ],
+        "related": [ "chest discomfort", "fatigue", "shortness of breath" ]
+      },
+      {
+        "name": "Asthma",
+        "confidence": 60,
+        "symptoms": [ "dry cough", "wheezing", "shortness of breath" ],
+        "related": [ "chest tightness", "difficulty breathing" ]
+      },
+      {
+        "name": "Pneumonia",
+        "confidence": 70,
+        "symptoms": [ "cough with phlegm", "fever", "chest pain" ],
+        "related": [ "difficulty breathing", "rapid breathing" ]
+      },
+      {
+        "name": "Whooping Cough",
+        "confidence": 80,
+        "symptoms": [ "severe coughing fits", "whooping sound", "vomiting after cough" ],
+        "related": [ "runny nose", "low fever", "exhaustion" ]
+      }
+    ]
+  },
+  "nausea": {
+    "conditions": [
+      {
+        "name": "Food Poisoning",
+        "confidence": 80,
+        "symptoms": [ "nausea", "vomiting", "stomach cramps" ],
+        "related": [ "diarrhea", "fever", "dehydration" ]
+      },
+      {
+        "name": "Gastroenteritis",
+        "confidence": 75,
+        "symptoms": [ "nausea", "vomiting", "diarrhea" ],
+        "related": [ "stomach pain", "fever", "headache" ]
+      },
+      {
+        "name": "Motion Sickness",
+        "confidence": 60,
+        "symptoms": [ "nausea", "dizziness", "sweating" ],
+        "related": [ "vomiting", "fatigue" ]
+      },
+      {
+        "name": "Pregnancy Morning Sickness",
+        "confidence": 85,
+        "symptoms": [ "nausea", "vomiting", "food aversions" ],
+        "related": [ "breast tenderness", "fatigue", "missed period" ]
+      }
+    ]
+  },
+  "rash": {
+    "conditions": [
+      {
+        "name": "Allergic Reaction",
+        "confidence": 70,
+        "symptoms": [ "rash", "itching", "redness" ],
+        "related": [ "swelling", "hives", "difficulty breathing" ]
+      },
+      {
+        "name": "Eczema",
+        "confidence": 65,
+        "symptoms": [ "itchy rash", "dry skin", "redness" ],
+        "related": [ "scaling", "cracking", "inflammation" ]
+      },
+      {
+        "name": "Contact Dermatitis",
+        "confidence": 80,
+        "symptoms": [ "localized rash", "itching", "burning" ],
+        "related": [ "blisters", "swelling", "pain" ]
+      },
+      {
+        "name": "Psoriasis",
+        "confidence": 75,
+        "symptoms": [ "red patches", "silvery scales", "itching" ],
+        "related": [ "dry skin", "joint pain", "nail changes" ]
+      },
+      {
+        "name": "Heat Rash",
+        "confidence": 70,
+        "symptoms": [ "small bumps", "itching", "prickly feeling" ],
+        "related": [ "sweating", "redness", "burning sensation" ]
+      }
+    ]
+  },
+  "dizziness": {
+    "conditions": [
+      {
+        "name": "Inner Ear Problem",
+        "confidence": 70,
+        "symptoms": [ "dizziness", "balance issues" ],
+        "related": [ "nausea", "hearing changes", "ear fullness" ]
+      },
+      {
+        "name": "Low Blood Pressure",
+        "confidence": 60,
+        "symptoms": [ "dizziness", "lightheadedness" ],
+        "related": [ "fatigue", "blurred vision", "weakness" ]
+      },
+      {
+        "name": "Dehydration",
+        "confidence": 75,
+        "symptoms": [ "dizziness", "dry mouth", "fatigue" ],
+        "related": [ "headache", "dark urine", "confusion" ]
+      },
+      {
+        "name": "Vertigo",
+        "confidence": 80,
+        "symptoms": [ "spinning sensation", "dizziness", "balance problems" ],
+        "related": [ "nausea", "vomiting", "hearing loss" ]
+      }
+    ]
+  },
+  "sore throat": {
+    "conditions": [
+      {
+        "name": "Viral Pharyngitis",
+        "confidence": 80,
+        "symptoms": [ "sore throat", "mild fever", "cough" ],
+        "related": [ "runny nose", "body aches", "fatigue" ]
+      },
+      {
+        "name": "Strep Throat",
+        "confidence": 70,
+        "symptoms": [ "severe sore throat", "fever", "swollen lymph nodes" ],
+        "related": [ "difficulty swallowing", "white patches on throat" ]
+      },
+      {
+        "name": "Tonsillitis",
+        "confidence": 65,
+        "symptoms": [ "sore throat", "swollen tonsils", "fever" ],
+        "related": [ "difficulty swallowing", "bad breath", "ear pain" ]
+      },
+      {
+        "name": "Laryngitis",
+        "confidence": 70,
+        "symptoms": [ "sore throat", "hoarse voice", "dry cough" ],
+        "related": [ "voice loss", "throat clearing", "dry throat" ]
+      }
+    ]
+  },
+  "stomach pain": {
+    "conditions": [
+      {
+        "name": "Gastritis",
+        "confidence": 75,
+        "symptoms": [ "stomach pain", "nausea", "bloating" ],
+        "related": [ "loss of appetite", "vomiting", "heartburn" ]
+      },
+      {
+        "name": "Appendicitis",
+        "confidence": 60,
+        "symptoms": [ "severe stomach pain", "fever", "vomiting" ],
+        "related": [ "pain in lower right abdomen", "loss of appetite" ]
+      },
+      {
+        "name": "Acid Reflux",
+        "confidence": 70,
+        "symptoms": [ "stomach pain", "heartburn", "bloating" ],
+        "related": [ "chest pain", "difficulty swallowing" ]
+      },
+      {
+        "name": "Peptic Ulcer",
+        "confidence": 75,
+        "symptoms": [ "burning stomach pain", "bloating", "nausea" ],
+        "related": [ "loss of appetite", "weight loss", "dark stools" ]
+      },
+      {
+        "name": "Irritable Bowel Syndrome",
+        "confidence": 65,
+        "symptoms": [ "abdominal pain", "bloating", "gas" ],
+        "related": [ "diarrhea", "constipation", "mucus in stool" ]
+      }
+    ]
+  },
+  "fatigue": {
+    "conditions": [
+      {
+        "name": "Sleep Deprivation",
+        "confidence": 80,
+        "symptoms": [ "fatigue", "difficulty concentrating", "irritability" ],
+        "related": [ "headache", "mood changes", "reduced alertness" ]
+      },
+      {
+        "name": "Anemia",
+        "confidence": 65,
+        "symptoms": [ "fatigue", "weakness", "pale skin" ],
+        "related": [ "shortness of breath", "cold hands and feet", "brittle nails" ]
+      },
+      {
+        "name": "Depression",
+        "confidence": 60,
+        "symptoms": [ "fatigue", "low mood", "loss of interest" ],
+        "related": [ "sleep problems", "appetite changes", "hopelessness" ]
+      },
+      {
+        "name": "Chronic Fatigue Syndrome",
+        "confidence": 70,
+        "symptoms": [ "persistent fatigue", "memory problems", "sore throat" ],
+        "related": [ "muscle pain", "enlarged lymph nodes", "sleep problems" ]
+      },
+      {
+        "name": "Thyroid Problems",
+        "confidence": 65,
+        "symptoms": [ "fatigue", "weight changes", "mood changes" ],
+        "related": [ "hair loss", "temperature sensitivity", "heart rate changes" ]
+      }
+    ]
+  },
+  "chest pain": {
+    "conditions": [
+      {
+        "name": "Muscle Strain",
+        "confidence": 70,
+        "symptoms": [ "chest pain", "tenderness", "pain with movement" ],
+        "related": [ "bruising", "swelling", "muscle spasm" ]
+      },
+      {
+        "name": "Costochondritis",
+        "confidence": 65,
+        "symptoms": [ "chest pain", "pain with breathing", "tenderness" ],
+        "related": [ "pain when pressing on chest", "sharp stabbing pain" ]
+      },
+      {
+        "name": "Anxiety",
+        "confidence": 60,
+        "symptoms": [ "chest pain", "rapid heartbeat", "shortness of breath" ],
+        "related": [ "sweating", "trembling", "feeling of doom" ]
+      },
+      {
+        "name": "Heartburn",
+        "confidence": 75,
+        "symptoms": [ "burning chest pain", "acid taste", "difficulty swallowing" ],
+        "related": [ "bloating", "burping", "nausea" ]
+      }
+    ]
+  },
+  "shortness of breath": {
+    "conditions": [
+      {
+        "name": "Asthma",
+        "confidence": 80,
+        "symptoms": [ "shortness of breath", "wheezing", "chest tightness" ],
+        "related": [ "cough", "difficulty sleeping", "fatigue" ]
+      },
+      {
+        "name": "Pneumonia",
+        "confidence": 75,
+        "symptoms": [ "shortness of breath", "cough", "fever" ],
+        "related": [ "chest pain", "fatigue", "confusion" ]
+      },
+      {
+        "name": "Heart Problems",
+        "confidence": 70,
+        "symptoms": [ "shortness of breath", "chest pain", "fatigue" ],
+        "related": [ "swollen ankles", "rapid heartbeat", "dizziness" ]
+      },
+      {
+        "name": "Panic Attack",
+        "confidence": 65,
+        "symptoms": [ "shortness of breath", "rapid heartbeat", "sweating" ],
+        "related": [ "trembling", "fear of dying", "chest pain" ]
+      }
+    ]
+  },
+  "back pain": {
+    "conditions": [
+      {
+        "name": "Muscle Strain",
+        "confidence": 85,
+        "symptoms": [ "back pain", "stiffness", "muscle spasm" ],
+        "related": [ "limited range of motion", "pain with movement", "swelling" ]
+      },
+      {
+        "name": "Herniated Disc",
+        "confidence": 70,
+        "symptoms": [ "back pain", "leg pain", "numbness" ],
+        "related": [ "tingling", "weakness", "shooting pain" ]
+      },
+      {
+        "name": "Arthritis",
+        "confidence": 60,
+        "symptoms": [ "back pain", "joint stiffness", "reduced flexibility" ],
+        "related": [ "morning stiffness", "swelling", "grinding sensation" ]
+      },
+      {
+        "name": "Kidney Stones",
+        "confidence": 65,
+        "symptoms": [ "severe back pain", "side pain", "painful urination" ],
+        "related": [ "blood in urine", "nausea", "frequent urination" ]
+      }
+    ]
+  },
+  "joint pain": {
+    "conditions": [
+      {
+        "name": "Arthritis",
+        "confidence": 80,
+        "symptoms": [ "joint pain", "stiffness", "swelling" ],
+        "related": [ "reduced range of motion", "warmth", "redness" ]
+      },
+      {
+        "name": "Injury",
+        "confidence": 75,
+        "symptoms": [ "joint pain", "swelling", "bruising" ],
+        "related": [ "limited movement", "instability", "deformity" ]
+      },
+      {
+        "name": "Gout",
+        "confidence": 70,
+        "symptoms": [ "severe joint pain", "redness", "swelling" ],
+        "related": [ "warmth", "tenderness", "limited movement" ]
+      },
+      {
+        "name": "Fibromyalgia",
+        "confidence": 60,
+        "symptoms": [ "widespread pain", "tender points", "fatigue" ],
+        "related": [ "sleep problems", "memory issues", "mood changes" ]
+      }
+    ]
+  },
+  "insomnia": {
+    "conditions": [
+      {
+        "name": "Stress",
+        "confidence": 75,
+        "symptoms": [ "difficulty falling asleep", "racing thoughts", "worry" ],
+        "related": [ "anxiety", "tension", "restlessness" ]
+      },
+      {
+        "name": "Sleep Disorders",
+        "confidence": 70,
+        "symptoms": [ "insomnia", "snoring", "restless sleep" ],
+        "related": [ "daytime fatigue", "morning headaches", "mood changes" ]
+      },
+      {
+        "name": "Caffeine Intake",
+        "confidence": 60,
+        "symptoms": [ "difficulty sleeping", "restlessness", "alertness" ],
+        "related": [ "jitteriness", "rapid heartbeat", "frequent urination" ]
+      },
+      {
+        "name": "Depression",
+        "confidence": 65,
+        "symptoms": [ "insomnia", "early morning awakening", "low mood" ],
+        "related": [ "loss of interest", "fatigue", "appetite changes" ]
+      }
+    ]
+  },
+  "memory problems": {
+    "conditions": [
+      {
+        "name": "Stress",
+        "confidence": 70,
+        "symptoms": [ "forgetfulness", "difficulty concentrating", "anxiety" ],
+        "related": [ "sleep problems", "irritability", "headaches" ]
+      },
+      {
+        "name": "Depression",
+        "confidence": 65,
+        "symptoms": [ "memory problems", "difficulty concentrating", "low mood" ],
+        "related": [ "fatigue", "loss of interest", "sleep disturbances" ]
+      },
+      {
+        "name": "Medication Side Effects",
+        "confidence": 60,
+        "symptoms": [ "memory problems", "confusion", "dizziness" ],
+        "related": [ "fatigue", "difficulty concentrating", "mood changes" ]
+      },
+      {
+        "name": "Vitamin B12 Deficiency",
+        "confidence": 55,
+        "symptoms": [ "memory problems", "fatigue", "weakness" ],
+        "related": [ "numbness", "balance problems", "mood changes" ]
+      }
+    ]
+  },
+  "weight loss": {
+    "conditions": [
+      {
+        "name": "Hyperthyroidism",
+        "confidence": 70,
+        "symptoms": [ "weight loss", "rapid heartbeat", "nervousness" ],
+        "related": [ "heat intolerance", "sweating", "tremor" ]
+      },
+      {
+        "name": "Diabetes",
+        "confidence": 65,
+        "symptoms": [ "weight loss", "increased thirst", "frequent urination" ],
+        "related": [ "fatigue", "blurred vision", "slow healing" ]
+      },
+      {
+        "name": "Depression",
+        "confidence": 60,
+        "symptoms": [ "weight loss", "loss of appetite", "low mood" ],
+        "related": [ "sleep problems", "fatigue", "loss of interest" ]
+      },
+      {
+        "name": "Gastrointestinal Issues",
+        "confidence": 75,
+        "symptoms": [ "weight loss", "abdominal pain", "diarrhea" ],
+        "related": [ "nausea", "bloating", "loss of appetite" ]
+      }
+    ]
+  },
+  "weight gain": {
+    "conditions": [
+      {
+        "name": "Hypothyroidism",
+        "confidence": 70,
+        "symptoms": [ "weight gain", "fatigue", "cold intolerance" ],
+        "related": [ "dry skin", "hair loss", "constipation" ]
+      },
+      {
+        "name": "Medication Side Effects",
+        "confidence": 65,
+        "symptoms": [ "weight gain", "increased appetite", "fluid retention" ],
+        "related": [ "mood changes", "sleep problems", "fatigue" ]
+      },
+      {
+        "name": "Hormonal Changes",
+        "confidence": 60,
+        "symptoms": [ "weight gain", "mood changes", "irregular periods" ],
+        "related": [ "bloating", "breast tenderness", "fatigue" ]
+      },
+      {
+        "name": "Insulin Resistance",
+        "confidence": 65,
+        "symptoms": [ "weight gain", "increased hunger", "fatigue" ],
+        "related": [ "dark skin patches", "high blood pressure", "sleep problems" ]
+      }
+    ]
+  },
+  "skin changes": {
+    "conditions": [
+      {
+        "name": "Aging",
+        "confidence": 80,
+        "symptoms": [ "wrinkles", "age spots", "dry skin" ],
+        "related": [ "loss of elasticity", "thinning skin", "slower healing" ]
+      },
+      {
+        "name": "Sun Damage",
+        "confidence": 75,
+        "symptoms": [ "dark spots", "rough texture", "wrinkles" ],
+        "related": [ "freckles", "uneven pigmentation", "dry patches" ]
+      },
+      {
+        "name": "Hormonal Changes",
+        "confidence": 65,
+        "symptoms": [ "acne", "dark patches", "skin sensitivity" ],
+        "related": [ "oily skin", "mood changes", "irregular periods" ]
+      },
+      {
+        "name": "Nutritional Deficiency",
+        "confidence": 60,
+        "symptoms": [ "dry skin", "slow healing", "pale complexion" ],
+        "related": [ "brittle nails", "hair loss", "fatigue" ]
+      }
+    ]
+  }
+}

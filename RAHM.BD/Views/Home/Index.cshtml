@@ -1,0 +1,142 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+<section class="hero hero-tight">
+    <div class="slider" id="heroSlider">
+        <div class="slides">
+            <article class="slide">
+                <img src="https://images.unsplash.com/photo-1584036561566-baf8f5f1b144?w=1600&q=80&auto=format&fit=crop" alt="Public health news" />
+                <div class="caption">
+                    <h2>Seasonal Flu Advisory</h2>
+                    <p>Stay protected this season. Learn symptoms, when to test, and how to recover safely.</p>
+                </div>
+            </article>
+            <article class="slide">
+                <img src="https://www.fda.gov/files/iStock-157317886.jpg" alt="Vaccination info" />
+                <div class="caption">
+                    <h2>Vaccine Updates</h2>
+                    <p>Find the latest vaccine availability, eligibility, and reminders.</p>
+                </div>
+            </article>
+            <article class="slide">
+                <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=1600&q=80&auto=format&fit=crop" alt="Healthy living" />
+                <div class="caption">
+                    <h2>Heart Health Tips</h2>
+                    <p>Small daily habits, big impact. Move more, stress less, and eat smart.</p>
+                </div>
+            </article>
+        </div>
+        <div class="dots" id="heroDots"></div>
+    </div>
+</section>
+
+<section class="actions">
+    <div class="cards">
+        <a asp-controller="Home" asp-action="RequestCenter" class="card">
+            <div class="card-icon">🏥</div>
+            <h3>Request healthcare center</h3>
+            <p>Locate and request contact from a nearby healthcare center.</p>
+            <span class="card-cta">Go →</span>
+        </a>
+
+        <a asp-controller="Home" asp-action="RequestVaccine" class="card">
+            <div class="card-icon">💉</div>
+            <h3>Request Vaccine</h3>
+            <p>Check eligibility and request a vaccine appointment.</p>
+            <span class="card-cta">Go →</span>
+        </a>
+
+        <a asp-controller="Health" asp-action="Tips" class="card">
+            <div class="card-icon">💡</div>
+            <h3>Tips</h3>
+            <p>Evidence‑based articles on staying healthy and safe.</p>
+            <span class="card-cta">Go →</span>
+        </a>
+    </div>
+</section>
+<script>
+        // Add this JavaScript to your homepage to make slider items clickable
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Slider functionality with click navigation
+        const slider = document.getElementById('heroSlider');
+        const slides = slider.querySelector('.slides');
+        const dotsContainer = document.getElementById('heroDots');
+
+        // Slide data with corresponding blog post IDs
+        const slideData = [
+            {
+                id: 'seasonal-flu',
+                title: 'Seasonal Flu Advisory'
+            },
+            {
+                id: 'vaccine-updates',
+                title: 'Vaccine Updates'
+            },
+            {
+                id: 'heart-health',
+                title: 'Heart Health Tips'
+            }
+        ];
+
+        let currentSlide = 0;
+        const totalSlides = slides.children.length;
+
+        // Create dots
+        function createDots() {
+            dotsContainer.innerHTML = '';
+            for (let i = 0; i < totalSlides; i++) {
+                const dot = document.createElement('button');
+                dot.addEventListener('click', () => goToSlide(i));
+                if (i === 0) dot.classList.add('active');
+                dotsContainer.appendChild(dot);
+            }
+        }
+
+        // Update slider position
+        function updateSlider() {
+            slides.style.transform = `translateX(-${currentSlide * 100}%)`;
+
+            // Update dots
+            dotsContainer.querySelectorAll('button').forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+        }
+
+        // Go to specific slide
+        function goToSlide(index) {
+            currentSlide = index;
+            updateSlider();
+        }
+
+        // Auto-advance slides
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateSlider();
+        }
+
+        // Make slides clickable
+        function makeSlicesClickable() {
+            const slideElements = slides.querySelectorAll('.slide');
+            slideElements.forEach((slide, index) => {
+                slide.style.cursor = 'pointer';
+                slide.addEventListener('click', function() {
+                    const blogId = slideData[index]?.id;
+                    if (blogId) {
+                        // Navigate to blog page with post parameter
+                        window.location.href = `/Home/Blog?post=${blogId}`;
+                        // If using ASP.NET Core routing, you might use:
+                        // window.location.href = `@Url.Action("Blog", "Home")?post=${blogId}`;
+                    }
+                });
+            });
+        }
+
+        // Initialize slider
+        createDots();
+        makeSlicesClickable();
+
+        // Auto-advance every 5 seconds
+        setInterval(nextSlide, 5000);
+    });
+</script>

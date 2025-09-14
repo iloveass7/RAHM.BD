@@ -1,0 +1,70 @@
+﻿@{
+    Layout = "_Layout.Dashboard";
+    ViewData["Title"] = "Assign Disease to User";
+}
+
+<h2>@ViewData["Title"]</h2>
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success" style="display: none;">@TempData["Message"]</div>
+}
+
+<form asp-action="AssignDisease" method="post">
+    <div class="row mb-3">
+        <!-- District selection -->
+        <div class="col-md-4">
+            <label>District</label>
+            <select id="districtDropdown" class="form-control" required>
+                <option value="">-- Select District --</option>
+                @foreach (var district in ViewBag.Districts)
+                {
+                    <option value="@district">@district</option>
+                }
+            </select>
+        </div>
+
+        <!-- Users selection -->
+        <div class="col-md-4">
+            <label>User</label>
+            <select id="userDropdown" name="UserId" class="form-control" required>
+                <option value="">-- Select User --</option>
+            </select>
+        </div>
+
+        <!-- Disease selection -->
+        <div class="col-md-4">
+            <label>Disease</label>
+            <select name="DiseaseId" class="form-control" required>
+                <option value="">-- Select Disease --</option>
+                @foreach (var disease in ViewBag.Diseases)
+                {
+                    <option value="@disease.Id">@disease.Name</option>
+                }
+            </select>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-success">Assign Disease</button>
+</form>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $('#districtDropdown').change(function () {
+            var district = $(this).val();
+            if (!district) {
+                $('#userDropdown').html('<option value="">-- Select User --</option>');
+                return;
+            }
+
+                    $.getJSON('@Url.Action("GetUsersByDistrict", "Admin")', { district: district }, function (data) {
+            var options = '<option value="">-- Select User --</option>';
+            $.each(data, function (i, user) {
+                options += '<option value="' + user.id + '">' + user.name + '</option>';
+            });
+            $('#userDropdown').html(options);
+        });
+
+        });
+    </script>
+}

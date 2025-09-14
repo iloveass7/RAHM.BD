@@ -1,0 +1,649 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Healthcare Center</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
+    <style>
+        .page-section {
+            display: flex;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        .sidebar {
+            flex: 1;
+            padding-right: 20px;
+            max-width: 400px;
+        }
+
+        .btn {
+            background-color: white;
+            color: var(--red);
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 15px;
+            width: 100%;
+        }
+
+            .btn:hover {
+                background-color: #0056b3;
+            }
+
+            .btn:disabled {
+                background-color: #6c757d;
+                cursor: not-allowed;
+            }
+
+        #centerList {
+            margin-top: 15px;
+        }
+
+            #centerList li {
+                margin-bottom: 10px;
+                padding: 15px;
+                background-color: #f8f9fa;
+                border-radius: 8px;
+                border-left: 4px solid #007bff;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+
+                #centerList li:hover {
+                    background-color: #e9ecef;
+                    transform: translateY(-2px);
+                    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+                }
+
+        .loading {
+            color: #666;
+            font-style: italic;
+        }
+
+        .error {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .center-name {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .center-address {
+            color: #7f8c8d;
+            font-size: 0.9em;
+            margin-bottom: 8px;
+        }
+
+        .center-distance {
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .status-info {
+            background-color: #e3f2fd;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-size: 0.9em;
+            color: #1976d2;
+        }
+    </style>
+</head>
+<body>
+    <section class="page-section">
+        <div class="sidebar">
+            <h1>Request Healthcare Center</h1>
+            <button id="findNearestBtn" class="btn">📍 Find Nearest Centers</button>
+
+            <div id="loadingMsg" class="loading" style="display: none;">Finding nearest centers...</div>
+            <div id="errorMsg" class="error" style="display: none;"></div>
+            <div id="statusMsg" class="status-info" style="display: none;"></div>
+
+            <div id="sidebar">
+                <h4>Nearest Healthcare Centers:</h4>
+                <ul id="centerList" style="list-style: none; padding-left: 0;"></ul>
+            </div>
+        </div>
+
+        <div id="map" style="flex: 2; height: 500px; border: 1px solid #ddd; border-radius: 5px;"></div>
+    </section>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+
+    <script>
+        let map;
+        let userMarker;
+        let centerMarkers = [];
+        let routingControls = [];
+        let routesProcessed = 0;
+        let totalCenters = 0;
+
+        // Mock data - replace with your API
+        const mockHealthCenters = [
+            { Id: 1, Name: "Central Hospital", Road: "Main Street", District: "Dhaka", Lat: 23.7465, Lng: 90.3760, DistanceKm: 2.5 },
+            { Id: 2, Name: "City Medical Center", Road: "Green Road", District: "Dhaka", Lat: 23.7515, Lng: 90.3710, DistanceKm: 1.8 },
+            { Id: 3, Name: "Metro Healthcare", Road: "Dhanmondi Road", District: "Dhaka", Lat: 23.7420, Lng: 90.3800, DistanceKm: 3.2 }
+        ];
+
+        function showStatus(message) {
+            const statusMsg = document.getElementById("statusMsg");
+            statusMsg.textContent = message;
+            statusMsg.style.display = "block";
+        }
+
+        function hideStatus() {
+            document.getElementById("statusMsg").style.display = "none";
+        }
+
+        function showError(message) {
+            const errorMsg = document.getElementById("errorMsg");
+            errorMsg.textContent = message;
+            errorMsg.style.display = "block";
+            setTimeout(() => {
+                errorMsg.style.display = "none";
+            }, 5000);
+        }
+
+        function clearMapElements() {
+            // Clear status
+            hideStatus();
+
+            // Remove existing center markers
+            centerMarkers.forEach(marker => {
+                if (map && map.hasLayer(marker)) {
+                    map.removeLayer(marker);
+                }
+            });
+            centerMarkers = [];
+
+            // Remove existing routing controls
+            routingControls.forEach(control => {
+                try {
+                    if (map && control && control.getPlan) {
+                        map.removeControl(control);
+                    }
+                } catch (e) {
+                    console.warn('Error removing control:', e);
+                }
+            });
+            routingControls = [];
+
+            // Clear the center list
+            document.getElementById("centerList").innerHTML = "";
+
+            // Reset counters
+            routesProcessed = 0;
+            totalCenters = 0;
+        }
+
+        function initializeMap(userLat, userLng) {
+            try {
+                if (!map) {
+                    map = L.map('map').setView([userLat, userLng], 13);
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        maxZoom: 19,
+                        attribution: '© OpenStreetMap contributors'
+                    }).addTo(map);
+                } else {
+                    map.setView([userLat, userLng], 13);
+                }
+
+                // Remove existing user marker if it exists
+                if (userMarker && map.hasLayer(userMarker)) {
+                    map.removeLayer(userMarker);
+                }
+
+                // Add user marker with custom icon
+                const userIcon = L.divIcon({
+                    html: '<div style="background-color: #ff4757; width: 20px; height: 20px; border-radius: 50%; border: 3px solid white; box-shadow: 0 0 10px rgba(0,0,0,0.3);"></div>',
+                    iconSize: [20, 20],
+                    className: 'user-location-marker'
+                });
+
+                userMarker = L.marker([userLat, userLng], { icon: userIcon }).addTo(map);
+                userMarker.bindPopup("📍 You are here").openPopup();
+
+                return true;
+            } catch (error) {
+                console.error('Error initializing map:', error);
+                showError('Failed to initialize map. Please refresh the page.');
+                return false;
+            }
+        }
+
+        async function saveUserLocation(lat, lng) {
+            try {
+                const response = await fetch('/UserDashboard/SetLocation', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ lat: lat, lng: lng })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to save location');
+                }
+
+                const result = await response.json();
+                console.log('Location saved:', result);
+                return true;
+            } catch (error) {
+                console.error('Error saving location:', error);
+                return true; // Continue even if save fails
+            }
+        }
+
+        async function getNearestCenters(lat, lng) {
+            try {
+                const response = await fetch('/UserDashboard/GetNearestCenters', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ lat: lat, lng: lng })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to get nearest centers');
+                }
+
+                const centers = await response.json();
+                return centers;
+            } catch (error) {
+                console.error('Error fetching centers:', error);
+                showStatus('Using demo data - API not available');
+                return mockHealthCenters;
+            }
+        }
+
+        function calculateStraightLineDistance(lat1, lng1, lat2, lng2) {
+            const R = 6371; // Earth's radius in km
+            const dLat = (lat2 - lat1) * Math.PI / 180;
+            const dLng = (lng2 - lng1) * Math.PI / 180;
+            const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                    Math.sin(dLng/2) * Math.sin(dLng/2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+            return R * c;
+        }
+
+        function addCenterToList(center, distance, duration, color, isRoute = true) {
+            const centerList = document.getElementById("centerList");
+            const li = document.createElement("li");
+            li.style.borderLeftColor = color;
+
+            const distanceText = isRoute ?
+                `${distance} km • ${duration} min` :
+                `${distance} km (straight line)`;
+
+            li.innerHTML = `
+                <div onclick="focusOnCenter(${center.Lat}, ${center.Lng})">
+                    <div class="center-name">${center.Name}</div>
+                    <div class="center-address">${center.Road}, ${center.District}</div>
+                    <div class="center-distance" style="color: ${color};">
+                        📍 ${distanceText}
+                    </div>
+                </div>
+            `;
+            centerList.appendChild(li);
+        }
+
+        function createRoute(userLat, userLng, center, index) {
+            const colors = ['#e74c3c', '#3498db', '#2ecc71', '#f39c12', '#9b59b6'];
+            const color = colors[index % colors.length];
+
+            // Always add to list first with straight-line distance as fallback
+            const straightDistance = calculateStraightLineDistance(userLat, userLng, center.Lat, center.Lng);
+            addCenterToList(center, straightDistance.toFixed(2), 'N/A', color, false);
+
+            // Try to create route if routing is available
+            if (typeof L !== 'undefined' && typeof L.Routing !== 'undefined') {
+                try {
+                    const routingControl = L.Routing.control({
+                        waypoints: [
+                            L.latLng(userLat, userLng),
+                            L.latLng(center.Lat, center.Lng)
+                        ],
+                        lineOptions: {
+                            styles: [{
+                                color: color,
+                                weight: 4,
+                                opacity: 0.8,
+                                dashArray: '10, 5'
+                            }]
+                        },
+                        createMarker: function() { return null; },
+                        addWaypoints: false,
+                        routeWhileDragging: false,
+                        show: false,
+                        fitSelectedRoutes: false
+                    });
+
+                    let routeFound = false;
+
+                    routingControl.on('routesfound', function(e) {
+                        if (routeFound) return; // Prevent duplicate processing
+                        routeFound = true;
+
+                        const route = e.routes[0];
+                        const distance = (route.summary.totalDistance / 1000).toFixed(2);
+                        const duration = Math.ceil(route.summary.totalTime / 60);
+
+                        console.log(`Route found for ${center.Name}: ${distance}km, ${duration}min`);
+
+                        // Update the center marker popup
+                        const marker = centerMarkers[index];
+                        if (marker) {
+                            marker.bindPopup(`
+                                <div style="min-width: 200px;">
+                                    <h4 style="margin: 0 0 5px 0; color: #2c3e50;">${center.Name}</h4>
+                                    <p style="margin: 0 0 5px 0; color: #7f8c8d;">${center.Road}, ${center.District}</p>
+                                    <div style="margin: 0; font-weight: bold; color: ${color};">
+                                        📍 ${distance} km<br>
+                                        🕒 ${duration} min drive
+                                    </div>
+                                </div>
+                            `);
+                        }
+
+                        // Replace the list item with route information
+                        const centerList = document.getElementById("centerList");
+                        const listItems = centerList.children;
+                        if (listItems[index]) {
+                            const li = listItems[index];
+                            li.style.borderLeftColor = color;
+                            li.innerHTML = `
+                                <div onclick="focusOnCenter(${center.Lat}, ${center.Lng})">
+                                    <div class="center-name">${center.Name}</div>
+                                    <div class="center-address">${center.Road}, ${center.District}</div>
+                                    <div class="center-distance" style="color: ${color};">
+                                        📍 ${distance} km • 🕒 ${duration} min
+                                    </div>
+                                </div>
+                            `;
+                        }
+
+                        routesProcessed++;
+                        updateRouteStatus();
+                    });
+
+                    routingControl.on('routingerror', function(e) {
+                        console.warn('Routing error for', center.Name, ':', e.error);
+                        routesProcessed++;
+                        updateRouteStatus();
+                    });
+
+                    // Add timeout for route calculation
+                    setTimeout(() => {
+                        if (!routeFound) {
+                            console.warn('Route calculation timeout for', center.Name);
+                            routesProcessed++;
+                            updateRouteStatus();
+                        }
+                    }, 10000); // 10 second timeout
+
+                    routingControl.addTo(map);
+                    routingControls.push(routingControl);
+
+                } catch (error) {
+                    console.error('Error creating route for', center.Name, ':', error);
+                    routesProcessed++;
+                    updateRouteStatus();
+                }
+            } else {
+                console.warn('Routing machine not available');
+                routesProcessed++;
+                updateRouteStatus();
+            }
+        }
+
+        function updateRouteStatus() {
+            if (routesProcessed >= totalCenters) {
+                hideStatus();
+                console.log('All routes processed');
+            }
+        }
+
+        function focusOnCenter(lat, lng) {
+            if (map) {
+                map.setView([lat, lng], 16);
+                // Find and open the popup for this center
+                centerMarkers.forEach(marker => {
+                    const markerPos = marker.getLatLng();
+                    if (Math.abs(markerPos.lat - lat) < 0.001 && Math.abs(markerPos.lng - lng) < 0.001) {
+                        marker.openPopup();
+                    }
+                });
+            }
+        }
+
+        async function findNearestCenters(userLat, userLng) {
+            const loadingMsg = document.getElementById("loadingMsg");
+            const findBtn = document.getElementById("findNearestBtn");
+
+            try {
+                loadingMsg.style.display = "block";
+                findBtn.disabled = true;
+                findBtn.textContent = "Finding...";
+
+                // Clear previous results
+                clearMapElements();
+
+                // Initialize map
+                const mapInitialized = initializeMap(userLat, userLng);
+                if (!mapInitialized) {
+                    throw new Error('Failed to initialize map');
+                }
+
+                // Save user location
+                await saveUserLocation(userLat, userLng);
+
+                // Get nearest centers
+                const centers = await getNearestCenters(userLat, userLng);
+
+                if (!centers || centers.length === 0) {
+                    showError("No healthcare centers found in your area.");
+                    return;
+                }
+
+                totalCenters = centers.length;
+                routesProcessed = 0;
+
+                console.log(`Found ${centers.length} healthcare centers`);
+                showStatus(`Processing ${centers.length} healthcare centers...`);
+
+                // Add center markers first
+                centers.forEach((center, index) => {
+                    // Handle both uppercase and lowercase property names
+                    const lat = center.Lat || center.lat;
+                    const lng = center.Lng || center.lng;
+                    const name = center.Name || center.name;
+                    const road = center.Road || center.road;
+                    const district = center.District || center.district;
+
+                    // Validate coordinates
+                    if (lat == null || lng == null || isNaN(lat) || isNaN(lng)) {
+                        console.warn("Skipping center with invalid coordinates:", center);
+                        totalCenters--;
+                        return;
+                    }
+
+                    // Normalize center object
+                    const normalizedCenter = {
+                        Id: center.Id || center.id,
+                        Name: name,
+                        Road: road,
+                        District: district,
+                        Lat: lat,
+                        Lng: lng,
+                        DistanceKm: center.DistanceKm || center.distanceKm
+                    };
+
+                    try {
+                        // Create custom icon for healthcare centers
+                        const centerIcon = L.divIcon({
+                            html: `<div style="background-color: #2ecc71; width: 15px; height: 15px; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 6px rgba(0,0,0,0.3);"></div>`,
+                            iconSize: [15, 15],
+                            className: 'center-marker'
+                        });
+
+                        const marker = L.marker([lat, lng], { icon: centerIcon }).addTo(map);
+                        marker.bindPopup(`
+                            <div>
+                                <h4 style="margin: 0 0 5px 0; color: #2c3e50;">${name}</h4>
+                                <p style="margin: 0; color: #7f8c8d;">${road}, ${district}</p>
+                            </div>
+                        `);
+                        centerMarkers.push(marker);
+
+                        console.log(`Added marker for ${name} at [${lat}, ${lng}]`);
+                    } catch (error) {
+                        console.error('Error creating marker for', name, ':', error);
+                        totalCenters--;
+                    }
+                });
+
+                // Create routes with staggered timing
+                centers.forEach((center, index) => {
+                    const lat = center.Lat || center.lat;
+                    const lng = center.Lng || center.lng;
+
+                    if (lat != null && lng != null && !isNaN(lat) && !isNaN(lng)) {
+                        // Normalize center object for route creation
+                        const normalizedCenter = {
+                            Id: center.Id || center.id,
+                            Name: center.Name || center.name,
+                            Road: center.Road || center.road,
+                            District: center.District || center.district,
+                            Lat: lat,
+                            Lng: lng,
+                            DistanceKm: center.DistanceKm || center.distanceKm
+                        };
+
+                        setTimeout(() => {
+                            createRoute(userLat, userLng, normalizedCenter, index);
+                        }, index * 1000); // 1 second delay between each route
+                    }
+                });
+
+                // Auto-hide loading after a reasonable time
+                setTimeout(() => {
+                    loadingMsg.style.display = "none";
+                    if (routesProcessed < totalCenters) {
+                        showStatus(`${routesProcessed}/${totalCenters} routes calculated`);
+                    }
+                }, 3000);
+
+            } catch (error) {
+                console.error('Error finding nearest centers:', error);
+                showError('Error finding healthcare centers. Please try again.');
+            } finally {
+                setTimeout(() => {
+                    loadingMsg.style.display = "none";
+                    findBtn.disabled = false;
+                    findBtn.textContent = "📍 Find Nearest Centers";
+                }, 2000);
+            }
+        }
+
+        // Initialize when page loads
+        window.addEventListener('load', function() {
+            console.log('Page loaded, checking for Leaflet...');
+
+            let attempts = 0;
+            const maxAttempts = 20;
+
+            function checkLibraries() {
+                attempts++;
+                console.log(`Checking libraries... attempt ${attempts}`);
+
+                if (typeof L !== 'undefined') {
+                    console.log('✅ Leaflet is loaded!');
+
+                    // Check if routing machine is also loaded
+                    if (typeof L.Routing !== 'undefined') {
+                        console.log('✅ Routing machine is loaded!');
+                    } else {
+                        console.log('⚠️ Routing machine not available, routes will show as straight lines');
+                    }
+
+                    setupEventListeners();
+                    return;
+                }
+
+                if (attempts >= maxAttempts) {
+                    console.error('❌ Libraries failed to load after', maxAttempts, 'attempts');
+                    showError('Map libraries failed to load. Please refresh the page.');
+                    // Still setup listeners for basic functionality
+                    setupEventListeners();
+                    return;
+                }
+
+                setTimeout(checkLibraries, 500);
+            }
+
+            function setupEventListeners() {
+                const findBtn = document.getElementById("findNearestBtn");
+                findBtn.addEventListener("click", function() {
+                    if (typeof L === 'undefined') {
+                        alert("Map libraries are not loaded. Please refresh the page.");
+                        return;
+                    }
+
+                    if (!navigator.geolocation) {
+                        alert("Geolocation is not supported by this browser.");
+                        return;
+                    }
+
+                    console.log('🔍 Getting user location...');
+
+                    navigator.geolocation.getCurrentPosition(
+                        function(position) {
+                            const userLat = position.coords.latitude;
+                            const userLng = position.coords.longitude;
+                            console.log(`📍 User location: [${userLat}, ${userLng}]`);
+                            findNearestCenters(userLat, userLng);
+                        },
+                        function(error) {
+                            let errorMsg = "Unable to get your location. ";
+                            switch(error.code) {
+                                case error.PERMISSION_DENIED:
+                                    errorMsg += "Please allow location access.";
+                                    break;
+                                case error.POSITION_UNAVAILABLE:
+                                    errorMsg += "Location unavailable.";
+                                    break;
+                                case error.TIMEOUT:
+                                    errorMsg += "Location request timed out.";
+                                    break;
+                                default:
+                                    errorMsg += "Unknown error occurred.";
+                            }
+                            console.error('Geolocation error:', error);
+                            alert(errorMsg);
+                        },
+                        {
+                            enableHighAccuracy: true,
+                            timeout: 15000,
+                            maximumAge: 300000
+                        }
+                    );
+                });
+
+                console.log('🎯 Event listeners setup complete');
+            }
+
+            // Start the library check
+            checkLibraries();
+        });
+    </script>
+</body>
+</html>

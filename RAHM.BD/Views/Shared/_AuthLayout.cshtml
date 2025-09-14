@@ -1,0 +1,67 @@
+﻿@{
+    Layout = null;
+    var title = ViewData["Title"] as string ?? "RAHMBD";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@title - RAHMBD</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <style>
+        /* Make the background cover the full page */
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 80%;
+            background: #201e30; /* fallback */
+        }
+
+        .finisher-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh; /* full screen */
+            z-index: 0; /* behind content */
+        }
+
+        main {
+            position: relative;
+            z-index: 2; /* keeps form above animation */
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="finisher-header"></div>
+   
+    @RenderBody()
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+    <script src="~/js/finisher-header.es5.min.js"></script>
+    <script>
+        new FinisherHeader({
+            "count": 100,
+            "size": { "min": 2, "max": 18, "pulse": 0 },
+            "speed": {
+                "x": { "min": 0, "max": 0.4 },
+                "y": { "min": 0, "max": 0.6 }
+            },
+            "colors": {
+                "background": "#201e30", /* this sets full page bg */
+                "particles": ["#fbfcca", "#d7f3fe", "#ffd0a7"]
+            },
+            "blending": "overlay",
+            "opacity": { "center": 1, "edge": 0 },
+            "skew": -2,
+            "shapes": ["c"]
+        });
+    </script>
+</body>
+</html>

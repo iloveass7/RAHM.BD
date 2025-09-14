@@ -1,0 +1,161 @@
+﻿@{
+    Layout = null; // this is a layout, not a view
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"] - Admin Panel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="admin-wrapper">
+        <!-- Sidebar (blue design you wanted) -->
+        <aside class="sidebar">
+            <h2 class="brand">Admin Panel</h2>
+            <ul class="menu">
+                <li>
+                    <a asp-controller="Admin" asp-action="Index"
+                       class="nav-link @(ViewData["Title"] == "Admin Dashboard" ? "active" : "")">📊 Dashboard</a>
+                </li>
+                <li>
+                    <a asp-controller="Admin" asp-action="Users"
+                       class="nav-link @(ViewData["Title"] == "View Users" ? "active" : "")">👥 View Users</a>
+                </li>
+                <li>
+                    <a asp-controller="Admin" asp-action="Vaccine"
+                       class="nav-link @(ViewData["Title"] == "Vaccine Management" ? "active" : "")">💉 Vaccine</a>
+                </li>
+                <li>
+                    <a asp-controller="Admin" asp-action="SendSms"
+                       class="nav-link @(ViewData["Title"] == "Send SMS" ? "active" : "")">📩 Send SMS</a>
+                </li>
+                <li>
+                    <a asp-controller="Admin" asp-action="SendMail"
+                       class="nav-link @(ViewData["Title"] == "Send Mail" ? "active" : "")">✉️ Send Mail</a>
+                </li>
+                <li>
+                    <a asp-controller="Admin" asp-action="UploadContent"
+                       class="nav-link @(ViewData["Title"] == "Upload Content" ? "active" : "")">📰 Upload Content</a>
+                </li>
+                <li>
+                    <a asp-controller="Admin" asp-action="HealthcareCenter"
+                       class="nav-link @(ViewData["Title"] == "Healthcare Centers" ? "active" : "")">🏥 Healthcare Centers</a>
+                </li>
+                <li>
+                    <a asp-controller="Admin" asp-action="Medicine"
+                       class="nav-link @(ViewData["Title"] == "Medicine Management" ? "active" : "")">💊 Medicine</a>
+                </li>
+                <li>
+                    <a asp-controller="Admin" asp-action="Disease"
+                       class="nav-link @(ViewData["Title"] == "Disease Management" ? "active" : "")">🦠 Disease</a>
+                </li>
+            </ul>
+
+            <div class="logout">
+                <a href="/Account/Logout">↪ Logout</a>
+            </div>
+        </aside>
+
+        <!-- REQUIRED: this is where each page renders -->
+        <main class="content">
+            @RenderBody()
+        </main>
+    </div>
+    <div class="toast-container"></div>
+
+    <!-- Toast Notification System -->
+    <script>
+        class ToastManager {
+            constructor() {
+                this.container = this.createContainer();
+                this.init();
+            }
+
+            createContainer() {
+                let container = document.querySelector('.toast-container');
+                if (!container) {
+                    container = document.createElement('div');
+                    container.className = 'toast-container';
+                    document.body.appendChild(container);
+                }
+                return container;
+            }
+
+            init() {
+                this.checkForMessages();
+            }
+
+            checkForMessages() {
+                const tempDataMessage = document.querySelector('.alert-success');
+                if (tempDataMessage) {
+                    const message = tempDataMessage.textContent.trim();
+                    this.show(message, 'success');
+                }
+            }
+
+            show(message, type = 'success', duration = 2000) {
+                const toast = this.createToast(message, type);
+                this.container.appendChild(toast);
+
+                setTimeout(() => {
+                    toast.classList.add('show');
+                }, 10);
+
+                setTimeout(() => {
+                    this.hide(toast);
+                }, duration);
+
+                return toast;
+            }
+
+            createToast(message, type) {
+                const toast = document.createElement('div');
+                toast.className = `toast-notification toast-${type}`;
+
+                const icons = {
+                    success: '✓',
+                    error: '✕',
+                    warning: '⚠',
+                    info: 'ℹ'
+                };
+
+                toast.innerHTML = `
+                    <div class="toast-content">
+                        <div class="toast-icon">${icons[type] || icons.success}</div>
+                        <div class="toast-message">${message}</div>
+                        <button class="toast-close" onclick="toastManager.hide(this.closest('.toast-notification'))">&times;</button>
+                    </div>
+                `;
+
+                return toast;
+            }
+
+            hide(toast) {
+                toast.classList.remove('show');
+                toast.classList.add('hide');
+
+                setTimeout(() => {
+                    if (toast.parentNode) {
+                        toast.parentNode.removeChild(toast);
+                    }
+                }, 300);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            window.toastManager = new ToastManager();
+        });
+
+        function showToast(message, type = 'success', duration = 2000) {
+            if (window.toastManager) {
+                window.toastManager.show(message, type, duration);
+            }
+        }
+    </script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

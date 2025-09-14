@@ -1,0 +1,63 @@
+﻿@model RAHM.BD.Models.User
+@{
+    ViewData["Title"] = "User Dashboard";
+    
+}
+
+<div class="user-dashboard container">
+    <h2>User Dashboard</h2>
+
+    <div class="user-profile">
+        <img src="~/images/user.png" alt="User Avatar" class="profile-pic" />
+
+        <div class="profile-info">
+            <h3>@Model.Name</h3>
+            <p>Email: @Model.Email</p>
+            <p>Phone: @Model.MobileNo</p>
+
+            <div class="profile-actions">
+                <!-- Redirects to UserDashboard/Edit/{id} -->
+                <a asp-controller="UserDashboard" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit Profile</a>
+
+                <!-- Logout goes to Home/Logout -->
+                <a asp-controller="Account" asp-action="Logout" class="btn btn-outline">↪ Logout</a>
+            </div>
+        </div>
+    </div>
+    <button id="setLocationBtn" class="btn btn-primary">📍 Set Location</button>
+
+    <script>
+        document.getElementById("setLocationBtn").addEventListener("click", function () {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    function (position) {
+                        const lat = position.coords.latitude;
+                        const lng = position.coords.longitude;
+
+                        fetch('/UserDashboard/SetLocation', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ lat: lat, lng: lng })
+                        })
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.success) {
+                                alert("Location saved successfully!");
+                            } else {
+                                alert("Failed to save location.");
+                            }
+                        })
+                        .catch(err => alert("Error: " + err));
+                    },
+                    function (error) {
+                        alert("Unable to get location. Please allow location access.");
+                    },
+                    { enableHighAccuracy: true }
+                );
+            } else {
+                alert("Geolocation is not supported by your browser.");
+            }
+        });
+    </script>
+
+</div>
