@@ -3,7 +3,10 @@
     Layout = "~/Views/Shared/_Layout.Dashboard.cshtml";
     ViewData["Title"] = "Admin Dashboard";
 }
-
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success">@TempData["Message"]</div>
+}
 <style>
     .dashboard-container {
         padding: 20px;
@@ -313,28 +316,7 @@
     </div>
 
 
-    <!-- Quick Actions -->
-    <div class="row mt-4">
-        <div class="col-12">
-            <div class="chart-container">
-                <h4><i class="fas fa-tools"></i> Quick Actions</h4>
-                <div class="quick-actions-grid">
-                    <a href="/Admin/VaccinationLogs" class="btn btn-outline-primary quick-action-btn">
-                        <i class="fas fa-list me-2"></i> View All Vaccinations
-                    </a>
-                    <a href="/Admin/VaccineManagement" class="btn btn-outline-success quick-action-btn">
-                        <i class="fas fa-vial me-2"></i> Manage Vaccines
-                    </a>
-                    <a href="/Admin/UserManagement" class="btn btn-outline-info quick-action-btn">
-                        <i class="fas fa-users me-2"></i> Manage Users
-                    </a>
-                    <a href="/Admin/Reports" class="btn btn-outline-warning quick-action-btn">
-                        <i class="fas fa-chart-bar me-2"></i> Generate Reports
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
+  
 
 
 </div>

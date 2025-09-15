@@ -489,10 +489,10 @@ main {
     width: min(900px, 92%);
     margin: auto;
     padding: 24px;
-    background: rgba(255,255,255, .2);
+    background: white;
     border: 1px solid rgba(255,255,255, .35);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    
+    
     border-radius: 18px;
     box-shadow: 0 16px 40px rgba(0,0,0,.16);
 }
@@ -505,12 +505,14 @@ main {
 }
 
 .field {
+    color: black;
     display: flex;
     flex-direction: column;
     gap: 6px;
 }
 
     .field input {
+        color: black;
         padding: 12px 14px;
         border-radius: 12px;
         border: 1px solid #e5e7eb;
@@ -1140,20 +1142,48 @@ main {
     z-index: -1; /* behind your form */
 }
 
-.glass,
-.glass h1,
-.glass p,
-.glass label,
-.glass input,
-.glass a {
-    color: #fff !important;
+.glass {
+    
+    background: white;
+    color: var(--ink) !important; 
 }
 
-    .glass input {
-        background: rgba(255,255,255,0.1);
-        color: #fff;
+    /* headings, labels, paragraphs, links inside card  */
+    .glass h1,
+    .glass p,
+    .glass label,
+    .glass a {
+        color: var(--ink) !important;
     }
 
-        .glass input::placeholder {
-            color: rgba(255,255,255,0.7);
+    /* inputs / selects / textareas —  */
+    .glass input,
+    .glass textarea,
+    .glass select {
+        color: var(--ink) !important;
+        background: #fff; 
+        caret-color: var(--ink);
+    }
+
+        
+        .glass input::placeholder,
+        .glass textarea::placeholder {
+            color: var(--muted);
+            opacity: 1; 
         }
+
+/* ensure .field (your form wrapper) remains consistent */
+.field,
+.field label,
+.field input {
+    color: var(--ink) !important;
+}
+
+/* Chrome autofill fix: force text color and restore white background */
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+    -webkit-text-fill-color: var(--ink) !important;
+    -webkit-box-shadow: 0 0 0 1000px #fff inset !important; 
+    box-shadow: 0 0 0 1000px #fff inset !important;
+}
