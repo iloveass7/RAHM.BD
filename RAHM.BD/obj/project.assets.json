@@ -3699,11 +3699,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\SD32\\RAHM.BD\\RAHM.BD.csproj",
+      "projectUniqueName": "E:\\SD32\\RAHM.BD\\RAHM.BD.csproj",
       "projectName": "RAHMBD",
-      "projectPath": "D:\\SD32\\RAHM.BD\\RAHM.BD.csproj",
+      "projectPath": "E:\\SD32\\RAHM.BD\\RAHM.BD.csproj",
       "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "D:\\SD32\\RAHM.BD\\obj\\",
+      "outputPath": "E:\\SD32\\RAHM.BD\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
