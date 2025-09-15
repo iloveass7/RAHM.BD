@@ -1,22 +1,568 @@
-﻿@{
+﻿@* Views/Admin/SendMail.cshtml *@
+@{
     Layout = "~/Views/Shared/_Layout.Dashboard.cshtml";
-    ViewData["Title"] = "Send Mail";
+    ViewData["Title"] = "Send Email";
 }
 
-<h2>Send Mail</h2>
+<style>
+    .messaging-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+    }
 
-<form class="form">
-    <label>Choose District:</label>
-    <select>
-        <option>Dhaka</option>
-        <option>Chittagong</option>
-    </select>
+    .page-header {
+        text-align: center;
+        margin-bottom: 40px;
+        padding: 30px 0;
+        background: linear-gradient(135deg, #001f54 0%, #00153a 100%);
+        border-radius: 15px;
+        color: white;
+        box-shadow: 0 8px 25px rgba(0, 31, 84, 0.3);
+    }
 
-    <label>Subject:</label>
-    <input type="text" />
+        .page-header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 600;
+        }
 
-    <label>Message:</label>
-    <textarea></textarea>
+        .page-header p {
+            margin: 10px 0 0 0;
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
 
-    <button type="submit" class="btn">Send Mail</button>
-</form>
+    .modern-card {
+        background: white;
+        border-radius: 20px;
+        padding: 40px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        margin-bottom: 30px;
+    }
+
+    .alert-modern {
+        border: none;
+        border-radius: 12px;
+        padding: 15px 20px;
+        margin-bottom: 25px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .alert-success {
+        background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        color: white;
+    }
+
+    .alert-danger {
+        background: linear-gradient(135deg, #ff5f6d 0%, #ffc371 100%);
+        color: white;
+    }
+
+    .form-section {
+        margin-bottom: 35px;
+        padding-bottom: 30px;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+        .form-section:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+    .section-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+        .section-title i {
+            color: #001f54;
+        }
+
+    .radio-group {
+        display: grid;
+        gap: 15px;
+    }
+
+    .radio-option {
+        position: relative;
+        cursor: pointer;
+    }
+
+        .radio-option input[type="radio"] {
+            display: none;
+        }
+
+        .radio-option label {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            color: #495057;
+        }
+
+        .radio-option input[type="radio"]:checked + label {
+            background: linear-gradient(135deg, #001f54 0%, #00153a 100%);
+            border-color: #001f54;
+            color: white !important;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 31, 84, 0.3);
+        }
+
+        .radio-option label::before {
+            content: '';
+            width: 20px;
+            height: 20px;
+            border: 2px solid #dee2e6;
+            border-radius: 50%;
+            margin-right: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .radio-option input[type="radio"]:checked + label::before {
+            background: white;
+            border-color: white;
+            box-shadow: inset 0 0 0 4px #001f54;
+        }
+
+    .dropdown-section {
+        background: #f8f9fa;
+        border-radius: 12px;
+        padding: 20px;
+        margin-top: 20px;
+        border-left: 4px solid #001f54;
+        animation: slideIn 0.3s ease;
+    }
+
+    .modern-select, .modern-input {
+        width: 100%;
+        padding: 14px 18px;
+        border: 2px solid #e9ecef;
+        border-radius: 10px;
+        font-size: 1rem;
+        background: white;
+        transition: all 0.3s ease;
+    }
+
+        .modern-select:focus, .modern-input:focus {
+            outline: none;
+            border-color: #001f54;
+            box-shadow: 0 0 0 3px rgba(0, 31, 84, 0.1);
+        }
+
+    .modern-textarea {
+        width: 100%;
+        padding: 18px;
+        border: 2px solid #e9ecef;
+        border-radius: 12px;
+        font-size: 1rem;
+        font-family: inherit;
+        resize: vertical;
+        min-height: 160px;
+        transition: all 0.3s ease;
+        line-height: 1.6;
+    }
+
+        .modern-textarea:focus {
+            outline: none;
+            border-color: #001f54;
+            box-shadow: 0 0 0 3px rgba(0, 31, 84, 0.1);
+        }
+
+    .input-with-icon {
+        position: relative;
+    }
+
+    .input-icon {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #6c757d;
+        z-index: 1;
+    }
+
+    .modern-input.with-icon {
+        padding-left: 45px;
+    }
+
+    .action-buttons {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        margin-top: 40px;
+        padding-top: 30px;
+        border-top: 1px solid #f0f0f0;
+    }
+
+    .btn-modern {
+        padding: 16px 32px;
+        border: none;
+        border-radius: 50px;
+        font-size: 1rem;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        min-width: 150px;
+        justify-content: center;
+    }
+
+    .btn-primary-modern {
+        background: linear-gradient(135deg, #001f54 0%, #00153a 100%);
+        color: white;
+        box-shadow: 0 6px 20px rgba(0, 31, 84, 0.4);
+    }
+
+        .btn-primary-modern:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 31, 84, 0.5);
+            color: white;
+            text-decoration: none;
+        }
+
+    .btn-secondary-modern {
+        background: #f8f9fa;
+        color: #6c757d;
+        border: 2px solid #e9ecef;
+    }
+
+        .btn-secondary-modern:hover {
+            background: #e9ecef;
+            color: #495057;
+            text-decoration: none;
+            transform: translateY(-2px);
+        }
+
+    .form-label-modern {
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 12px;
+        display: block;
+        font-size: 1rem;
+    }
+
+    .icon-wrapper {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background: rgba(0, 31, 84, 0.1);
+        border-radius: 10px;
+        margin-right: 12px;
+    }
+
+    .email-preview {
+        background: white;
+        border: 2px solid #e9ecef;
+        border-radius: 12px;
+        margin-top: 20px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .email-header {
+        background: linear-gradient(135deg, #001f54 0%, #00153a 100%);
+        color: white;
+        padding: 15px 20px;
+        font-size: 0.9rem;
+    }
+
+    .email-subject {
+        background: #f8f9fa;
+        padding: 12px 20px;
+        border-bottom: 1px solid #e9ecef;
+        font-weight: 600;
+        color: #495057;
+    }
+
+    .email-body {
+        padding: 20px;
+        min-height: 100px;
+        color: #495057;
+        line-height: 1.6;
+        white-space: pre-wrap;
+    }
+
+    .word-count {
+        text-align: right;
+        padding: 10px 20px;
+        background: #f8f9fa;
+        border-top: 1px solid #e9ecef;
+        font-size: 0.85rem;
+        color: #6c757d;
+    }
+
+    .toolbar {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 15px;
+        padding: 12px;
+        background: #f8f9fa;
+        border-radius: 8px;
+        flex-wrap: wrap;
+    }
+
+    .toolbar-btn {
+        padding: 6px 12px;
+        background: white;
+        border: 1px solid #dee2e6;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        font-size: 0.85rem;
+    }
+
+        .toolbar-btn:hover {
+            background: #001f54;
+            color: white;
+            border-color: #001f54;
+        }
+</style>
+
+
+<div class="messaging-container">
+    <div class="page-header">
+        <h1><i class="fas fa-envelope"></i> Email Campaign</h1>
+        <p>Reach your users with detailed updates and announcements</p>
+    </div>
+
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert alert-success alert-modern alert-dismissible fade show" role="alert">
+            <i class="fas fa-check-circle me-2"></i>
+            @TempData["Message"]
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger alert-modern alert-dismissible fade show" role="alert">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            @TempData["Error"]
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <form method="post" class="modern-card">
+        <div class="form-section">
+            <div class="section-title">
+                <i class="fas fa-users"></i>
+                Target Audience
+            </div>
+            <div class="radio-group">
+                <div class="radio-option">
+                    <input type="radio" id="all" name="targetType" value="all" checked>
+                    <label for="all">
+                        
+                        Send to All Users
+                    </label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" id="division" name="targetType" value="division">
+                    <label for="division">
+                        
+                        Send to Specific Division
+                    </label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" id="district" name="targetType" value="district">
+                    <label for="district">
+                      
+                        Send to Specific District
+                    </label>
+                </div>
+            </div>
+
+            <div class="dropdown-section" id="divisionSection" style="display: none;">
+                <label for="divisionSelect" class="form-label-modern">Choose Division:</label>
+                <select name="division" id="divisionSelect" class="modern-select">
+                    <option value="">Select Division</option>
+                    @foreach (var div in ViewBag.Divisions ?? Enumerable.Empty<string>())
+                    {
+                        <option value="@div">@div</option>
+                    }
+                </select>
+            </div>
+
+            <div class="dropdown-section" id="districtSection" style="display: none;">
+                <label for="districtSelect" class="form-label-modern">Choose District:</label>
+                <select name="district" id="districtSelect" class="modern-select">
+                    <option value="">Select District</option>
+                    @foreach (var dist in ViewBag.Districts ?? Enumerable.Empty<string>())
+                    {
+                        <option value="@dist">@dist</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <div class="section-title">
+                <i class="fas fa-heading"></i>
+                Email Subject
+            </div>
+            <div class="input-with-icon">
+                <i class="fas fa-tag input-icon"></i>
+                <input type="text" name="subject" id="subject" class="modern-input with-icon" required
+                       placeholder="Enter a compelling subject line...">
+            </div>
+        </div>
+
+        <div class="form-section">
+            <div class="section-title">
+                <i class="fas fa-edit"></i>
+                Email Content
+            </div>
+
+            <div class="toolbar">
+                <button type="button" class="toolbar-btn" onclick="insertTemplate('greeting')">
+                    <i class="fas fa-hand-paper"></i> Greeting
+                </button>
+                <button type="button" class="toolbar-btn" onclick="insertTemplate('announcement')">
+                    <i class="fas fa-bullhorn"></i> Announcement
+                </button>
+                <button type="button" class="toolbar-btn" onclick="insertTemplate('reminder')">
+                    <i class="fas fa-clock"></i> Reminder
+                </button>
+                <button type="button" class="toolbar-btn" onclick="insertTemplate('signature')">
+                    <i class="fas fa-signature"></i> Signature
+                </button>
+            </div>
+
+            <label for="message" class="form-label-modern">Message Content:</label>
+            <textarea name="message" id="message" class="modern-textarea" required
+                      placeholder="Compose your email message here...
+
+Tips for effective emails:
+• Keep the message clear and concise
+• Use proper formatting for better readability
+• Include a clear call-to-action if needed
+• End with appropriate contact information"></textarea>
+
+            <div id="emailPreview" class="email-preview" style="display: none;">
+                <div class="email-header">
+                    <i class="fas fa-envelope"></i> Email Preview
+                </div>
+                <div class="email-subject" id="previewSubject">No subject</div>
+                <div class="email-body" id="previewBody">No content</div>
+                <div class="word-count">
+                    <span id="wordCount">0</span> words • <span id="charCount">0</span> characters
+                </div>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <button type="submit" class="btn-modern btn-primary-modern" onclick="return confirm('Are you sure you want to send this email to the selected audience?')">
+                <i class="fas fa-paper-plane"></i>
+                Send Email
+            </button>
+            <a href="@Url.Action("Index")" class="btn-modern btn-secondary-modern">
+                <i class="fas fa-times"></i>
+                Cancel
+            </a>
+        </div>
+    </form>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const targetTypeRadios = document.querySelectorAll('input[name="targetType"]');
+        const divisionSection = document.getElementById('divisionSection');
+        const districtSection = document.getElementById('districtSection');
+        const subjectInput = document.getElementById('subject');
+        const messageTextarea = document.getElementById('message');
+        const emailPreview = document.getElementById('emailPreview');
+        const previewSubject = document.getElementById('previewSubject');
+        const previewBody = document.getElementById('previewBody');
+        const wordCount = document.getElementById('wordCount');
+        const charCount = document.getElementById('charCount');
+
+        // Handle target type change with smooth transitions
+        targetTypeRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                // Hide all sections first
+                divisionSection.style.display = 'none';
+                districtSection.style.display = 'none';
+
+                // Show relevant section with animation
+                if (this.value === 'division') {
+                    setTimeout(() => divisionSection.style.display = 'block', 100);
+                } else if (this.value === 'district') {
+                    setTimeout(() => districtSection.style.display = 'block', 100);
+                }
+            });
+        });
+
+        // Update preview when content changes
+        function updatePreview() {
+            const subject = subjectInput.value.trim();
+            const message = messageTextarea.value.trim();
+
+            if (subject || message) {
+                previewSubject.textContent = subject || 'No subject';
+                previewBody.textContent = message || 'No content';
+
+                // Update counters
+                const words = message.split(/\s+/).filter(word => word.length > 0).length;
+                const chars = message.length;
+                wordCount.textContent = words;
+                charCount.textContent = chars;
+
+                emailPreview.style.display = 'block';
+            } else {
+                emailPreview.style.display = 'none';
+            }
+        }
+
+        // Event listeners for preview updates
+        subjectInput.addEventListener('input', updatePreview);
+        messageTextarea.addEventListener('input', updatePreview);
+
+        // Add loading state to submit button
+        document.querySelector('form').addEventListener('submit', function(e) {
+            const submitBtn = this.querySelector('.btn-primary-modern');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            submitBtn.disabled = true;
+        });
+    });
+
+    // Template insertion function
+    function insertTemplate(type) {
+        const textarea = document.getElementById('message');
+        const templates = {
+            greeting: "Dear Valued User,\n\nWe hope this message finds you well.\n\n",
+            announcement: "📢 IMPORTANT ANNOUNCEMENT\n\n[Your announcement here]\n\nThis is an important update regarding our services.\n\n",
+            reminder: "⏰ FRIENDLY REMINDER\n\nThis is a reminder about:\n• [Item 1]\n• [Item 2]\n• [Item 3]\n\nPlease take necessary action before the deadline.\n\n",
+            signature: "\n\nBest regards,\nVaccination Management System\nContact: [Your contact information]\nWebsite: [Your website]"
+        };
+
+        const cursorPos = textarea.selectionStart;
+        const textBefore = textarea.value.substring(0, cursorPos);
+        const textAfter = textarea.value.substring(textarea.selectionEnd);
+
+        textarea.value = textBefore + templates[type] + textAfter;
+        textarea.focus();
+        textarea.setSelectionRange(cursorPos + templates[type].length, cursorPos + templates[type].length);
+
+        // Trigger preview update
+        textarea.dispatchEvent(new Event('input'));
+    }
+</script>

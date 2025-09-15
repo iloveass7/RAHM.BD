@@ -460,3 +460,58 @@ h2.mb-3 {
 .alert {
     display: none !important;
 }
+
+@media (max-width: 768px) {
+    .messaging-container {
+        padding: 15px;
+    }
+
+    .modern-card {
+        padding: 25px;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+    }
+
+    .btn-modern {
+        width: 100%;
+    }
+
+    .toolbar {
+        gap: 5px;
+    }
+
+    .toolbar-btn {
+        font-size: 0.8rem;
+        padding: 5px 8px;
+    }
+
+}
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .messaging-container {
+        padding: 15px;
+    }
+
+    .modern-card {
+        padding: 25px;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+    }
+
+   
+}

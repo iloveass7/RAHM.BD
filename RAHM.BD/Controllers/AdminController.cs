@@ -1,16 +1,20 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using RAHM.BD.Models;
 using RAHM.BD.Services;
 using System.Collections.Generic;
-using Microsoft.Data.SqlClient;
+using System.Data;
 using System.Threading.Tasks;
+
 
 public class AdminController : Controller
 {
     private readonly IDb _db;
-    public AdminController(IDb db)
+    private readonly INotificationService _notificationService;
+    public AdminController(IDb db, INotificationService notificationService)
     {
         _db = db;
+        _notificationService = notificationService;
     }
 
     public IActionResult Login()
@@ -43,12 +47,11 @@ public class AdminController : Controller
     }
 
 
-    public IActionResult Index()
-    {
-        if (!IsAdminLoggedIn()) return RedirectToLogin();
-        ViewData["Title"] = "Admin Dashboard";
-        return View();
-    }
+    //public IActionResult Index()
+    //{
+    //    if (!IsAdminLoggedIn()) return RedirectToLogin();
+    //    return RedirectToAction("Dashboard");
+    //}
 
     //public IActionResult Users()
     //{
@@ -64,19 +67,19 @@ public class AdminController : Controller
     //    return View();
     //}
 
-    public IActionResult SendSms()
-    {
-        if (!IsAdminLoggedIn()) return RedirectToLogin();
-        ViewData["Title"] = "Send SMS";
-        return View();
-    }
+    //public IActionResult SendSms()
+    //{
+    //    if (!IsAdminLoggedIn()) return RedirectToLogin();
+    //    ViewData["Title"] = "Send SMS";
+    //    return View();
+    //}
 
-    public IActionResult SendMail()
-    {
-        if (!IsAdminLoggedIn()) return RedirectToLogin();
-        ViewData["Title"] = "Send Mail";
-        return View();
-    }
+    //public IActionResult SendMail()
+    //{
+    //    if (!IsAdminLoggedIn()) return RedirectToLogin();
+    //    ViewData["Title"] = "Send Mail";
+    //    return View();
+    //}
 
     public IActionResult UploadContent()
     {
@@ -359,7 +362,7 @@ public class AdminController : Controller
     // AJAX endpoint to get users by district
     public async Task<JsonResult> GetUsersByDistrict(string district)
     {
-        
+
         string sql = @"
         SELECT u.Id, u.Name
         FROM Users u
@@ -512,6 +515,388 @@ public class AdminController : Controller
 
         TempData["Message"] = "Vaccine added successfully!";
         return RedirectToAction("Vaccine");
+    }
+    ///////////eta neew
+    ///
+    // GET: /Admin/SendSms
+    public async Task<IActionResult> SendSms()
+    {
+        if (!IsAdminLoggedIn()) return RedirectToLogin();
+
+        // Get available districts and divisions for dropdown
+        await LoadLocationDataAsync();
+
+        ViewData["Title"] = "Send SMS";
+        return View();
+    }
+
+    // POST: /Admin/SendSms
+    [HttpPost]
+    public async Task<IActionResult> SendSms(string message, string targetType, string? division, string? district)
+    {
+        if (!IsAdminLoggedIn()) return RedirectToLogin();
+
+        if (string.IsNullOrWhiteSpace(message))
+        {
+            TempData["Error"] = "Message is required";
+            await LoadLocationDataAsync();
+            return View();
+        }
+
+        var request = new NotificationRequest
+        {
+            Message = message,
+            Channel = NotificationChannel.SMS,
+            SendToAll = targetType == "all",
+            Division = targetType == "division" ? division : null,
+            District = targetType == "district" ? district : null
+        };
+
+        var result = await _notificationService.SendBulkNotificationAsync(request);
+
+        if (result.IsSuccess)
+        {
+            TempData["Message"] = $"SMS sent successfully to {result.SuccessCount} users!";
+        }
+        else
+        {
+            TempData["Error"] = $"SMS partially sent: {result.SuccessCount} successful, {result.FailureCount} failed";
+        }
+
+        return RedirectToAction("SendSms");
+    }
+
+    // GET: /Admin/SendMail
+    public async Task<IActionResult> SendMail()
+    {
+        if (!IsAdminLoggedIn()) return RedirectToLogin();
+
+        await LoadLocationDataAsync();
+
+        ViewData["Title"] = "Send Mail";
+        return View();
+    }
+
+    // POST: /Admin/SendMail
+    [HttpPost]
+    public async Task<IActionResult> SendMail(string subject, string message, string targetType, string? division, string? district)
+    {
+        if (!IsAdminLoggedIn()) return RedirectToLogin();
+
+        if (string.IsNullOrWhiteSpace(subject) || string.IsNullOrWhiteSpace(message))
+        {
+            TempData["Error"] = "Subject and message are required";
+            await LoadLocationDataAsync();
+            return View();
+        }
+
+        var request = new NotificationRequest
+        {
+            Title = subject,
+            Message = message,
+            Channel = NotificationChannel.Email,
+            SendToAll = targetType == "all",
+            Division = targetType == "division" ? division : null,
+            District = targetType == "district" ? district : null
+        };
+
+        var result = await _notificationService.SendBulkNotificationAsync(request);
+
+        if (result.IsSuccess)
+        {
+            TempData["Message"] = $"Email sent successfully to {result.SuccessCount} users!";
+        }
+        else
+        {
+            TempData["Error"] = $"Email partially sent: {result.SuccessCount} successful, {result.FailureCount} failed";
+        }
+
+        return RedirectToAction("SendMail");
+    }
+
+    // GET: /Admin/SendNotification
+    public async Task<IActionResult> SendNotification()
+    {
+        if (!IsAdminLoggedIn()) return RedirectToLogin();
+
+        await LoadLocationDataAsync();
+
+        ViewData["Title"] = "Send Notification";
+        return View();
+    }
+
+    // POST: /Admin/SendNotification - Send both SMS and Email
+    [HttpPost]
+    public async Task<IActionResult> SendNotification(string subject, string message, string targetType, string? division, string? district)
+    {
+        if (!IsAdminLoggedIn()) return RedirectToLogin();
+
+        if (string.IsNullOrWhiteSpace(subject) || string.IsNullOrWhiteSpace(message))
+        {
+            TempData["Error"] = "Subject and message are required";
+            await LoadLocationDataAsync();
+            return View();
+        }
+
+        var request = new NotificationRequest
+        {
+            Title = subject,
+            Message = message,
+            Channel = NotificationChannel.Both,
+            SendToAll = targetType == "all",
+            Division = targetType == "division" ? division : null,
+            District = targetType == "district" ? district : null
+        };
+
+        var result = await _notificationService.SendBulkNotificationAsync(request);
+
+        if (result.IsSuccess)
+        {
+            TempData["Message"] = $"Notifications sent successfully to {result.SuccessCount} users!";
+        }
+        else
+        {
+            TempData["Error"] = $"Notifications partially sent: {result.SuccessCount} successful, {result.FailureCount} failed";
+        }
+
+        return RedirectToAction("SendNotification");
+    }
+
+    // Helper method to load districts and divisions
+    private async Task LoadLocationDataAsync()
+    {
+        var divisions = await _db.QueryAsync("SELECT DISTINCT Division FROM Locations WHERE Division IS NOT NULL AND Division != '' ORDER BY Division",
+            r => r.GetString(0));
+
+        var districts = await _db.QueryAsync("SELECT DISTINCT District FROM Locations WHERE District IS NOT NULL AND District != '' ORDER BY District",
+            r => r.GetString(0));
+
+        ViewBag.Divisions = divisions;
+        ViewBag.Districts = districts;
+    }
+
+    // AJAX endpoint to get districts by division
+    [HttpGet]
+    public async Task<JsonResult> GetDistrictsByDivision(string division)
+    {
+        var districts = await _db.QueryAsync(
+            "SELECT DISTINCT District FROM Locations WHERE Division = @Division AND District IS NOT NULL AND District != '' ORDER BY District",
+            r => r.GetString(0),
+            new SqlParameter("@Division", division));
+
+        return Json(districts);
+    }
+
+    // GET: /Admin/NotificationHistory
+    public async Task<IActionResult> NotificationHistory()
+    {
+        if (!IsAdminLoggedIn()) return RedirectToLogin();
+
+        // You can implement this to show notification history if needed
+        ViewData["Title"] = "Notification History";
+        return View();
+    }
+    [HttpGet]
+    public async Task<IActionResult> VaccinationLogs()
+    {
+        var logs = await _db.QueryAsync(
+            @"SELECT 
+            vl.Id,
+            u.Name as UserName,
+            u.Email as UserEmail,
+            u.MobileNo,
+            v.Name as VaccineName,
+            d.Name as DiseaseName,
+            hc.Name as HealthCenterName,
+            hc.District,
+            hc.Division,
+            vl.VaccinatedAt,
+            DATEDIFF(day, vl.VaccinatedAt, GETDATE()) as DaysAgo
+          FROM VaccinationLogs vl
+          INNER JOIN Users u ON vl.UserId = u.Id
+          INNER JOIN Vaccines v ON vl.VaccineId = v.Id
+          INNER JOIN Diseases d ON v.DiseaseId = d.Id
+          INNER JOIN HealthCenters hc ON vl.HealthCenterId = hc.Id
+          ORDER BY vl.VaccinatedAt DESC",
+            r => new
+            {
+                Id = r.GetInt32("Id"),
+                UserName = r.GetString("UserName"),
+                UserEmail = r.GetString("UserEmail"),
+                MobileNo = r.GetString("MobileNo"),
+                VaccineName = r.GetString("VaccineName"),
+                DiseaseName = r.GetString("DiseaseName"),
+                HealthCenterName = r.GetString("HealthCenterName"),
+                District = r.GetString("District"),
+                Division = r.GetString("Division"),
+                VaccinatedAt = r.GetDateTime("VaccinatedAt"),
+                DaysAgo = r.GetInt32("DaysAgo")
+            }
+        );
+
+        return View(logs);
+    }
+    public async Task<IActionResult> Index()
+    {
+        if (!IsAdminLoggedIn()) return RedirectToLogin();
+
+        try
+        {
+            // Basic counts
+            var totalUsers = await _db.QuerySingleAsync(
+                "SELECT COUNT(*) FROM Users",
+                r => r.GetInt32(0)
+            );
+
+            var totalVaccines = await _db.QuerySingleAsync(
+                "SELECT COUNT(*) FROM Vaccines",
+                r => r.GetInt32(0)
+            );
+
+            var totalHealthCenters = await _db.QuerySingleAsync(
+                "SELECT COUNT(*) FROM HealthCenters",
+                r => r.GetInt32(0)
+            );
+
+            var totalVaccinations = await _db.QuerySingleAsync(
+                "SELECT COUNT(*) FROM VaccinationLogs",
+                r => r.GetInt32(0)
+            );
+
+            var todayVaccinations = await _db.QuerySingleAsync(
+                "SELECT COUNT(*) FROM VaccinationLogs WHERE CAST(VaccinatedAt AS DATE) = CAST(GETDATE() AS DATE)",
+                r => r.GetInt32(0)
+            );
+
+            var outOfStockCount = await _db.QuerySingleAsync(
+                "SELECT COUNT(*) FROM VaccineInventories WHERE QuantityAvailable = 0",
+                r => r.GetInt32(0)
+            );
+
+            // Recent vaccination activities
+            var recentVaccinations = await _db.QueryAsync(
+                @"SELECT TOP 10 
+                u.Name as UserName, v.Name as VaccineName, 
+                hc.Name as CenterName, vl.VaccinatedAt,
+                d.Name as DiseaseName
+              FROM VaccinationLogs vl
+              JOIN Users u ON vl.UserId = u.Id
+              JOIN Vaccines v ON vl.VaccineId = v.Id
+              JOIN HealthCenters hc ON vl.HealthCenterId = hc.Id
+              JOIN Diseases d ON v.DiseaseId = d.Id
+              ORDER BY vl.VaccinatedAt DESC",
+                r => new
+                {
+                    UserName = r.GetString(0),
+                    VaccineName = r.GetString(1),
+                    CenterName = r.GetString(2),
+                    VaccinatedAt = r.GetDateTime(3),
+                    DiseaseName = r.GetString(4)
+                }
+            );
+
+            // Stock alerts (vaccines with low stock)
+            var lowStockAlerts = await _db.QueryAsync(
+                @"SELECT v.Name as VaccineName, hc.Name as CenterName, 
+                     vi.QuantityAvailable, d.Name as DiseaseName
+              FROM VaccineInventories vi
+              JOIN Vaccines v ON vi.VaccineId = v.Id
+              JOIN HealthCenters hc ON vi.HealthCenterId = hc.Id
+              JOIN Diseases d ON v.DiseaseId = d.Id
+              WHERE vi.QuantityAvailable <= 10 AND vi.QuantityAvailable > 0
+              ORDER BY vi.QuantityAvailable ASC",
+                r => new
+                {
+                    VaccineName = r.GetString(0),
+                    CenterName = r.GetString(1),
+                    QuantityAvailable = r.GetInt32(2),
+                    DiseaseName = r.GetString(3)
+                }
+            );
+
+            // Top vaccines by usage
+            var topVaccines = await _db.QueryAsync(
+                @"SELECT TOP 5 v.Name, d.Name as DiseaseName, COUNT(vl.Id) as TimesUsed
+              FROM VaccinationLogs vl
+              JOIN Vaccines v ON vl.VaccineId = v.Id
+              JOIN Diseases d ON v.DiseaseId = d.Id
+              GROUP BY v.Name, d.Name
+              ORDER BY TimesUsed DESC",
+                r => new
+                {
+                    VaccineName = r.GetString(0),
+                    DiseaseName = r.GetString(1),
+                    TimesUsed = r.GetInt32(2)
+                }
+            );
+
+            // Vaccination by region
+            var vaccinationsByRegion = await _db.QueryAsync(
+                @"SELECT hc.Division, COUNT(vl.Id) as VaccinationCount
+              FROM VaccinationLogs vl
+              JOIN HealthCenters hc ON vl.HealthCenterId = hc.Id
+              GROUP BY hc.Division
+              ORDER BY VaccinationCount DESC",
+                r => new
+                {
+                    Division = r.GetString(0),
+                    VaccinationCount = r.GetInt32(1)
+                }
+            );
+
+            // Daily vaccinations for the last 7 days
+            var dailyVaccinations = await _db.QueryAsync(
+                @"SELECT CAST(vl.VaccinatedAt AS DATE) as VaccinationDate, 
+                     COUNT(*) as DailyCount
+              FROM VaccinationLogs vl
+              WHERE vl.VaccinatedAt >= DATEADD(day, -7, GETDATE())
+              GROUP BY CAST(vl.VaccinatedAt AS DATE)
+              ORDER BY VaccinationDate DESC",
+                r => new
+                {
+                    VaccinationDate = r.GetDateTime(0),
+                    DailyCount = r.GetInt32(1)
+                }
+            );
+
+            // Create view model
+            var dashboardData = new
+            {
+                TotalUsers = totalUsers,
+                TotalVaccines = totalVaccines,
+                TotalHealthCenters = totalHealthCenters,
+                TotalVaccinations = totalVaccinations,
+                TodayVaccinations = todayVaccinations,
+                OutOfStockCount = outOfStockCount,
+                LowStockAlerts = lowStockAlerts,
+                RecentVaccinations = recentVaccinations,
+                VaccinationsByRegion = vaccinationsByRegion,
+                TopVaccines = topVaccines,
+                DailyVaccinations = dailyVaccinations
+            };
+
+            ViewData["Title"] = "Admin Dashboard";
+            return View(dashboardData);
+        }
+        catch (Exception ex)
+        {
+            // Log error
+            var emptyData = new
+            {
+                TotalUsers = 0,
+                TotalVaccines = 0,
+                TotalHealthCenters = 0,
+                TotalVaccinations = 0,
+                TodayVaccinations = 0,
+                OutOfStockCount = 0,
+                LowStockAlerts = new List<dynamic>(),
+                RecentVaccinations = new List<dynamic>(),
+                VaccinationsByRegion = new List<dynamic>(),
+                TopVaccines = new List<dynamic>(),
+                DailyVaccinations = new List<dynamic>()
+            };
+            return View(emptyData);
+        }
     }
 
 }

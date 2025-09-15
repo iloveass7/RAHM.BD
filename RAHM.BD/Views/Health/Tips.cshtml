@@ -1,180 +1,831 @@
 ﻿@{
-    ViewData["Title"] = "Health Tips";
+    ViewData["Title"] = "Health Tips & Symptom Checker";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<section class="page-section">
-    <h1 class="mb-4">🩺 Health Tips & Symptom Checker</h1>
-
-    <div class="alert alert-info mb-4">
-        <strong>💡 How to use:</strong>
-        <ul class="mb-0">
-            <li>Describe symptoms clearly (e.g., "headache", "chest pain", "skin rash")</li>
-            <li>Use common medical terms for better results</li>
-            <li>Results are based on FDA adverse event reports</li>
-        </ul>
-    </div>
-
-    <!-- Search bar -->
-    <div class="input-group mb-3">
-        <input type="text" id="symptomInput" class="form-control" placeholder="Enter symptoms (e.g., headache, nausea, rash)" value="headache">
-        <button class="btn btn-primary" id="checkBtn">
-            <span id="btnText">Search FDA Database</span>
-            <span id="btnSpinner" class="spinner-border spinner-border-sm" style="display: none;"></span>
-        </button>
-    </div>
-
-    <!-- Quick examples -->
-    <div class="mb-4">
-        <small class="text-muted">Try: </small>
-        <span class="badge bg-light text-dark me-1 cursor-pointer" onclick="setSymptom('headache')">headache</span>
-        <span class="badge bg-light text-dark me-1 cursor-pointer" onclick="setSymptom('nausea')">nausea</span>
-        <span class="badge bg-light text-dark me-1 cursor-pointer" onclick="setSymptom('rash')">rash</span>
-        <span class="badge bg-light text-dark me-1 cursor-pointer" onclick="setSymptom('fever')">fever</span>
-        <span class="badge bg-light text-dark me-1 cursor-pointer" onclick="setSymptom('chest pain')">chest pain</span>
-    </div>
-
-    <!-- Results -->
-    <div id="results" class="mt-4" style="display: none;">
-        <h4>📊 Conditions Associated with "<span id="searchedTerm"></span>"</h4>
-        <div class="alert alert-warning">
-            <small>⚠️ <strong>Important:</strong> This data comes from FDA adverse event reports and may not represent actual medical conditions. Always consult a healthcare professional for proper diagnosis.</small>
-        </div>
-        <div id="diagnosisList" class="list-group mt-3"></div>
-    </div>
-
-    <!-- Error message -->
-    <div id="errorMessage" class="alert alert-danger mt-3" style="display: none;"></div>
-
-    <!-- Data source info -->
-    <div class="mt-4 alert alert-secondary">
-        <small>🔍 <strong>Data Source:</strong> U.S. FDA Adverse Event Reporting System (FAERS). This tool searches reports of symptoms and associated conditions.</small>
-    </div>
-
-    <!-- General tips -->
-    <div class="mt-5">
-        <h4>💡 General Health Tips</h4>
-        <ul class="list-group">
-            <li class="list-group-item">✅ Always consult healthcare professionals for medical advice</li>
-            <li class="list-group-item">✅ Maintain regular health check-ups</li>
-            <li class="list-group-item">✅ Follow prescribed medications and treatments</li>
-            <li class="list-group-item">✅ Report any adverse effects to your doctor</li>
-        </ul>
-    </div>
-</section>
-
 <style>
-    .cursor-pointer {
-        cursor: pointer;
+    .health-container {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 20px;
     }
 
-        .cursor-pointer:hover {
-            background-color: #e9ecef !important;
+    .page-hero {
+        background: linear-gradient(135deg, #001f54 0%, #0066cc 100%);
+        color: white;
+        padding: 4rem 2rem;
+        border-radius: 25px;
+        margin-bottom: 3rem;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 15px 45px rgba(0, 31, 84, 0.3);
+    }
+
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
         }
+
+        .page-hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -20%;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            animation: float 10s ease-in-out infinite reverse;
+        }
+
+    @@keyframes float {
+        0%, 100% {
+            transform: translateY(0px) rotate(0deg);
+        }
+
+        50% {
+            transform: translateY(-30px) rotate(180deg);
+        }
+    }
+
+    .page-hero h1 {
+        font-size: 3rem;
+        font-weight: 800;
+        margin-bottom: 1rem;
+        position: relative;
+        z-index: 2;
+    }
+
+    .page-hero p {
+        font-size: 1.3rem;
+        opacity: 0.9;
+        margin-bottom: 0;
+        position: relative;
+        z-index: 2;
+    }
+
+    .disclaimer-modern {
+        background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+        border: none;
+        border-radius: 20px;
+        padding: 2rem;
+        margin-bottom: 3rem;
+        box-shadow: 0 8px 25px rgba(255, 193, 7, 0.2);
+        border-left: 6px solid #ffc107;
+        position: relative;
+    }
+
+    .disclaimer-icon {
+        position: absolute;
+        top: -15px;
+        left: 30px;
+        background: #ffc107;
+        color: white;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+        animation: pulse 2s infinite;
+    }
+
+    @@keyframes pulse {
+        0%, 100% {
+            transform: scale(1);
+        }
+
+        50% {
+            transform: scale(1.05);
+        }
+    }
+
+    .disclaimer-content {
+        margin-left: 1rem;
+        padding-top: 1rem;
+    }
+
+    .modern-card {
+        background: white;
+        border-radius: 25px;
+        padding: 3rem;
+        margin-bottom: 2.5rem;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+        border: 1px solid rgba(0, 31, 84, 0.05);
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+
+        .modern-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(135deg, #001f54 0%, #0066cc 100%);
+        }
+
+        .modern-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.12);
+        }
+
+    .card-header {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        border-bottom: 2px solid #f8f9fa;
+    }
+
+    .card-icon {
+        background: linear-gradient(135deg, #001f54 0%, #0066cc 100%);
+        color: white;
+        width: 60px;
+        height: 60px;
+        border-radius: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.8rem;
+        box-shadow: 0 8px 25px rgba(0, 31, 84, 0.3);
+    }
+
+    .card-title {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #001f54;
+        margin: 0;
+    }
+
+    .card-subtitle {
+        color: #6c757d;
+        font-size: 1.1rem;
+        margin-top: 0.5rem;
+        line-height: 1.6;
+    }
+
+    .loading-container {
+        text-align: center;
+        padding: 4rem 2rem;
+        background: white;
+        border-radius: 25px;
+        box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
+    }
+
+    .loading-spinner {
+        width: 70px;
+        height: 70px;
+        border: 5px solid #f3f4f6;
+        border-top: 5px solid #001f54;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 2rem;
+    }
+
+    @@keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    .loading-text {
+        color: #001f54;
+        font-size: 1.3rem;
+        font-weight: 600;
+    }
+
+    .input-section {
+        position: relative;
+        margin-bottom: 2rem;
+    }
+
+    .input-label {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 1rem;
+        display: block;
+    }
+
+    .modern-input {
+        width: 100%;
+        padding: 18px 24px;
+        border: 3px solid #e9ecef;
+        border-radius: 15px;
+        font-size: 1.1rem;
+        background: white;
+        transition: all 0.3s ease;
+        margin-bottom: 1.5rem;
+    }
+
+        .modern-input:focus {
+            outline: none;
+            border-color: #001f54;
+            box-shadow: 0 0 0 4px rgba(0, 31, 84, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .modern-input:hover {
+            border-color: #001f54;
+        }
+
+    .modern-button {
+        background: linear-gradient(135deg, #001f54 0%, #0066cc 100%);
+        border: none;
+        padding: 16px 32px;
+        border-radius: 50px;
+        color: white;
+        cursor: pointer;
+        font-size: 1.1rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        box-shadow: 0 8px 25px rgba(0, 31, 84, 0.3);
+    }
+
+        .modern-button:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(0, 31, 84, 0.4);
+        }
+
+        .modern-button:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+    .results-container {
+        margin-top: 2.5rem;
+    }
+
+    .results-title {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: #001f54;
+        margin-bottom: 2rem;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .condition-card {
+        background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+        border: 2px solid #e9ecef;
+        border-radius: 18px;
+        padding: 2rem;
+        margin-bottom: 1.5rem;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+        .condition-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 6px;
+            background: var(--condition-color, #28a745);
+            transition: width 0.3s ease;
+        }
+
+        .condition-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.1);
+            border-color: var(--condition-color, #28a745);
+        }
+
+            .condition-card:hover::before {
+                width: 12px;
+            }
+
+    .condition-header {
+        display: flex;
+        justify-content: between;
+        align-items: flex-start;
+        margin-bottom: 1rem;
+    }
+
+    .condition-name {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: var(--condition-color, #28a745);
+        margin-bottom: 0.5rem;
+        flex-grow: 1;
+    }
+
+    .confidence-badges {
+        display: flex;
+        gap: 10px;
+        margin-left: 1rem;
+    }
+
+    .confidence-badge {
+        background: var(--condition-color, #28a745);
+        color: white;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+
+    .symptom-match-section {
+        margin: 1.5rem 0;
+    }
+
+    .symptom-match-title {
+        font-weight: 600;
+        color: #495057;
+        margin-bottom: 0.8rem;
+    }
+
+    .symptom-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .symptom-tag {
+        background: linear-gradient(135deg, #001f54 0%, #0066cc 100%);
+        color: white;
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 500;
+    }
+
+        .symptom-tag.matching {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        }
+
+    .related-symptoms-box {
+        background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
+        padding: 1.2rem;
+        border-radius: 12px;
+        margin-top: 1rem;
+        border-left: 4px solid #001f54;
+    }
+
+    .tips-grid {
+        display: grid;
+        gap: 15px;
+        margin-top: 1.5rem;
+    }
+
+    .tip-item {
+        background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+        border: 2px solid #e9ecef;
+        border-radius: 15px;
+        padding: 1.5rem;
+        border-left: 5px solid #001f54;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+        .tip-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border-color: #001f54;
+        }
+
+        .tip-item::before {
+            content: '💡';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            background: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+    .tip-content {
+        margin-top: 0.5rem;
+        line-height: 1.6;
+        color: #495057;
+    }
+
+    .no-results {
+        text-align: center;
+        padding: 3rem 2rem;
+        background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+        border-radius: 18px;
+        border-left: 5px solid #ffc107;
+    }
+
+    .no-results-icon {
+        font-size: 3rem;
+        color: #ffc107;
+        margin-bottom: 1rem;
+    }
+
+    @@media (max-width: 768px) {
+        .health-container {
+            padding: 15px;
+        }
+
+        .page-hero {
+            padding: 2.5rem 1.5rem;
+        }
+
+            .page-hero h1 {
+                font-size: 2.2rem;
+            }
+
+        .modern-card {
+            padding: 2rem;
+        }
+
+        .condition-header {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .confidence-badges {
+            margin-left: 0;
+            margin-top: 1rem;
+        }
+
+        .symptom-tags {
+            justify-content: center;
+        }
+    }
 </style>
 
+<div class="health-container">
+    <!-- Page Header -->
+    <div class="page-hero">
+        <h1><i class="fas fa-heartbeat"></i> Health Assistant</h1>
+        <p>AI-powered symptom analysis and personalized health guidance</p>
+    </div>
+
+    <!-- Medical Disclaimer -->
+    <div class="disclaimer-modern">
+        <div class="disclaimer-icon">⚠️</div>
+        <div class="disclaimer-content">
+            <h5 style="color: #856404; font-weight: 700; margin-bottom: 1rem;">Important Medical Disclaimer</h5>
+            <p style="margin: 0; line-height: 1.6; color: #856404;">This tool provides general information only and should not replace professional medical advice. Always consult with a qualified healthcare provider for proper diagnosis and treatment. In case of emergency, seek immediate medical attention.</p>
+        </div>
+    </div>
+
+    <!-- Loading State -->
+    <div id="loadingMessage" class="loading-container">
+        <div class="loading-spinner"></div>
+        <p class="loading-text">Loading medical database...</p>
+    </div>
+
+    <!-- Symptom Checker Section -->
+    <div class="modern-card" id="symptomChecker" style="display: none;">
+        <div class="card-header">
+            <div class="card-icon">
+                <i class="fas fa-stethoscope"></i>
+            </div>
+            <div>
+                <h3 class="card-title">AI Symptom Checker</h3>
+                <p class="card-subtitle">Enter your symptoms and get instant analysis with potential conditions</p>
+            </div>
+        </div>
+
+        <div class="input-section">
+            <label for="symptomInput" class="input-label">Describe Your Symptoms:</label>
+            <input type="text" id="symptomInput" class="modern-input"
+                   placeholder="e.g., fever, headache, cough, fatigue, nausea...">
+            <button id="checkSymptomsBtn" class="modern-button">
+                <i class="fas fa-search"></i>
+                Analyze Symptoms
+            </button>
+        </div>
+
+        <div id="conditionResults" class="results-container"></div>
+    </div>
+
+    <!-- Health Tips Section -->
+    <div class="modern-card" id="healthTips" style="display: none;">
+        <div class="card-header">
+            <div class="card-icon">
+                <i class="fas fa-lightbulb"></i>
+            </div>
+            <div>
+                <h3 class="card-title">Personalized Health Tips</h3>
+                <p class="card-subtitle">Get expert advice and management tips for specific health conditions</p>
+            </div>
+        </div>
+
+        <div class="input-section">
+            <label for="conditionInput" class="input-label">Enter Health Condition:</label>
+            <input type="text" id="conditionInput" class="modern-input"
+                   placeholder="e.g., Diabetes, Hypertension, Anxiety, Arthritis...">
+            <button id="getTipsBtn" class="modern-button">
+                <i class="fas fa-medical-kit"></i>
+                Get Health Tips
+            </button>
+        </div>
+
+        <div id="tipsList" class="tips-grid"></div>
+    </div>
+</div>
+
 <script>
-    function setSymptom(symptom) {
-        document.getElementById('symptomInput').value = symptom;
-        checkSymptoms();
+    let symptomDatabase = {};
+    let databaseLoaded = false;
+
+    // Load symptom database
+    async function loadSymptomDatabase() {
+        try {
+            const response = await fetch('/data/symptom-database.json');
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            symptomDatabase = await response.json();
+            databaseLoaded = true;
+
+            // Hide loading and show sections with staggered animation
+            document.getElementById('loadingMessage').style.display = 'none';
+
+            setTimeout(() => {
+                document.getElementById('symptomChecker').style.display = 'block';
+            }, 200);
+
+            setTimeout(() => {
+                document.getElementById('healthTips').style.display = 'block';
+            }, 400);
+
+            console.log('Medical database loaded successfully');
+        } catch (error) {
+            console.error('Error loading symptom database:', error);
+            document.getElementById('loadingMessage').innerHTML = `
+                <div class="no-results">
+                    <div class="no-results-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <h4 style="color: #dc3545; margin-bottom: 1rem;">Database Loading Failed</h4>
+                    <p style="margin: 0;">Unable to load the medical database. Please refresh the page to try again.</p>
+                </div>
+            `;
+        }
     }
 
-    async function checkSymptoms() {
-        const symptoms = document.getElementById("symptomInput").value.trim();
-        const list = document.getElementById("diagnosisList");
-        const results = document.getElementById("results");
-        const errorDiv = document.getElementById("errorMessage");
-        const btnText = document.getElementById("btnText");
-        const btnSpinner = document.getElementById("btnSpinner");
-        const searchedTerm = document.getElementById("searchedTerm");
-
-        // Reset UI
-        results.style.display = "none";
-        errorDiv.style.display = "none";
-        list.innerHTML = "";
-        btnText.style.display = "none";
-        btnSpinner.style.display = "inline-block";
-
-        if (!symptoms) {
-            showError("Please enter symptoms to search.");
-            resetButton();
+    // Symptom analysis functionality
+    document.getElementById("checkSymptomsBtn").addEventListener("click", function() {
+        if (!databaseLoaded) {
+            showAlert("Medical database is still loading. Please wait a moment and try again.", "warning");
             return;
         }
 
-        searchedTerm.textContent = symptoms;
+        const input = document.getElementById("symptomInput").value.trim();
+        if (!input) {
+            showAlert("Please enter your symptoms to analyze", "info");
+            return;
+        }
+
+        const button = this;
+        const originalText = button.innerHTML;
+        button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Analyzing...';
+        button.disabled = true;
+
+        setTimeout(() => {
+            const symptoms = input.toLowerCase().split(',').map(s => s.trim());
+            const results = analyzeSymptoms(symptoms);
+            displayConditionResults(results);
+
+            button.innerHTML = originalText;
+            button.disabled = false;
+        }, 1500);
+    });
+
+    function analyzeSymptoms(userSymptoms) {
+        const potentialConditions = [];
+        const processedConditions = new Set();
+
+        userSymptoms.forEach(symptom => {
+            const cleanSymptom = symptom.toLowerCase().trim();
+
+            Object.keys(symptomDatabase).forEach(dbSymptom => {
+                if (cleanSymptom.includes(dbSymptom) || dbSymptom.includes(cleanSymptom)) {
+                    symptomDatabase[dbSymptom].conditions.forEach(condition => {
+                        const conditionKey = condition.name;
+                        if (!processedConditions.has(conditionKey)) {
+                            processedConditions.add(conditionKey);
+
+                            const matchingSymptoms = condition.symptoms.filter(s =>
+                                userSymptoms.some(us => us.toLowerCase().includes(s.toLowerCase()) ||
+                                                       s.toLowerCase().includes(us.toLowerCase()))
+                            );
+
+                            const matchScore = (matchingSymptoms.length / condition.symptoms.length) * 100;
+
+                            potentialConditions.push({
+                                ...condition,
+                                matchScore: Math.round(matchScore),
+                                matchingSymptoms: matchingSymptoms
+                            });
+                        }
+                    });
+                }
+            });
+        });
+
+        return potentialConditions
+            .sort((a, b) => (b.matchScore + b.confidence) - (a.matchScore + a.confidence))
+            .slice(0, 5);
+    }
+
+    function displayConditionResults(results) {
+        const container = document.getElementById("conditionResults");
+
+        if (results.length === 0) {
+            container.innerHTML = `
+                <div class="no-results">
+                    <div class="no-results-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h4 style="color: #ffc107; margin-bottom: 1rem;">No Specific Matches Found</h4>
+                    <p style="margin: 0;">The symptoms you entered don't match our database patterns. Consider consulting with a healthcare provider for personalized assessment.</p>
+                </div>
+            `;
+            return;
+        }
+
+        let html = '<div class="results-title"><i class="fas fa-clipboard-list"></i>Analysis Results</div>';
+
+        results.forEach((condition, index) => {
+            const matchScore = condition.matchScore;
+            const confidence = condition.confidence;
+
+            let conditionColor, riskLevel;
+            if (matchScore >= 70) {
+                conditionColor = '#28a745';
+                riskLevel = 'High Match';
+            } else if (matchScore >= 50) {
+                conditionColor = '#ffc107';
+                riskLevel = 'Moderate Match';
+            } else {
+                conditionColor = '#dc3545';
+                riskLevel = 'Low Match';
+            }
+
+            html += `
+                <div class="condition-card" style="--condition-color: ${conditionColor}; animation-delay: ${index * 0.1}s">
+                    <div class="condition-header">
+                        <div class="condition-name">${index + 1}. ${condition.name}</div>
+                        <div class="confidence-badges">
+                            <span class="confidence-badge">${riskLevel}: ${matchScore}%</span>
+                            <span class="confidence-badge" style="background: #6c757d;">Accuracy: ${confidence}%</span>
+                        </div>
+                    </div>
+
+                    <div class="symptom-match-section">
+                        <div class="symptom-match-title">Common Symptoms:</div>
+                        <div class="symptom-tags">
+                            ${condition.symptoms.map(s => {
+                                const isMatching = condition.matchingSymptoms.includes(s);
+                                return `<span class="symptom-tag ${isMatching ? 'matching' : ''}">${s}</span>`;
+                            }).join('')}
+                        </div>
+                    </div>
+
+                    <div class="related-symptoms-box">
+                        <strong>Additional symptoms to monitor:</strong> ${condition.related.join(', ')}
+                    </div>
+                </div>
+            `;
+        });
+
+        container.innerHTML = html;
+        container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    // Health tips functionality
+    document.getElementById("getTipsBtn").addEventListener("click", async function() {
+        const condition = document.getElementById("conditionInput").value.trim();
+        if (!condition) {
+            showAlert("Please enter a health condition to get tips", "info");
+            return;
+        }
+
+        const button = this;
+        const originalText = button.innerHTML;
+        button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading Tips...';
+        button.disabled = true;
 
         try {
-            const res = await fetch('/Health/SearchConditions', {
+            const res = await fetch('/Health/GetHealthTips', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify({ symptoms: symptoms })
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ condition })
             });
 
             const data = await res.json();
+            const container = document.getElementById("tipsList");
 
-            if (!res.ok) {
-                throw new Error(data.error || `Server error: ${res.status}`);
-            }
+            if (data.tips && data.tips.length > 0) {
+                container.innerHTML = data.tips.map((tip, index) => `
+                    <div class="tip-item" style="animation-delay: ${index * 0.1}s">
+                        <div class="tip-content">${tip}</div>
+                    </div>
+                `).join('');
 
-            resetButton();
-
-            if (!data.conditions || data.conditions.length === 0) {
-                list.innerHTML = `
-                    <div class="list-group-item text-center text-muted">
-                        <p>🔍 No conditions found for "${symptoms}"</p>
-                        <small>Try using different terms or more specific symptoms</small>
-                    </div>`;
-                results.style.display = "block";
-                return;
-            }
-
-            // Display results
-            data.conditions.forEach((item, index) => {
-                const listItem = document.createElement("div");
-                listItem.className = "list-group-item";
-                listItem.innerHTML = `
-                    <div class="d-flex align-items-start">
-                        <span class="badge bg-primary me-2 mt-1">${index + 1}</span>
-                        <div>
-                            <strong class="condition-name">${item.name}</strong>
-                            <br>
-                            <small class="text-muted">Reported in FDA adverse event data</small>
+                container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            } else {
+                container.innerHTML = `
+                    <div class="no-results">
+                        <div class="no-results-icon">
+                            <i class="fas fa-info-circle"></i>
                         </div>
+                        <h4 style="color: #6c757d;">No tips available for "${condition}"</h4>
+                        <p style="margin: 0;">Try a more common condition name or consult with a healthcare provider.</p>
                     </div>
                 `;
-                list.appendChild(listItem);
-            });
-
-            results.style.display = "block";
-
-        } catch (err) {
-            resetButton();
-            console.error("Error:", err);
-            showError("Unable to connect to FDA database. Please try again later.");
+            }
+        } catch (error) {
+            console.error('Error fetching health tips:', error);
+            showAlert('Error fetching health tips. Please try again.', 'danger');
+        } finally {
+            button.innerHTML = originalText;
+            button.disabled = false;
         }
+    });
+
+    function showAlert(message, type) {
+        const alertDiv = document.createElement('div');
+        alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
+        alertDiv.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            max-width: 400px;
+        `;
+
+        const iconMap = {
+            'warning': 'exclamation-triangle',
+            'info': 'info-circle',
+            'danger': 'exclamation-circle',
+            'success': 'check-circle'
+        };
+
+        alertDiv.innerHTML = `
+            <div class="d-flex align-items-center">
+                <i class="fas fa-${iconMap[type]} me-2"></i>
+                ${message}
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        `;
+
+        document.body.appendChild(alertDiv);
+
+        setTimeout(() => {
+            if (alertDiv.parentNode) {
+                alertDiv.classList.remove('show');
+                setTimeout(() => alertDiv.remove(), 300);
+            }
+        }, 5000);
     }
 
-    function resetButton() {
-        document.getElementById("btnText").style.display = "inline-block";
-        document.getElementById("btnSpinner").style.display = "none";
-    }
-
-    function showError(message) {
-        const errorDiv = document.getElementById("errorMessage");
-        errorDiv.innerHTML = `<strong>⚠️ Error:</strong> ${message}`;
-        errorDiv.style.display = "block";
-    }
-
-    // Event listeners
+    // Initialize on page load
     document.addEventListener('DOMContentLoaded', function() {
-        document.getElementById("checkBtn").addEventListener("click", checkSymptoms);
-        document.getElementById("symptomInput").addEventListener("keypress", function(e) {
-            if (e.key === 'Enter') checkSymptoms();
+        loadSymptomDatabase();
+
+        // Add enter key support for inputs
+        document.getElementById('symptomInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('checkSymptomsBtn').click();
+            }
         });
 
-        // Auto-focus on input
-        document.getElementById("symptomInput").focus();
+        document.getElementById('conditionInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('getTipsBtn').click();
+            }
+        });
     });
 </script>

@@ -64,6 +64,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cU2VuZE1haWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[E:/RAHM.BD/RAHM.BD/Views/Admin/SendNotification.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cU2VuZE5vdGlmaWNhdGlvbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [E:/RAHM.BD/RAHM.BD/Views/Admin/SendSms.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cU2VuZFNtcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -74,6 +78,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [E:/RAHM.BD/RAHM.BD/Views/Admin/Users.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVXNlcnMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/RAHM.BD/RAHM.BD/Views/Admin/VaccinationLogs.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVmFjY2luYXRpb25Mb2dzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [E:/RAHM.BD/RAHM.BD/Views/Admin/Vaccine.cshtml]

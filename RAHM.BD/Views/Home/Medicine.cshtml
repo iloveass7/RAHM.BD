@@ -1,166 +1,658 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Medicine Lookup</title>
-   
-</head>
-<body>
-    <div class="container">
-        <div class="page">
-            <!-- Page Header -->
-            <div class="medicine-header">
-                <h1>Medicine Lookup</h1>
-                <p class="subtitle">Find appropriate medicines based on your symptoms or condition</p>
-            </div>
+﻿@{
+    ViewData["Title"] = "Medicine Lookup";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
-            <!-- Important Disclaimer -->
-            <div class="disclaimer-card">
-                <div class="disclaimer-icon">⚠️</div>
-                <div class="disclaimer-content">
-                    <h4>Important Medical Disclaimer</h4>
-                    <p>This tool provides general information only and should not replace professional medical advice. Always consult with a qualified healthcare provider before taking any medication.</p>
-                </div>
-            </div>
+@section Styles {
+    <style>
+        .medicine-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
 
-            <!-- Search Form -->
-            <div class="medicine-search-card">
-                <h3>Describe Your Condition</h3>
-                <form id="medicineSearchForm" class="medicine-form">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="symptoms">Symptoms or Condition</label>
-                            <textarea id="symptoms" name="symptoms" placeholder="Describe your symptoms (e.g., fever, headache, cough, stomach pain...)" required></textarea>
-                        </div>
-                    </div>
+        .page-hero {
+            background: linear-gradient(135deg, #001f54 0%, #0066cc 100%);
+            color: white;
+            padding: 4rem 2rem;
+            border-radius: 25px;
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 15px 45px rgba(0, 31, 84, 0.3);
+        }
 
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="severity">Severity Level</label>
-                            <select id="severity" name="severity">
-                                <option value="">Select severity</option>
-                                <option value="mild">Mild</option>
-                                <option value="moderate">Moderate</option>
-                                <option value="severe">Severe</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="duration">Duration</label>
-                            <select id="duration" name="duration">
-                                <option value="">How long have you had these symptoms?</option>
-                                <option value="1day">Less than 1 day</option>
-                                <option value="2-3days">2-3 days</option>
-                                <option value="1week">About a week</option>
-                                <option value="longer">More than a week</option>
-                            </select>
-                        </div>
-                    </div>
+            .page-hero::before {
+                content: '';
+                position: absolute;
+                top: -50%;
+                right: -20%;
+                width: 300px;
+                height: 300px;
+                background: rgba(255, 255, 255, 0.08);
+                border-radius: 50%;
+                animation: float 8s ease-in-out infinite;
+            }
 
-                    <button type="submit" class="search-btn">
-                        <span class="btn-icon">🔍</span>
-                        Find Medicine Recommendations
-                    </button>
-                </form>
-            </div>
+            .page-hero::after {
+                content: '';
+                position: absolute;
+                bottom: -30%;
+                left: -20%;
+                width: 200px;
+                height: 200px;
+                background: rgba(255, 255, 255, 0.05);
+                border-radius: 50%;
+                animation: float 10s ease-in-out infinite reverse;
+            }
 
-            <!-- Results Section -->
-            <div id="medicineResults" class="medicine-results" style="display: none;">
-                <h3>Recommended Medicines</h3>
-                <div id="resultsContainer" class="results-container">
-                    <!-- Results will be populated here -->
-                </div>
-            </div>
+        @@keyframes float {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
 
-            <!-- Loading State -->
-            <div id="loadingState" class="loading-card" style="display: none;">
-                <div class="loading-spinner"></div>
-                <p>Searching for medicine recommendations...</p>
-            </div>
+            50% {
+                transform: translateY(-30px) rotate(180deg);
+            }
+        }
 
-            <!-- Emergency Notice -->
-            <div class="emergency-card">
-                <div class="emergency-icon">🚨</div>
-                <div class="emergency-content">
-                    <h4>Emergency Situations</h4>
-                    <p>If you're experiencing severe symptoms, chest pain, difficulty breathing, or any life-threatening condition, seek immediate medical attention or call emergency services.</p>
-                    <a href="tel:999" class="emergency-btn">Call Emergency: 999</a>
-                </div>
+        .page-hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .page-hero p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            margin-bottom: 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .subtitle {
+            margin-bottom: 0;
+            opacity: 0.9;
+            font-size: 1.2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .disclaimer-card {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+            border: none;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: flex-start;
+            box-shadow: 0 6px 20px rgba(255, 193, 7, 0.2);
+            border-left: 5px solid #ffc107;
+        }
+
+        .disclaimer-icon {
+            font-size: 2rem;
+            margin-right: 1rem;
+            animation: pulse 2s infinite;
+        }
+
+        @@keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .modern-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            border: 1px solid rgba(0, 31, 84, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+            .modern-card::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 4px;
+                background: linear-gradient(135deg, #001f54 0%, #0066cc 100%);
+            }
+
+        .card-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #001f54;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+            .card-title i {
+                background: linear-gradient(135deg, #001f54 0%, #0066cc 100%);
+                color: white;
+                width: 45px;
+                height: 45px;
+                border-radius: 12px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 6px 15px rgba(0, 31, 84, 0.3);
+            }
+
+        .search-section {
+            position: relative;
+        }
+
+        .form-label-modern {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            display: block;
+            font-size: 1.1rem;
+        }
+
+        .modern-select {
+            width: 100%;
+            padding: 18px 24px;
+            border: 2px solid #e9ecef;
+            border-radius: 15px;
+            font-size: 1.1rem;
+            background: white;
+            transition: all 0.3s ease;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 12px center;
+            background-repeat: no-repeat;
+            background-size: 16px;
+            cursor: pointer;
+        }
+
+            .modern-select:focus {
+                outline: none;
+                border-color: #001f54;
+                box-shadow: 0 0 0 4px rgba(0, 31, 84, 0.1);
+                transform: translateY(-2px);
+            }
+
+            .modern-select:hover {
+                border-color: #001f54;
+            }
+
+        .select-hint {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 12px;
+            color: #6c757d;
+            font-size: 0.95rem;
+        }
+
+        .loading-container {
+            text-align: center;
+            padding: 3rem 2rem;
+        }
+
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid #f3f4f6;
+            border-top: 4px solid #001f54;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1.5rem;
+        }
+
+        @@keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loading-text {
+            color: #001f54;
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+
+        .results-container {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            border-left: 5px solid #001f54;
+        }
+
+        .results-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #001f54;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .medication-grid {
+            display: grid;
+            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        .medication-item {
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            border: 2px solid #e9ecef;
+            border-radius: 15px;
+            padding: 1.8rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+            .medication-item::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 3px;
+                background: linear-gradient(135deg, #001f54 0%, #0066cc 100%);
+                transform: scaleX(0);
+                transition: transform 0.3s ease;
+            }
+
+            .medication-item:hover {
+                box-shadow: 0 10px 30px rgba(0, 31, 84, 0.15);
+                transform: translateY(-5px);
+                border-color: #001f54;
+            }
+
+                .medication-item:hover::before {
+                    transform: scaleX(1);
+                }
+
+        .medication-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #001f54;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+            .medication-name i {
+                background: linear-gradient(135deg, #001f54 0%, #0066cc 100%);
+                color: white;
+                padding: 8px;
+                border-radius: 8px;
+                box-shadow: 0 4px 10px rgba(0, 31, 84, 0.2);
+            }
+
+        .medication-info {
+            color: #6c757d;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .medication-warning {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+            border: 1px solid #ffc107;
+            border-radius: 10px;
+            padding: 12px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 0.9rem;
+            color: #856404;
+        }
+
+        .emergency-card {
+            background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+            border: none;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-top: 3rem;
+            display: flex;
+            align-items: flex-start;
+            box-shadow: 0 8px 25px rgba(220, 53, 69, 0.2);
+            border-left: 5px solid #dc3545;
+        }
+
+        .emergency-icon {
+            font-size: 2.5rem;
+            margin-right: 1.5rem;
+            animation: emergency-pulse 1.5s infinite;
+        }
+
+        @@keyframes emergency-pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.1);
+                opacity: 0.8;
+            }
+        }
+
+        .emergency-btn {
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 15px rgba(220, 53, 69, 0.3);
+        }
+
+            .emergency-btn:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 10px 25px rgba(220, 53, 69, 0.4);
+                color: white;
+                text-decoration: none;
+            }
+
+        .stats-badge {
+            background: linear-gradient(135deg, #001f54 0%, #0066cc 100%);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        @@media (max-width: 768px) {
+            .medicine-container {
+                padding: 15px;
+            }
+
+            .medicine-header {
+                padding: 2rem 1.5rem;
+            }
+
+                .medicine-header h1 {
+                    font-size: 2.2rem;
+                }
+
+            .modern-card {
+                padding: 1.5rem;
+            }
+
+            .medication-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .emergency-card {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .emergency-icon {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
+}
+
+<div class="medicine-container">
+    <div class="page-hero">
+        <h1><i class="fas fa-capsules"></i> Medicine Lookup</h1>
+        <p>Find appropriate medicines based on disease conditions</p>
+    </div>
+
+    <!-- Important Disclaimer -->
+    <div class="disclaimer-card">
+        <div class="disclaimer-icon">⚠️</div>
+        <div class="disclaimer-content">
+            <h5>Important Medical Disclaimer</h5>
+            <p>This tool provides general information only and should not replace professional medical advice. Always consult with a qualified healthcare provider before taking any medication.</p>
+        </div>
+    </div>
+
+    <!-- Disease Selection -->
+    <div class="modern-card">
+        <h3 class="card-title">
+            
+            Find Medications
+        </h3>
+        <div class="search-section">
+            <label for="diseaseSelect" class="form-label-modern">Select Disease or Condition:</label>
+            <select id="diseaseSelect" class="modern-select">
+                <option value="">-- Choose a Disease/Condition --</option>
+            </select>
+            <div class="select-hint">
+                <i class="fas fa-info-circle"></i>
+                <span>Select a condition to see available medications and treatment options</span>
             </div>
         </div>
     </div>
 
+    <!-- Loading State -->
+    <div id="loadingState" class="loading-container" style="display: none;">
+        <div class="loading-spinner"></div>
+        <p class="loading-text">Loading medications...</p>
+    </div>
+
+    <!-- Medication Results -->
+    <div id="medicationResults" class="results-container" style="display: none;">
+        <h4 class="results-title">
+            <i class="fas fa-capsules"></i>
+            Medications for <span id="diseaseName"></span>
+        </h4>
+        <div id="medicationList" class="medication-grid">
+            <!-- Medications will be populated here -->
+        </div>
+    </div>
+
+    <!-- Emergency Notice -->
+    <div class="emergency-card">
+        <div class="emergency-icon">🚨</div>
+        <div class="emergency-content">
+            <h5>Emergency Situations</h5>
+            <p>If you're experiencing severe symptoms, chest pain, difficulty breathing, or any life-threatening condition, seek immediate medical attention or call emergency services.</p>
+            <a href="tel:999" class="emergency-btn"><i class="fas fa-phone"></i> Call Emergency: 999</a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
     <script>
-        // Navbar glass effect on scroll
-        window.addEventListener('scroll', function() {
-            const nav = document.querySelector('.nav');
-            if (nav) {
-                if (window.scrollY > 50) {
-                    nav.classList.add('nav--glass');
-                } else {
-                    nav.classList.remove('nav--glass');
+        const diseaseSelect = document.getElementById("diseaseSelect");
+        const medicationResults = document.getElementById("medicationResults");
+        const medicationList = document.getElementById("medicationList");
+        const loadingState = document.getElementById("loadingState");
+        const diseaseName = document.getElementById("diseaseName");
+
+        async function loadDiseases() {
+            try {
+                const res = await fetch("/api/medication/diseases");
+                const diseases = await res.json();
+
+                diseases.forEach(d => {
+                    const opt = document.createElement("option");
+                    opt.value = d.id;
+                    opt.textContent = d.name;
+
+                    // Add medication count as data attribute for styling
+                    opt.setAttribute('data-count', d.medicationCount);
+                    diseaseSelect.appendChild(opt);
+                });
+
+                // Update select options with medication count badges
+                updateSelectWithBadges(diseases);
+            } catch (error) {
+                console.error("Error loading diseases:", error);
+                showMessage("Error loading diseases", "danger");
+            }
+        }
+
+        function updateSelectWithBadges(diseases) {
+            // This is a simplified approach - in a real scenario you might want to use a custom dropdown
+            diseases.forEach(d => {
+                const option = diseaseSelect.querySelector(`option[value="${d.id}"]`);
+                if (option) {
+                    option.textContent = `${d.name} (${d.medicationCount} medications available)`;
                 }
+            });
+        }
+
+        diseaseSelect.addEventListener("change", async () => {
+            medicationResults.style.display = "none";
+            medicationList.innerHTML = "";
+
+            if (!diseaseSelect.value) return;
+
+            loadingState.style.display = "block";
+
+            try {
+                const [medicationsRes, diseaseInfoRes] = await Promise.all([
+                    fetch(`/api/medication/by-disease/${diseaseSelect.value}`),
+                    fetch(`/api/medication/disease-info/${diseaseSelect.value}`)
+                ]);
+
+                const medications = await medicationsRes.json();
+                const diseaseInfo = await diseaseInfoRes.json();
+
+                loadingState.style.display = "none";
+
+                if (medications.length > 0) {
+                    diseaseName.textContent = diseaseInfo.name;
+
+                    let html = "";
+                    medications.forEach((med, index) => {
+                        html += `
+                            <div class="medication-item" style="animation-delay: ${index * 0.1}s">
+                                <div class="medication-name">
+                                    <i class="fas fa-capsules"></i>
+                                    ${med.medName}
+                                </div>
+                                <div class="medication-info">
+                                    <i class="fas fa-info-circle"></i>
+                                    <span>Medication for ${med.diseaseName}</span>
+                                </div>
+                                <div class="medication-warning">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                    <div>
+                                        <strong>Important:</strong> Always consult a doctor for proper dosage and usage instructions. Do not self-medicate.
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    });
+
+                    medicationList.innerHTML = html;
+                    medicationResults.style.display = "block";
+
+                    // Smooth scroll to results
+                    medicationResults.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                } else {
+                    showMessage(`No medications found for ${diseaseInfo.name}`, "info");
+                }
+            } catch (error) {
+                loadingState.style.display = "none";
+                console.error("Error loading medications:", error);
+                showMessage("Error loading medications", "danger");
             }
         });
-        document.addEventListener('DOMContentLoaded', function() {
-            const form = document.getElementById('medicineSearchForm');
-            const resultsSection = document.getElementById('medicineResults');
-            const loadingState = document.getElementById('loadingState');
-            const resultsContainer = document.getElementById('resultsContainer');
 
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
+        function showMessage(text, type) {
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
+            alertDiv.style.cssText = `
+                border-radius: 12px;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+                margin-bottom: 2rem;
+            `;
+            alertDiv.innerHTML = `
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-${type === 'danger' ? 'exclamation-triangle' : type === 'info' ? 'info-circle' : 'check-circle'} me-2"></i>
+                    ${text}
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
 
-                const symptoms = document.getElementById('symptoms').value.trim();
-                const severity = document.getElementById('severity').value;
-                const duration = document.getElementById('duration').value;
+            const disclaimer = document.querySelector('.disclaimer-card');
+            disclaimer.parentNode.insertBefore(alertDiv, disclaimer.nextSibling);
 
-                if (!symptoms) {
-                    alert('Please describe your symptoms');
-                    return;
-                }
-
-                // Show loading state
-                resultsSection.style.display = 'none';
-                loadingState.style.display = 'block';
-
-                // Simulate API call (replace with actual backend call)
+            if (type === "success" || type === "info") {
                 setTimeout(() => {
-                    loadingState.style.display = 'none';
-                    displayMockResults(symptoms, severity, duration);
-                    resultsSection.style.display = 'block';
-                }, 1500);
+                    if (alertDiv.parentNode) {
+                        alertDiv.classList.remove('show');
+                        setTimeout(() => alertDiv.remove(), 300);
+                    }
+                }, 5000);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadDiseases();
+
+            // Add staggered animation to medication items when they appear
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationName = 'slideInUp';
+                        entry.target.style.animationDuration = '0.6s';
+                        entry.target.style.animationFillMode = 'forwards';
+                    }
+                });
             });
 
-            function displayMockResults(symptoms, severity, duration) {
-                // Mock data - your backend will replace this
-                const mockMedicines = [
-                    {
-                        name: 'Paracetamol',
-                        purpose: 'For fever and mild to moderate pain relief',
-                        dosage: '500mg every 6 hours as needed (max 4g/day)'
-                    },
-                    {
-                        name: 'Ibuprofen',
-                        purpose: 'For inflammation, pain, and fever reduction',
-                        dosage: '400mg every 8 hours with food (max 1200mg/day)'
-                    },
-                    {
-                        name: 'ORS Solution',
-                        purpose: 'For dehydration and electrolyte balance',
-                        dosage: 'One packet dissolved in 1 liter of clean water'
-                    }
-                ];
-
-                resultsContainer.innerHTML = mockMedicines.map(med => `
-                    <div class="medicine-item">
-                        <div class="medicine-name">${med.name}</div>
-                        <div class="medicine-purpose">${med.purpose}</div>
-                        <div class="medicine-dosage">Dosage: ${med.dosage}</div>
-                    </div>
-                `).join('');
-            }
+            // Observe medication items as they're created
+            const config = { childList: true, subtree: true };
+            const targetNode = document.getElementById('medicationList');
+            const mutationObserver = new MutationObserver((mutations) => {
+                mutations.forEach((mutation) => {
+                    mutation.addedNodes.forEach((node) => {
+                        if (node.nodeType === 1 && node.classList.contains('medication-item')) {
+                            observer.observe(node);
+                        }
+                    });
+                });
+            });
+            mutationObserver.observe(targetNode, config);
         });
     </script>
-</body>
-</html>
+
+    <style>
+        @@keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+}

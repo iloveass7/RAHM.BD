@@ -57,6 +57,22 @@
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[13.0.3, )"
+            },
+            "Twilio": {
+              "target": "Package",
+              "version": "[7.13.0, )"
+            },
+            "Twilio.AspNet.Common": {
+              "target": "Package",
+              "version": "[8.1.2, )"
+            },
+            "Twilio.AspNet.Core": {
+              "target": "Package",
+              "version": "[8.1.2, )"
+            },
+            "Twilio.AspNet.Mvc": {
+              "target": "Package",
+              "version": "[8.1.2, )"
             }
           },
           "imports": [

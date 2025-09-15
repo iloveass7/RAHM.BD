@@ -1,5 +1,6 @@
 wwwroot\css\admin.css
 wwwroot\css\site.css
+wwwroot\data\symptom-database.json
 wwwroot\data\symptoms.json
 wwwroot\favicon.ico
 wwwroot\images\admin-login.jpg
@@ -73,6 +74,8 @@ wwwroot\lib\jquery\dist\jquery.slim.min.js
 wwwroot\lib\jquery\dist\jquery.slim.min.map
 wwwroot\lib\jquery\LICENSE.txt
 E:\RAHM.BD\RAHM.BD\wwwroot\css\admin.css
+E:\RAHM.BD\RAHM.BD\wwwroot\css\site.css
+E:\RAHM.BD\RAHM.BD\wwwroot\data\symptom-database.json
 E:\RAHM.BD\RAHM.BD\wwwroot\data\symptoms.json
 E:\RAHM.BD\RAHM.BD\wwwroot\favicon.ico
 E:\RAHM.BD\RAHM.BD\wwwroot\js\finisher-header.es5.min.js
@@ -136,4 +139,3 @@ E:\RAHM.BD\RAHM.BD\wwwroot\lib\jquery\dist\jquery.slim.js
 E:\RAHM.BD\RAHM.BD\wwwroot\lib\jquery\dist\jquery.slim.min.js
 E:\RAHM.BD\RAHM.BD\wwwroot\lib\jquery\dist\jquery.slim.min.map
 E:\RAHM.BD\RAHM.BD\wwwroot\lib\jquery\LICENSE.txt
-E:\RAHM.BD\RAHM.BD\wwwroot\css\site.css
