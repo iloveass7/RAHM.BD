@@ -8,11 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>RAHMBD</title>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-<<<<<<< HEAD
-
-=======
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     @RenderSection("Styles", required: false)
->>>>>>> iloveass-clean
 </head>
 @if (ViewData["Title"]?.ToString() == "Home")
 {
@@ -59,7 +56,7 @@
                     <a asp-controller="Home" asp-action="RequestCenter" class="nav-link">Request</a>
                     <a asp-controller="Home" asp-action="RequestVaccine" class="nav-link">Vaccine</a>
                     <a asp-controller="Home" asp-action="Medicine" class="nav-link">Medicine</a>
-                    <a asp-controller="Health" asp-action="Tips" class="nav-link">Tips</a>
+                    <a asp-controller="Health" asp-action="Tips" class="nav-link">Symptoms</a>
                 </nav>
                 <div class="nav-cta">
                     @if (Context.Session.GetInt32("UserId") != null)

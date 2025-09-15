@@ -9,15 +9,11 @@
       "RAHMBD/1.0.0": {
         "dependencies": {
           "Microsoft.Data.SqlClient": "6.1.1",
-<<<<<<< HEAD
-          "Newtonsoft.Json": "13.0.3"
-=======
           "Newtonsoft.Json": "13.0.3",
           "Twilio": "7.13.0",
           "Twilio.AspNet.Common": "8.1.2",
           "Twilio.AspNet.Core": "8.1.2",
           "Twilio.AspNet.Mvc": "8.1.2"
->>>>>>> iloveass-clean
         },
         "runtime": {
           "RAHMBD.dll": {}
@@ -50,8 +46,6 @@
           }
         }
       },
-<<<<<<< HEAD
-=======
       "Microsoft.AspNet.Mvc/5.3.0": {
         "dependencies": {
           "Microsoft.AspNet.Razor": "3.3.0",
@@ -96,7 +90,6 @@
           }
         }
       },
->>>>>>> iloveass-clean
       "Microsoft.Bcl.AsyncInterfaces/8.0.0": {
         "runtime": {
           "lib/netstandard2.1/Microsoft.Bcl.AsyncInterfaces.dll": {
@@ -120,11 +113,7 @@
           "Microsoft.Bcl.Cryptography": "9.0.4",
           "Microsoft.Data.SqlClient.SNI.runtime": "6.0.2",
           "Microsoft.Extensions.Caching.Memory": "9.0.4",
-<<<<<<< HEAD
-          "Microsoft.IdentityModel.JsonWebTokens": "7.7.1",
-=======
           "Microsoft.IdentityModel.JsonWebTokens": "8.3.1",
->>>>>>> iloveass-clean
           "Microsoft.IdentityModel.Protocols.OpenIdConnect": "7.7.1",
           "Microsoft.SqlServer.Server": "1.0.0",
           "System.Configuration.ConfigurationManager": "9.0.4",
@@ -238,8 +227,6 @@
           }
         }
       },
-<<<<<<< HEAD
-=======
       "Microsoft.Extensions.Configuration/8.0.0": {
         "dependencies": {
           "Microsoft.Extensions.Configuration.Abstractions": "8.0.0",
@@ -261,7 +248,6 @@
           "Microsoft.Extensions.DependencyInjection.Abstractions": "9.0.4"
         }
       },
->>>>>>> iloveass-clean
       "Microsoft.Extensions.DependencyInjection.Abstractions/9.0.4": {
         "runtime": {
           "lib/net9.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {
@@ -270,8 +256,6 @@
           }
         }
       },
-<<<<<<< HEAD
-=======
       "Microsoft.Extensions.Diagnostics/8.0.1": {
         "dependencies": {
           "Microsoft.Extensions.Configuration": "8.0.0",
@@ -302,7 +286,6 @@
           "Microsoft.Extensions.Options": "9.0.4"
         }
       },
->>>>>>> iloveass-clean
       "Microsoft.Extensions.Logging.Abstractions/9.0.4": {
         "dependencies": {
           "Microsoft.Extensions.DependencyInjection.Abstractions": "9.0.4"
@@ -326,8 +309,6 @@
           }
         }
       },
-<<<<<<< HEAD
-=======
       "Microsoft.Extensions.Options.ConfigurationExtensions/8.0.0": {
         "dependencies": {
           "Microsoft.Extensions.Configuration.Abstractions": "8.0.0",
@@ -337,7 +318,6 @@
           "Microsoft.Extensions.Primitives": "9.0.4"
         }
       },
->>>>>>> iloveass-clean
       "Microsoft.Extensions.Primitives/9.0.4": {
         "runtime": {
           "lib/net9.0/Microsoft.Extensions.Primitives.dll": {
@@ -348,11 +328,7 @@
       },
       "Microsoft.Identity.Client/4.73.1": {
         "dependencies": {
-<<<<<<< HEAD
-          "Microsoft.IdentityModel.Abstractions": "7.7.1",
-=======
           "Microsoft.IdentityModel.Abstractions": "8.3.1",
->>>>>>> iloveass-clean
           "System.Diagnostics.DiagnosticSource": "6.0.1"
         },
         "runtime": {
@@ -374,35 +350,6 @@
           }
         }
       },
-<<<<<<< HEAD
-      "Microsoft.IdentityModel.Abstractions/7.7.1": {
-        "runtime": {
-          "lib/net8.0/Microsoft.IdentityModel.Abstractions.dll": {
-            "assemblyVersion": "7.7.1.0",
-            "fileVersion": "7.7.1.50719"
-          }
-        }
-      },
-      "Microsoft.IdentityModel.JsonWebTokens/7.7.1": {
-        "dependencies": {
-          "Microsoft.IdentityModel.Tokens": "7.7.1"
-        },
-        "runtime": {
-          "lib/net8.0/Microsoft.IdentityModel.JsonWebTokens.dll": {
-            "assemblyVersion": "7.7.1.0",
-            "fileVersion": "7.7.1.50719"
-          }
-        }
-      },
-      "Microsoft.IdentityModel.Logging/7.7.1": {
-        "dependencies": {
-          "Microsoft.IdentityModel.Abstractions": "7.7.1"
-        },
-        "runtime": {
-          "lib/net8.0/Microsoft.IdentityModel.Logging.dll": {
-            "assemblyVersion": "7.7.1.0",
-            "fileVersion": "7.7.1.50719"
-=======
       "Microsoft.IdentityModel.Abstractions/8.3.1": {
         "runtime": {
           "lib/net9.0/Microsoft.IdentityModel.Abstractions.dll": {
@@ -430,17 +377,12 @@
           "lib/net9.0/Microsoft.IdentityModel.Logging.dll": {
             "assemblyVersion": "8.3.1.0",
             "fileVersion": "8.3.1.60117"
->>>>>>> iloveass-clean
           }
         }
       },
       "Microsoft.IdentityModel.Protocols/7.7.1": {
         "dependencies": {
-<<<<<<< HEAD
-          "Microsoft.IdentityModel.Tokens": "7.7.1"
-=======
           "Microsoft.IdentityModel.Tokens": "8.3.1"
->>>>>>> iloveass-clean
         },
         "runtime": {
           "lib/net8.0/Microsoft.IdentityModel.Protocols.dll": {
@@ -452,11 +394,7 @@
       "Microsoft.IdentityModel.Protocols.OpenIdConnect/7.7.1": {
         "dependencies": {
           "Microsoft.IdentityModel.Protocols": "7.7.1",
-<<<<<<< HEAD
-          "System.IdentityModel.Tokens.Jwt": "7.7.1"
-=======
           "System.IdentityModel.Tokens.Jwt": "8.3.1"
->>>>>>> iloveass-clean
         },
         "runtime": {
           "lib/net8.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll": {
@@ -465,19 +403,6 @@
           }
         }
       },
-<<<<<<< HEAD
-      "Microsoft.IdentityModel.Tokens/7.7.1": {
-        "dependencies": {
-          "Microsoft.IdentityModel.Logging": "7.7.1"
-        },
-        "runtime": {
-          "lib/net8.0/Microsoft.IdentityModel.Tokens.dll": {
-            "assemblyVersion": "7.7.1.0",
-            "fileVersion": "7.7.1.50719"
-          }
-        }
-      },
-=======
       "Microsoft.IdentityModel.Tokens/8.3.1": {
         "dependencies": {
           "Microsoft.Extensions.Logging.Abstractions": "9.0.4",
@@ -492,7 +417,6 @@
       },
       "Microsoft.NETCore.Platforms/1.1.0": {},
       "Microsoft.NETCore.Targets/1.1.0": {},
->>>>>>> iloveass-clean
       "Microsoft.SqlServer.Server/1.0.0": {
         "runtime": {
           "lib/netstandard2.0/Microsoft.SqlServer.Server.dll": {
@@ -501,8 +425,6 @@
           }
         }
       },
-<<<<<<< HEAD
-=======
       "Microsoft.Web.Infrastructure/1.0.0": {
         "runtime": {
           "lib/net40/Microsoft.Web.Infrastructure.dll": {
@@ -511,7 +433,6 @@
           }
         }
       },
->>>>>>> iloveass-clean
       "Newtonsoft.Json/13.0.3": {
         "runtime": {
           "lib/net6.0/Newtonsoft.Json.dll": {
@@ -532,8 +453,6 @@
           }
         }
       },
-<<<<<<< HEAD
-=======
       "System.Collections.NonGeneric/4.3.0": {
         "dependencies": {
           "System.Diagnostics.Debug": "4.3.0",
@@ -555,7 +474,6 @@
           "System.Threading": "4.3.0"
         }
       },
->>>>>>> iloveass-clean
       "System.Configuration.ConfigurationManager/9.0.4": {
         "dependencies": {
           "System.Diagnostics.EventLog": "9.0.4",
@@ -568,8 +486,6 @@
           }
         }
       },
-<<<<<<< HEAD
-=======
       "System.Diagnostics.Debug/4.3.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "1.1.0",
@@ -577,7 +493,6 @@
           "System.Runtime": "4.3.0"
         }
       },
->>>>>>> iloveass-clean
       "System.Diagnostics.DiagnosticSource/6.0.1": {
         "dependencies": {
           "System.Runtime.CompilerServices.Unsafe": "6.0.0"
@@ -599,20 +514,6 @@
           }
         }
       },
-<<<<<<< HEAD
-      "System.IdentityModel.Tokens.Jwt/7.7.1": {
-        "dependencies": {
-          "Microsoft.IdentityModel.JsonWebTokens": "7.7.1",
-          "Microsoft.IdentityModel.Tokens": "7.7.1"
-        },
-        "runtime": {
-          "lib/net8.0/System.IdentityModel.Tokens.Jwt.dll": {
-            "assemblyVersion": "7.7.1.0",
-            "fileVersion": "7.7.1.50719"
-          }
-        }
-      },
-=======
       "System.Globalization/4.3.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "1.1.0",
@@ -651,7 +552,6 @@
           "System.Threading.Tasks": "4.3.0"
         }
       },
->>>>>>> iloveass-clean
       "System.Memory/4.5.5": {},
       "System.Memory.Data/8.0.1": {
         "runtime": {
@@ -661,9 +561,6 @@
           }
         }
       },
-<<<<<<< HEAD
-      "System.Runtime.CompilerServices.Unsafe/6.0.0": {},
-=======
       "System.Reflection/4.3.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "1.1.0",
@@ -720,7 +617,6 @@
           "System.Runtime.Handles": "4.3.0"
         }
       },
->>>>>>> iloveass-clean
       "System.Security.Cryptography.Pkcs/9.0.4": {
         "runtime": {
           "lib/net9.0/System.Security.Cryptography.Pkcs.dll": {
@@ -745,9 +641,6 @@
           }
         }
       },
-<<<<<<< HEAD
-      "System.Text.Json/9.0.5": {}
-=======
       "System.Text.Encoding/4.3.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "1.1.0",
@@ -818,7 +711,6 @@
           }
         }
       }
->>>>>>> iloveass-clean
     }
   },
   "libraries": {
@@ -841,8 +733,6 @@
       "path": "azure.identity/1.14.2",
       "hashPath": "azure.identity.1.14.2.nupkg.sha512"
     },
-<<<<<<< HEAD
-=======
     "Microsoft.AspNet.Mvc/5.3.0": {
       "type": "package",
       "serviceable": true,
@@ -864,7 +754,6 @@
       "path": "microsoft.aspnet.webpages/3.3.0",
       "hashPath": "microsoft.aspnet.webpages.3.3.0.nupkg.sha512"
     },
->>>>>>> iloveass-clean
     "Microsoft.Bcl.AsyncInterfaces/8.0.0": {
       "type": "package",
       "serviceable": true,
@@ -907,8 +796,6 @@
       "path": "microsoft.extensions.caching.memory/9.0.4",
       "hashPath": "microsoft.extensions.caching.memory.9.0.4.nupkg.sha512"
     },
-<<<<<<< HEAD
-=======
     "Microsoft.Extensions.Configuration/8.0.0": {
       "type": "package",
       "serviceable": true,
@@ -937,7 +824,6 @@
       "path": "microsoft.extensions.dependencyinjection/8.0.1",
       "hashPath": "microsoft.extensions.dependencyinjection.8.0.1.nupkg.sha512"
     },
->>>>>>> iloveass-clean
     "Microsoft.Extensions.DependencyInjection.Abstractions/9.0.4": {
       "type": "package",
       "serviceable": true,
@@ -945,8 +831,6 @@
       "path": "microsoft.extensions.dependencyinjection.abstractions/9.0.4",
       "hashPath": "microsoft.extensions.dependencyinjection.abstractions.9.0.4.nupkg.sha512"
     },
-<<<<<<< HEAD
-=======
     "Microsoft.Extensions.Diagnostics/8.0.1": {
       "type": "package",
       "serviceable": true,
@@ -975,7 +859,6 @@
       "path": "microsoft.extensions.logging/8.0.1",
       "hashPath": "microsoft.extensions.logging.8.0.1.nupkg.sha512"
     },
->>>>>>> iloveass-clean
     "Microsoft.Extensions.Logging.Abstractions/9.0.4": {
       "type": "package",
       "serviceable": true,
@@ -990,8 +873,6 @@
       "path": "microsoft.extensions.options/9.0.4",
       "hashPath": "microsoft.extensions.options.9.0.4.nupkg.sha512"
     },
-<<<<<<< HEAD
-=======
     "Microsoft.Extensions.Options.ConfigurationExtensions/8.0.0": {
       "type": "package",
       "serviceable": true,
@@ -999,7 +880,6 @@
       "path": "microsoft.extensions.options.configurationextensions/8.0.0",
       "hashPath": "microsoft.extensions.options.configurationextensions.8.0.0.nupkg.sha512"
     },
->>>>>>> iloveass-clean
     "Microsoft.Extensions.Primitives/9.0.4": {
       "type": "package",
       "serviceable": true,
@@ -1021,28 +901,6 @@
       "path": "microsoft.identity.client.extensions.msal/4.73.1",
       "hashPath": "microsoft.identity.client.extensions.msal.4.73.1.nupkg.sha512"
     },
-<<<<<<< HEAD
-    "Microsoft.IdentityModel.Abstractions/7.7.1": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-S7sHg6gLg7oFqNGLwN1qSbJDI+QcRRj8SuJ1jHyCmKSipnF6ZQL+tFV2NzVfGj/xmGT9TykQdQiBN+p5Idl4TA==",
-      "path": "microsoft.identitymodel.abstractions/7.7.1",
-      "hashPath": "microsoft.identitymodel.abstractions.7.7.1.nupkg.sha512"
-    },
-    "Microsoft.IdentityModel.JsonWebTokens/7.7.1": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-3Izi75UCUssvo8LPx3OVnEeZay58qaFicrtSnbtUt7q8qQi0gy46gh4V8VUTkMVMKXV6VMyjBVmeNNgeCUJuIw==",
-      "path": "microsoft.identitymodel.jsonwebtokens/7.7.1",
-      "hashPath": "microsoft.identitymodel.jsonwebtokens.7.7.1.nupkg.sha512"
-    },
-    "Microsoft.IdentityModel.Logging/7.7.1": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-BZNgSq/o8gsKExdYoBKPR65fdsxW0cTF8PsdqB8y011AGUJJW300S/ZIsEUD0+sOmGc003Gwv3FYbjrVjvsLNQ==",
-      "path": "microsoft.identitymodel.logging/7.7.1",
-      "hashPath": "microsoft.identitymodel.logging.7.7.1.nupkg.sha512"
-=======
     "Microsoft.IdentityModel.Abstractions/8.3.1": {
       "type": "package",
       "serviceable": true,
@@ -1063,7 +921,6 @@
       "sha512": "sha512-XCwbK7ErgZdrwl4ph+i8X5SCGwAepBFbsNIEceozGzrBFVvZbKKJE1WQOft9QyglP4me+DECdVVL8UnI6OO+sg==",
       "path": "microsoft.identitymodel.logging/8.3.1",
       "hashPath": "microsoft.identitymodel.logging.8.3.1.nupkg.sha512"
->>>>>>> iloveass-clean
     },
     "Microsoft.IdentityModel.Protocols/7.7.1": {
       "type": "package",
@@ -1079,14 +936,6 @@
       "path": "microsoft.identitymodel.protocols.openidconnect/7.7.1",
       "hashPath": "microsoft.identitymodel.protocols.openidconnect.7.7.1.nupkg.sha512"
     },
-<<<<<<< HEAD
-    "Microsoft.IdentityModel.Tokens/7.7.1": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-fQ0VVCba75lknUHGldi3iTKAYUQqbzp1Un8+d9cm9nON0Gs8NAkXddNg8iaUB0qi/ybtAmNWizTR4avdkCJ9pQ==",
-      "path": "microsoft.identitymodel.tokens/7.7.1",
-      "hashPath": "microsoft.identitymodel.tokens.7.7.1.nupkg.sha512"
-=======
     "Microsoft.IdentityModel.Tokens/8.3.1": {
       "type": "package",
       "serviceable": true,
@@ -1107,7 +956,6 @@
       "sha512": "sha512-aOZA3BWfz9RXjpzt0sRJJMjAscAUm3Hoa4UWAfceV9UTYxgwZ1lZt5nO2myFf+/jetYQo4uTP7zS8sJY67BBxg==",
       "path": "microsoft.netcore.targets/1.1.0",
       "hashPath": "microsoft.netcore.targets.1.1.0.nupkg.sha512"
->>>>>>> iloveass-clean
     },
     "Microsoft.SqlServer.Server/1.0.0": {
       "type": "package",
@@ -1116,8 +964,6 @@
       "path": "microsoft.sqlserver.server/1.0.0",
       "hashPath": "microsoft.sqlserver.server.1.0.0.nupkg.sha512"
     },
-<<<<<<< HEAD
-=======
     "Microsoft.Web.Infrastructure/1.0.0": {
       "type": "package",
       "serviceable": true,
@@ -1125,7 +971,6 @@
       "path": "microsoft.web.infrastructure/1.0.0",
       "hashPath": "microsoft.web.infrastructure.1.0.0.nupkg.sha512"
     },
->>>>>>> iloveass-clean
     "Newtonsoft.Json/13.0.3": {
       "type": "package",
       "serviceable": true,
@@ -1140,8 +985,6 @@
       "path": "system.clientmodel/1.5.1",
       "hashPath": "system.clientmodel.1.5.1.nupkg.sha512"
     },
-<<<<<<< HEAD
-=======
     "System.Collections.NonGeneric/4.3.0": {
       "type": "package",
       "serviceable": true,
@@ -1156,7 +999,6 @@
       "path": "system.collections.specialized/4.3.0",
       "hashPath": "system.collections.specialized.4.3.0.nupkg.sha512"
     },
->>>>>>> iloveass-clean
     "System.Configuration.ConfigurationManager/9.0.4": {
       "type": "package",
       "serviceable": true,
@@ -1164,8 +1006,6 @@
       "path": "system.configuration.configurationmanager/9.0.4",
       "hashPath": "system.configuration.configurationmanager.9.0.4.nupkg.sha512"
     },
-<<<<<<< HEAD
-=======
     "System.Diagnostics.Debug/4.3.0": {
       "type": "package",
       "serviceable": true,
@@ -1173,7 +1013,6 @@
       "path": "system.diagnostics.debug/4.3.0",
       "hashPath": "system.diagnostics.debug.4.3.0.nupkg.sha512"
     },
->>>>>>> iloveass-clean
     "System.Diagnostics.DiagnosticSource/6.0.1": {
       "type": "package",
       "serviceable": true,
@@ -1188,14 +1027,6 @@
       "path": "system.diagnostics.eventlog/9.0.4",
       "hashPath": "system.diagnostics.eventlog.9.0.4.nupkg.sha512"
     },
-<<<<<<< HEAD
-    "System.IdentityModel.Tokens.Jwt/7.7.1": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-rQkO1YbAjLwnDJSMpRhRtrc6XwIcEOcUvoEcge+evurpzSZM3UNK+MZfD3sKyTlYsvknZ6eJjSBfnmXqwOsT9Q==",
-      "path": "system.identitymodel.tokens.jwt/7.7.1",
-      "hashPath": "system.identitymodel.tokens.jwt.7.7.1.nupkg.sha512"
-=======
     "System.Globalization/4.3.0": {
       "type": "package",
       "serviceable": true,
@@ -1223,7 +1054,6 @@
       "sha512": "sha512-3qjaHvxQPDpSOYICjUoTsmoq5u6QJAFRUITgeT/4gqkF1bajbSmb1kwSxEA8AHlofqgcKJcM8udgieRNhaJ5Cg==",
       "path": "system.io/4.3.0",
       "hashPath": "system.io.4.3.0.nupkg.sha512"
->>>>>>> iloveass-clean
     },
     "System.Memory/4.5.5": {
       "type": "package",
@@ -1239,8 +1069,6 @@
       "path": "system.memory.data/8.0.1",
       "hashPath": "system.memory.data.8.0.1.nupkg.sha512"
     },
-<<<<<<< HEAD
-=======
     "System.Reflection/4.3.0": {
       "type": "package",
       "serviceable": true,
@@ -1269,7 +1097,6 @@
       "path": "system.runtime/4.3.0",
       "hashPath": "system.runtime.4.3.0.nupkg.sha512"
     },
->>>>>>> iloveass-clean
     "System.Runtime.CompilerServices.Unsafe/6.0.0": {
       "type": "package",
       "serviceable": true,
@@ -1277,8 +1104,6 @@
       "path": "system.runtime.compilerservices.unsafe/6.0.0",
       "hashPath": "system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
     },
-<<<<<<< HEAD
-=======
     "System.Runtime.Extensions/4.3.0": {
       "type": "package",
       "serviceable": true,
@@ -1300,7 +1125,6 @@
       "path": "system.runtime.interopservices/4.3.0",
       "hashPath": "system.runtime.interopservices.4.3.0.nupkg.sha512"
     },
->>>>>>> iloveass-clean
     "System.Security.Cryptography.Pkcs/9.0.4": {
       "type": "package",
       "serviceable": true,
@@ -1315,8 +1139,6 @@
       "path": "system.security.cryptography.protecteddata/9.0.4",
       "hashPath": "system.security.cryptography.protecteddata.9.0.4.nupkg.sha512"
     },
-<<<<<<< HEAD
-=======
     "System.Text.Encoding/4.3.0": {
       "type": "package",
       "serviceable": true,
@@ -1324,15 +1146,12 @@
       "path": "system.text.encoding/4.3.0",
       "hashPath": "system.text.encoding.4.3.0.nupkg.sha512"
     },
->>>>>>> iloveass-clean
     "System.Text.Json/9.0.5": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-rnP61ZfloTgPQPe7ecr36loNiGX3g1PocxlKHdY/FUpDSsExKkTxpMAlB4X35wNEPr1X7mkYZuQvW3Lhxmu7KA==",
       "path": "system.text.json/9.0.5",
       "hashPath": "system.text.json.9.0.5.nupkg.sha512"
-<<<<<<< HEAD
-=======
     },
     "System.Threading/4.3.0": {
       "type": "package",
@@ -1375,7 +1194,6 @@
       "sha512": "sha512-tTbFxGUfzECf1PNXLbhrsDp5f7tdnuv+8eRj7T9Ghpcru2nYDiT1cUf55E6to3V+It0PWGsCEIZpX+0Kw0cuTA==",
       "path": "twilio.aspnet.mvc/8.1.2",
       "hashPath": "twilio.aspnet.mvc.8.1.2.nupkg.sha512"
->>>>>>> iloveass-clean
     }
   }
 }

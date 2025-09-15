@@ -28,10 +28,10 @@
                     <a asp-controller="Admin" asp-action="Vaccine"
                        class="nav-link @(ViewData["Title"] == "Vaccine Management" ? "active" : "")">💉 Vaccine</a>
                 </li>
-                <li>
+                @* <li>
                     <a asp-controller="Admin" asp-action="SendSms"
                        class="nav-link @(ViewData["Title"] == "Send SMS" ? "active" : "")">📩 Send SMS</a>
-                </li>
+                </li> *@
                 <li>
                     <a asp-controller="Admin" asp-action="SendMail"
                        class="nav-link @(ViewData["Title"] == "Send Mail" ? "active" : "")">✉️ Send Mail</a>

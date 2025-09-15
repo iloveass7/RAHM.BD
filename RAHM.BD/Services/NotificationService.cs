@@ -27,7 +27,7 @@ namespace RAHM.BD.Services
             // Initialize Twilio
             var accountSid = _config["Twilio:AccountSid"];
             var authToken = _config["Twilio:AuthToken"];
-            TwilioClient.Init(accountSid, authToken);
+            //TwilioClient.Init(accountSid, authToken);
         }
 
         public async Task<bool> SendSmsAsync(string phoneNumber, string message)

@@ -1,101 +1,414 @@
-<<<<<<< HEAD
-﻿@{
-=======
 ﻿@* Views/Admin/SendSms.cshtml *@
 @{
->>>>>>> iloveass-clean
     Layout = "~/Views/Shared/_Layout.Dashboard.cshtml";
     ViewData["Title"] = "Send SMS";
 }
 
-<<<<<<< HEAD
-<h2>Send SMS</h2>
+<style>
+    .messaging-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
 
-<form class="form">
-    <label>Choose District:</label>
-    <select>
-        <option>Dhaka</option>
-        <option>Chittagong</option>
-    </select>
+    .page-header {
+        text-align: center;
+        margin-bottom: 40px;
+        padding: 30px 0;
+        background: linear-gradient(135deg, #001f54 0%, #00153a 100%);
+        border-radius: 15px;
+        color: white;
+        box-shadow: 0 8px 25px rgba(0, 31, 84, 0.3);
+    }
 
-    <label>Message:</label>
-    <textarea></textarea>
+        .page-header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 600;
+        }
 
-    <button type="submit" class="btn">Send SMS</button>
-</form>
-=======
-<div class="container mt-4">
-    <h2>Send SMS to Users</h2>
+        .page-header p {
+            margin: 10px 0 0 0;
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+    .modern-card {
+        background: white;
+        border-radius: 20px;
+        padding: 40px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        margin-bottom: 30px;
+    }
+
+    .alert-modern {
+        border: none;
+        border-radius: 12px;
+        padding: 15px 20px;
+        margin-bottom: 25px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .alert-success {
+        background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        color: white;
+    }
+
+    .alert-danger {
+        background: linear-gradient(135deg, #ff5f6d 0%, #ffc371 100%);
+        color: white;
+    }
+
+    .form-section {
+        margin-bottom: 30px;
+        padding-bottom: 25px;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+        .form-section:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+    .section-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+        .section-title i {
+            color: #001f54;
+        }
+
+    .radio-group {
+        display: grid;
+        gap: 15px;
+    }
+
+    .radio-option {
+        position: relative;
+        cursor: pointer;
+    }
+
+        .radio-option input[type="radio"] {
+            display: none;
+        }
+
+        .radio-option label {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            color: #f8f9fa;
+        }
+
+        .radio-option input[type="radio"]:checked + label {
+            background: linear-gradient(135deg, #001f54 0%, #00153a 100%);
+            border-color: #001f54;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 31, 84, 0.3);
+        }
+
+        .radio-option label::before {
+            content: '';
+            width: 20px;
+            height: 20px;
+            border: 2px solid #dee2e6;
+            border-radius: 50%;
+            margin-right: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .radio-option input[type="radio"]:checked + label::before {
+            background: white;
+            border-color: white;
+            box-shadow: inset 0 0 0 4px #001f54;
+        }
+
+        .radio-option label {
+            color: white; /* unselected text color */
+        }
+
+        .radio-option input[type="radio"]:checked + label {
+            color: white !important; /* selected text color */
+            background: linear-gradient(135deg, #001f54 0%, #00153a 100%);
+            border-color: #001f54;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 31, 84, 0.3);
+        }
+
+        .radio-option label,
+        .radio-option label .icon-wrapper,
+        .radio-option label .icon-wrapper i {
+            color: inherit;
+        }
+
+
+
+       
+
+    .dropdown-section {
+        background: #f8f9fa;
+        border-radius: 12px;
+        padding: 20px;
+        margin-top: 20px;
+        border-left: 4px solid #001f54;
+        animation: slideIn 0.3s ease;
+    }
+
+    .modern-select {
+        width: 100%;
+        padding: 12px 16px;
+        border: 2px solid #e9ecef;
+        border-radius: 10px;
+        font-size: 1rem;
+        background: white;
+        transition: all 0.3s ease;
+    }
+
+        .modern-select:focus {
+            outline: none;
+            border-color: #001f54;
+            box-shadow: 0 0 0 3px rgba(0, 31, 84, 0.1);
+        }
+
+    .modern-textarea {
+        width: 100%;
+        padding: 16px;
+        border: 2px solid #e9ecef;
+        border-radius: 12px;
+        font-size: 1rem;
+        font-family: inherit;
+        resize: vertical;
+        min-height: 120px;
+        transition: all 0.3s ease;
+    }
+
+        .modern-textarea:focus {
+            outline: none;
+            border-color: #001f54;
+            box-shadow: 0 0 0 3px rgba(0, 31, 84, 0.1);
+        }
+
+    .char-counter {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 10px;
+        padding: 8px 12px;
+        background: #f8f9fa;
+        border-radius: 8px;
+        font-size: 0.9rem;
+    }
+
+    .char-count {
+        font-weight: 600;
+        color: #001f54;
+    }
+
+    .char-limit {
+        color: #6c757d;
+    }
+
+    .action-buttons {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        margin-top: 40px;
+        padding-top: 30px;
+        border-top: 1px solid #f0f0f0;
+    }
+
+    .btn-modern {
+        padding: 14px 30px;
+        border: none;
+        border-radius: 50px;
+        font-size: 1rem;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        min-width: 140px;
+        justify-content: center;
+    }
+
+    .btn-primary-modern {
+        background: linear-gradient(135deg, #001f54 0%, #00153a 100%);
+        color: white;
+        box-shadow: 0 6px 20px rgba(0, 31, 84, 0.4);
+    }
+
+        .btn-primary-modern:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 31, 84, 0.5);
+            color: white;
+            text-decoration: none;
+        }
+
+    .btn-secondary-modern {
+        background: #f8f9fa;
+        color: #6c757d;
+        border: 2px solid #e9ecef;
+    }
+
+        .btn-secondary-modern:hover {
+            background: #e9ecef;
+            color: #495057;
+            text-decoration: none;
+            transform: translateY(-2px);
+        }
+
+    .form-label-modern {
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 12px;
+        display: block;
+        font-size: 1rem;
+    }
+
+    .icon-wrapper {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background: rgba(0, 31, 84, 0.1);
+        border-radius: 10px;
+        margin-right: 12px;
+    }
+
+    .sms-preview {
+        background: linear-gradient(135deg, #001f54 0%, #00153a 100%);
+        color: white;
+        padding: 20px;
+        border-radius: 12px;
+        margin-top: 15px;
+        font-family: 'Courier New', monospace;
+        box-shadow: 0 6px 20px rgba(0, 31, 84, 0.4);
+    }
+</style>
+
+
+<div class="messaging-container">
+    <div class="page-header">
+        <h1><i class="fas fa-sms"></i> SMS Broadcast</h1>
+        <p>Send important notifications to your users instantly</p>
+    </div>
 
     @if (TempData["Message"] != null)
     {
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <div class="alert alert-success alert-modern alert-dismissible fade show" role="alert">
+            <i class="fas fa-check-circle me-2"></i>
             @TempData["Message"]
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"></button>
         </div>
     }
 
     @if (TempData["Error"] != null)
     {
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <div class="alert alert-danger alert-modern alert-dismissible fade show" role="alert">
+            <i class="fas fa-exclamation-triangle me-2"></i>
             @TempData["Error"]
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"></button>
         </div>
     }
 
-    <form method="post" class="card p-4">
-        <div class="mb-3">
-            <label class="form-label">Target Audience</label>
-            <div>
-                <input type="radio" id="all" name="targetType" value="all" checked>
-                <label for="all" class="form-check-label">Send to All Users</label>
+    <form method="post" class="modern-card">
+        <div class="form-section">
+            <div class="section-title">
+                <i class="fas fa-users"></i>
+                Target Audience
             </div>
-            <div>
-                <input type="radio" id="division" name="targetType" value="division">
-                <label for="division" class="form-check-label">Send to Specific Division</label>
+            <div class="radio-group">
+                <div class="radio-option">
+                    <input type="radio" id="all" name="targetType" value="all" checked>
+                    <label for="all">
+                        
+                        Send to All Users
+                    </label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" id="division" name="targetType" value="division">
+                    <label for="division">
+                        
+                        Send to Specific Division
+                    </label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" id="district" name="targetType" value="district">
+                    <label for="district">
+                       
+                        Send to Specific District
+                    </label>
+                </div>
             </div>
-            <div>
-                <input type="radio" id="district" name="targetType" value="district">
-                <label for="district" class="form-check-label">Send to Specific District</label>
+
+            <div class="dropdown-section" id="divisionSection" style="display: none;">
+                <label for="divisionSelect" class="form-label-modern">Choose Division:</label>
+                <select name="division" id="divisionSelect" class="modern-select">
+                    <option value="">Select Division</option>
+                    @foreach (var div in ViewBag.Divisions ?? Enumerable.Empty<string>())
+                    {
+                        <option value="@div">@div</option>
+                    }
+                </select>
+            </div>
+
+            <div class="dropdown-section" id="districtSection" style="display: none;">
+                <label for="districtSelect" class="form-label-modern">Choose District:</label>
+                <select name="district" id="districtSelect" class="modern-select">
+                    <option value="">Select District</option>
+                    @foreach (var dist in ViewBag.Districts ?? Enumerable.Empty<string>())
+                    {
+                        <option value="@dist">@dist</option>
+                    }
+                </select>
             </div>
         </div>
 
-        <div class="mb-3" id="divisionSection" style="display: none;">
-            <label for="divisionSelect" class="form-label">Choose Division:</label>
-            <select name="division" id="divisionSelect" class="form-select">
-                <option value="">Select Division</option>
-                @foreach (var div in ViewBag.Divisions ?? Enumerable.Empty<string>())
-                {
-                    <option value="@div">@div</option>
-                }
-            </select>
-        </div>
-
-        <div class="mb-3" id="districtSection" style="display: none;">
-            <label for="districtSelect" class="form-label">Choose District:</label>
-            <select name="district" id="districtSelect" class="form-select">
-                <option value="">Select District</option>
-                @foreach (var dist in ViewBag.Districts ?? Enumerable.Empty<string>())
-                {
-                    <option value="@dist">@dist</option>
-                }
-            </select>
-        </div>
-
-        <div class="mb-3">
-            <label for="message" class="form-label">SMS Message (Max 160 characters):</label>
-            <textarea name="message" id="message" class="form-control" rows="3" maxlength="160" required
-                      placeholder="Enter your SMS message here..."></textarea>
-            <div class="form-text">
-                <span id="charCount">0</span>/160 characters
+        <div class="form-section">
+            <div class="section-title">
+                <i class="fas fa-edit"></i>
+                SMS Message
             </div>
+            <label for="message" class="form-label-modern">Message Content:</label>
+            <textarea name="message" id="message" class="modern-textarea" maxlength="160" required
+                      placeholder="Type your SMS message here... Keep it concise and clear."></textarea>
+            <div class="char-counter">
+                <div class="char-limit">
+                    <i class="fas fa-info-circle"></i>
+                    SMS messages are limited to 160 characters
+                </div>
+                <div class="char-count">
+                    <span id="charCount">0</span>/160 characters
+                </div>
+            </div>
+            <div id="smsPreview" class="sms-preview" style="display: none;"></div>
         </div>
 
-        <div class="mb-3">
-            <button type="submit" class="btn btn-primary" onclick="return confirm('Are you sure you want to send this SMS?')">
+        <div class="action-buttons">
+            <button type="submit" class="btn-modern btn-primary-modern" onclick="return confirm('Are you sure you want to send this SMS to the selected audience?')">
+                <i class="fas fa-paper-plane"></i>
                 Send SMS
             </button>
-            <a href="@Url.Action("Index")" class="btn btn-secondary ms-2">Cancel</a>
+            <a href="@Url.Action("Index")" class="btn-modern btn-secondary-modern">
+                <i class="fas fa-times"></i>
+                Cancel
+            </a>
         </div>
     </form>
 </div>
@@ -107,24 +420,53 @@
         const districtSection = document.getElementById('districtSection');
         const messageTextarea = document.getElementById('message');
         const charCount = document.getElementById('charCount');
+        const smsPreview = document.getElementById('smsPreview');
 
-        // Handle target type change
+        // Handle target type change with smooth transitions
         targetTypeRadios.forEach(radio => {
             radio.addEventListener('change', function() {
-                divisionSection.style.display = this.value === 'division' ? 'block' : 'none';
-                districtSection.style.display = this.value === 'district' ? 'block' : 'none';
+                // Hide all sections first
+                divisionSection.style.display = 'none';
+                districtSection.style.display = 'none';
+
+                // Show relevant section with animation
+                if (this.value === 'division') {
+                    setTimeout(() => divisionSection.style.display = 'block', 100);
+                } else if (this.value === 'district') {
+                    setTimeout(() => districtSection.style.display = 'block', 100);
+                }
             });
         });
 
-        // Character counter
+        // Enhanced character counter with preview
         messageTextarea.addEventListener('input', function() {
-            charCount.textContent = this.value.length;
-            if (this.value.length > 160) {
-                charCount.style.color = 'red';
+            const length = this.value.length;
+            charCount.textContent = length;
+
+            // Color coding for character count
+            if (length > 140) {
+                charCount.style.color = '#dc3545';
+            } else if (length > 120) {
+                charCount.style.color = '#ffc107';
             } else {
-                charCount.style.color = 'inherit';
+                charCount.style.color = '#001f54';
             }
+
+            // Show/hide SMS preview
+            if (this.value.trim()) {
+                smsPreview.textContent = this.value;
+                smsPreview.style.display = 'block';
+            } else {
+                smsPreview.style.display = 'none';
+            }
+        });
+
+        // Add loading state to submit button
+        document.querySelector('form').addEventListener('submit', function(e) {
+            const submitBtn = this.querySelector('.btn-primary-modern');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            submitBtn.disabled = true;
         });
     });
 </script>
->>>>>>> iloveass-clean

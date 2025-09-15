@@ -1,8 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-<<<<<<< HEAD
-=======
 using Microsoft.Data.SqlClient;
->>>>>>> iloveass-clean
 using RAHM.BD.Services;
 
 namespace RAHM.BD.Controllers
@@ -29,7 +26,7 @@ namespace RAHM.BD.Controllers
         [HttpPost]
         public async Task<IActionResult> SearchMedicine(string symptoms, string severity, string duration)
         {
-            
+
 
             return Json(new { success = true, message = "Backend implementation needed" });
         }
@@ -43,8 +40,6 @@ namespace RAHM.BD.Controllers
             ViewData["Title"] = "Ambulance Numbers";
             return View();
         }
-<<<<<<< HEAD
-=======
         //public IActionResult MedicineLookup()
         //{
         //    return View();
@@ -108,7 +103,6 @@ namespace RAHM.BD.Controllers
             );
             return Json(diseaseInfo);
         }
->>>>>>> iloveass-clean
 
     }
 }

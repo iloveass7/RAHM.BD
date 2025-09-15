@@ -4,13 +4,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<IDb, Db>();
-<<<<<<< HEAD
-
-
-=======
 builder.Services.AddScoped<INotificationService, NotificationService>();
 builder.Services.AddHttpClient();
->>>>>>> iloveass-clean
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
@@ -31,7 +26,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-app.UseSession(); 
+app.UseSession();
 app.UseAuthorization();
 
 app.MapControllerRoute(

@@ -39,8 +39,6 @@
           }
         }
       },
-<<<<<<< HEAD
-=======
       "Microsoft.AspNet.Mvc/5.3.0": {
         "type": "package",
         "dependencies": {
@@ -106,7 +104,6 @@
           }
         }
       },
->>>>>>> iloveass-clean
       "Microsoft.Bcl.AsyncInterfaces/8.0.0": {
         "type": "package",
         "compile": {
@@ -272,8 +269,6 @@
           "buildTransitive/net8.0/_._": {}
         }
       },
-<<<<<<< HEAD
-=======
       "Microsoft.Extensions.Configuration/8.0.0": {
         "type": "package",
         "dependencies": {
@@ -351,7 +346,6 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
->>>>>>> iloveass-clean
       "Microsoft.Extensions.DependencyInjection.Abstractions/9.0.4": {
         "type": "package",
         "compile": {
@@ -368,8 +362,6 @@
           "buildTransitive/net8.0/_._": {}
         }
       },
-<<<<<<< HEAD
-=======
       "Microsoft.Extensions.Diagnostics/8.0.1": {
         "type": "package",
         "dependencies": {
@@ -456,7 +448,6 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
->>>>>>> iloveass-clean
       "Microsoft.Extensions.Logging.Abstractions/9.0.4": {
         "type": "package",
         "dependencies": {
@@ -483,11 +474,7 @@
           "Microsoft.Extensions.Primitives": "9.0.4"
         },
         "compile": {
-<<<<<<< HEAD
-          "lib/net9.0/_._": {
-=======
           "lib/net9.0/Microsoft.Extensions.Options.dll": {
->>>>>>> iloveass-clean
             "related": ".xml"
           }
         },
@@ -500,12 +487,6 @@
           "buildTransitive/net8.0/Microsoft.Extensions.Options.targets": {}
         }
       },
-<<<<<<< HEAD
-      "Microsoft.Extensions.Primitives/9.0.4": {
-        "type": "package",
-        "compile": {
-          "lib/net9.0/_._": {
-=======
       "Microsoft.Extensions.Options.ConfigurationExtensions/8.0.0": {
         "type": "package",
         "dependencies": {
@@ -533,7 +514,6 @@
         "type": "package",
         "compile": {
           "lib/net9.0/Microsoft.Extensions.Primitives.dll": {
->>>>>>> iloveass-clean
             "related": ".xml"
           }
         },
@@ -580,39 +560,19 @@
           }
         }
       },
-<<<<<<< HEAD
-      "Microsoft.IdentityModel.Abstractions/7.7.1": {
-        "type": "package",
-        "compile": {
-          "lib/net8.0/Microsoft.IdentityModel.Abstractions.dll": {
-=======
       "Microsoft.IdentityModel.Abstractions/8.3.1": {
         "type": "package",
         "compile": {
           "lib/net9.0/Microsoft.IdentityModel.Abstractions.dll": {
->>>>>>> iloveass-clean
             "related": ".xml"
           }
         },
         "runtime": {
-<<<<<<< HEAD
-          "lib/net8.0/Microsoft.IdentityModel.Abstractions.dll": {
-=======
           "lib/net9.0/Microsoft.IdentityModel.Abstractions.dll": {
->>>>>>> iloveass-clean
             "related": ".xml"
           }
         }
       },
-<<<<<<< HEAD
-      "Microsoft.IdentityModel.JsonWebTokens/7.7.1": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.IdentityModel.Tokens": "7.7.1"
-        },
-        "compile": {
-          "lib/net8.0/Microsoft.IdentityModel.JsonWebTokens.dll": {
-=======
       "Microsoft.IdentityModel.JsonWebTokens/8.3.1": {
         "type": "package",
         "dependencies": {
@@ -620,29 +580,15 @@
         },
         "compile": {
           "lib/net9.0/Microsoft.IdentityModel.JsonWebTokens.dll": {
->>>>>>> iloveass-clean
             "related": ".xml"
           }
         },
         "runtime": {
-<<<<<<< HEAD
-          "lib/net8.0/Microsoft.IdentityModel.JsonWebTokens.dll": {
-=======
           "lib/net9.0/Microsoft.IdentityModel.JsonWebTokens.dll": {
->>>>>>> iloveass-clean
             "related": ".xml"
           }
         }
       },
-<<<<<<< HEAD
-      "Microsoft.IdentityModel.Logging/7.7.1": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.IdentityModel.Abstractions": "7.7.1"
-        },
-        "compile": {
-          "lib/net8.0/Microsoft.IdentityModel.Logging.dll": {
-=======
       "Microsoft.IdentityModel.Logging/8.3.1": {
         "type": "package",
         "dependencies": {
@@ -650,16 +596,11 @@
         },
         "compile": {
           "lib/net9.0/Microsoft.IdentityModel.Logging.dll": {
->>>>>>> iloveass-clean
             "related": ".xml"
           }
         },
         "runtime": {
-<<<<<<< HEAD
-          "lib/net8.0/Microsoft.IdentityModel.Logging.dll": {
-=======
           "lib/net9.0/Microsoft.IdentityModel.Logging.dll": {
->>>>>>> iloveass-clean
             "related": ".xml"
           }
         }
@@ -697,15 +638,6 @@
           }
         }
       },
-<<<<<<< HEAD
-      "Microsoft.IdentityModel.Tokens/7.7.1": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.IdentityModel.Logging": "7.7.1"
-        },
-        "compile": {
-          "lib/net8.0/Microsoft.IdentityModel.Tokens.dll": {
-=======
       "Microsoft.IdentityModel.Tokens/8.3.1": {
         "type": "package",
         "dependencies": {
@@ -714,22 +646,15 @@
         },
         "compile": {
           "lib/net9.0/Microsoft.IdentityModel.Tokens.dll": {
->>>>>>> iloveass-clean
             "related": ".xml"
           }
         },
         "runtime": {
-<<<<<<< HEAD
-          "lib/net8.0/Microsoft.IdentityModel.Tokens.dll": {
-=======
           "lib/net9.0/Microsoft.IdentityModel.Tokens.dll": {
->>>>>>> iloveass-clean
             "related": ".xml"
           }
         }
       },
-<<<<<<< HEAD
-=======
       "Microsoft.NETCore.Platforms/1.1.0": {
         "type": "package",
         "compile": {
@@ -748,7 +673,6 @@
           "lib/netstandard1.0/_._": {}
         }
       },
->>>>>>> iloveass-clean
       "Microsoft.SqlServer.Server/1.0.0": {
         "type": "package",
         "compile": {
@@ -762,8 +686,6 @@
           }
         }
       },
-<<<<<<< HEAD
-=======
       "Microsoft.Web.Infrastructure/1.0.0": {
         "type": "package",
         "compile": {
@@ -773,7 +695,6 @@
           "lib/net40/Microsoft.Web.Infrastructure.dll": {}
         }
       },
->>>>>>> iloveass-clean
       "Newtonsoft.Json/13.0.3": {
         "type": "package",
         "compile": {
@@ -804,8 +725,6 @@
           }
         }
       },
-<<<<<<< HEAD
-=======
       "System.Collections.NonGeneric/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -845,7 +764,6 @@
           "lib/netstandard1.3/System.Collections.Specialized.dll": {}
         }
       },
->>>>>>> iloveass-clean
       "System.Configuration.ConfigurationManager/9.0.4": {
         "type": "package",
         "dependencies": {
@@ -866,8 +784,6 @@
           "buildTransitive/net8.0/_._": {}
         }
       },
-<<<<<<< HEAD
-=======
       "System.Diagnostics.Debug/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -881,7 +797,6 @@
           }
         }
       },
->>>>>>> iloveass-clean
       "System.Diagnostics.DiagnosticSource/6.0.1": {
         "type": "package",
         "dependencies": {
@@ -927,16 +842,6 @@
           }
         }
       },
-<<<<<<< HEAD
-      "System.IdentityModel.Tokens.Jwt/7.7.1": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.IdentityModel.JsonWebTokens": "7.7.1",
-          "Microsoft.IdentityModel.Tokens": "7.7.1"
-        },
-        "compile": {
-          "lib/net8.0/System.IdentityModel.Tokens.Jwt.dll": {
-=======
       "System.Globalization/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -984,14 +889,10 @@
         },
         "compile": {
           "lib/net9.0/System.IdentityModel.Tokens.Jwt.dll": {
->>>>>>> iloveass-clean
             "related": ".xml"
           }
         },
         "runtime": {
-<<<<<<< HEAD
-          "lib/net8.0/System.IdentityModel.Tokens.Jwt.dll": {
-=======
           "lib/net9.0/System.IdentityModel.Tokens.Jwt.dll": {
             "related": ".xml"
           }
@@ -1008,7 +909,6 @@
         },
         "compile": {
           "ref/netstandard1.5/_._": {
->>>>>>> iloveass-clean
             "related": ".xml"
           }
         }
@@ -1038,8 +938,6 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
-<<<<<<< HEAD
-=======
       "System.Reflection/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -1095,7 +993,6 @@
           }
         }
       },
->>>>>>> iloveass-clean
       "System.Runtime.CompilerServices.Unsafe/6.0.0": {
         "type": "package",
         "compile": {
@@ -1112,8 +1009,6 @@
           "buildTransitive/netcoreapp3.1/_._": {}
         }
       },
-<<<<<<< HEAD
-=======
       "System.Runtime.Extensions/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -1154,7 +1049,6 @@
           "ref/netcoreapp1.1/_._": {}
         }
       },
->>>>>>> iloveass-clean
       "System.Security.Cryptography.Pkcs/9.0.4": {
         "type": "package",
         "compile": {
@@ -1193,8 +1087,6 @@
           "buildTransitive/net8.0/_._": {}
         }
       },
-<<<<<<< HEAD
-=======
       "System.Text.Encoding/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -1208,7 +1100,6 @@
           }
         }
       },
->>>>>>> iloveass-clean
       "System.Text.Json/9.0.5": {
         "type": "package",
         "compile": {
@@ -1224,8 +1115,6 @@
         "build": {
           "buildTransitive/net8.0/System.Text.Json.targets": {}
         }
-<<<<<<< HEAD
-=======
       },
       "System.Threading/4.3.0": {
         "type": "package",
@@ -1314,7 +1203,6 @@
         "runtime": {
           "lib/net462/Twilio.AspNet.Mvc.dll": {}
         }
->>>>>>> iloveass-clean
       }
     }
   },
@@ -1359,8 +1247,6 @@
         "lib/netstandard2.0/Azure.Identity.xml"
       ]
     },
-<<<<<<< HEAD
-=======
     "Microsoft.AspNet.Mvc/5.3.0": {
       "sha512": "Q1LcXRqTPmbXJAdf45PsxI6JYnCQP4vBfPCgDFd4dYf8ojxFTo4PH333PC4TzbOqRHxrUWGwgBdcR5T2jNwpHQ==",
       "type": "package",
@@ -1416,7 +1302,6 @@
         "microsoft.aspnet.webpages.nuspec"
       ]
     },
->>>>>>> iloveass-clean
     "Microsoft.Bcl.AsyncInterfaces/8.0.0": {
       "sha512": "3WA9q9yVqJp222P3x1wYIGDAkpjAku0TMUaaQV22g6L67AI0LdOIrVS7Ht2vJfLHGSPVuqN94vIr15qn+HEkHw==",
       "type": "package",
@@ -1614,8 +1499,6 @@
         "useSharedDesignerContext.txt"
       ]
     },
-<<<<<<< HEAD
-=======
     "Microsoft.Extensions.Configuration/8.0.0": {
       "sha512": "0J/9YNXTMWSZP2p2+nvl8p71zpSwokZXZuJW+VjdErkegAnFdO1XlqtA62SJtgVYHdKu3uPxJHcMR/r35HwFBA==",
       "type": "package",
@@ -1749,7 +1632,6 @@
         "useSharedDesignerContext.txt"
       ]
     },
->>>>>>> iloveass-clean
     "Microsoft.Extensions.DependencyInjection.Abstractions/9.0.4": {
       "sha512": "UI0TQPVkS78bFdjkTodmkH0Fe8lXv9LnhGFKgKrsgUJ5a5FVdFRcgjIkBVLbGgdRhxWirxH/8IXUtEyYJx6GQg==",
       "type": "package",
@@ -1780,8 +1662,6 @@
         "useSharedDesignerContext.txt"
       ]
     },
-<<<<<<< HEAD
-=======
     "Microsoft.Extensions.Diagnostics/8.0.1": {
       "sha512": "doVPCUUCY7c6LhBsEfiy3W1bvS7Mi6LkfQMS8nlC22jZWNxBv8VO8bdfeyvpYFst6Kxqk7HBC6lytmEoBssvSQ==",
       "type": "package",
@@ -1902,7 +1782,6 @@
         "useSharedDesignerContext.txt"
       ]
     },
->>>>>>> iloveass-clean
     "Microsoft.Extensions.Logging.Abstractions/9.0.4": {
       "sha512": "0MXlimU4Dud6t+iNi5NEz3dO2w1HXdhoOLaYFuLPCjAsvlPQGwOT6V2KZRMLEhCAm/stSZt1AUv0XmDdkjvtbw==",
       "type": "package",
@@ -2019,8 +1898,6 @@
         "useSharedDesignerContext.txt"
       ]
     },
-<<<<<<< HEAD
-=======
     "Microsoft.Extensions.Options.ConfigurationExtensions/8.0.0": {
       "sha512": "0f4DMRqEd50zQh+UyJc+/HiBsZ3vhAQALgdkcQEalSH1L2isdC7Yj54M3cyo5e+BeO5fcBQ7Dxly8XiBBcvRgw==",
       "type": "package",
@@ -2051,7 +1928,6 @@
         "useSharedDesignerContext.txt"
       ]
     },
->>>>>>> iloveass-clean
     "Microsoft.Extensions.Primitives/9.0.4": {
       "sha512": "SPFyMjyku1nqTFFJ928JAMd0QnRe4xjE7KeKnZMWXf3xk+6e0WiOZAluYtLdbJUXtsl2cCRSi8cBquJ408k8RA==",
       "type": "package",
@@ -2121,17 +1997,6 @@
         "microsoft.identity.client.extensions.msal.nuspec"
       ]
     },
-<<<<<<< HEAD
-    "Microsoft.IdentityModel.Abstractions/7.7.1": {
-      "sha512": "S7sHg6gLg7oFqNGLwN1qSbJDI+QcRRj8SuJ1jHyCmKSipnF6ZQL+tFV2NzVfGj/xmGT9TykQdQiBN+p5Idl4TA==",
-      "type": "package",
-      "path": "microsoft.identitymodel.abstractions/7.7.1",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/net461/Microsoft.IdentityModel.Abstractions.dll",
-        "lib/net461/Microsoft.IdentityModel.Abstractions.xml",
-=======
     "Microsoft.IdentityModel.Abstractions/8.3.1": {
       "sha512": "oXYKRcTS0DTIB5vZenGy9oceD8awhjnXFFabc/IWBwluMA03SGvazCFyUIQ2mJOIOSf9lLyM971nbTj9qZgEJg==",
       "type": "package",
@@ -2140,7 +2005,6 @@
         ".nupkg.metadata",
         ".signature.p7s",
         "README.md",
->>>>>>> iloveass-clean
         "lib/net462/Microsoft.IdentityModel.Abstractions.dll",
         "lib/net462/Microsoft.IdentityModel.Abstractions.xml",
         "lib/net472/Microsoft.IdentityModel.Abstractions.dll",
@@ -2149,23 +2013,6 @@
         "lib/net6.0/Microsoft.IdentityModel.Abstractions.xml",
         "lib/net8.0/Microsoft.IdentityModel.Abstractions.dll",
         "lib/net8.0/Microsoft.IdentityModel.Abstractions.xml",
-<<<<<<< HEAD
-        "lib/netstandard2.0/Microsoft.IdentityModel.Abstractions.dll",
-        "lib/netstandard2.0/Microsoft.IdentityModel.Abstractions.xml",
-        "microsoft.identitymodel.abstractions.7.7.1.nupkg.sha512",
-        "microsoft.identitymodel.abstractions.nuspec"
-      ]
-    },
-    "Microsoft.IdentityModel.JsonWebTokens/7.7.1": {
-      "sha512": "3Izi75UCUssvo8LPx3OVnEeZay58qaFicrtSnbtUt7q8qQi0gy46gh4V8VUTkMVMKXV6VMyjBVmeNNgeCUJuIw==",
-      "type": "package",
-      "path": "microsoft.identitymodel.jsonwebtokens/7.7.1",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/net461/Microsoft.IdentityModel.JsonWebTokens.dll",
-        "lib/net461/Microsoft.IdentityModel.JsonWebTokens.xml",
-=======
         "lib/net9.0/Microsoft.IdentityModel.Abstractions.dll",
         "lib/net9.0/Microsoft.IdentityModel.Abstractions.xml",
         "lib/netstandard2.0/Microsoft.IdentityModel.Abstractions.dll",
@@ -2182,7 +2029,6 @@
         ".nupkg.metadata",
         ".signature.p7s",
         "README.md",
->>>>>>> iloveass-clean
         "lib/net462/Microsoft.IdentityModel.JsonWebTokens.dll",
         "lib/net462/Microsoft.IdentityModel.JsonWebTokens.xml",
         "lib/net472/Microsoft.IdentityModel.JsonWebTokens.dll",
@@ -2191,23 +2037,6 @@
         "lib/net6.0/Microsoft.IdentityModel.JsonWebTokens.xml",
         "lib/net8.0/Microsoft.IdentityModel.JsonWebTokens.dll",
         "lib/net8.0/Microsoft.IdentityModel.JsonWebTokens.xml",
-<<<<<<< HEAD
-        "lib/netstandard2.0/Microsoft.IdentityModel.JsonWebTokens.dll",
-        "lib/netstandard2.0/Microsoft.IdentityModel.JsonWebTokens.xml",
-        "microsoft.identitymodel.jsonwebtokens.7.7.1.nupkg.sha512",
-        "microsoft.identitymodel.jsonwebtokens.nuspec"
-      ]
-    },
-    "Microsoft.IdentityModel.Logging/7.7.1": {
-      "sha512": "BZNgSq/o8gsKExdYoBKPR65fdsxW0cTF8PsdqB8y011AGUJJW300S/ZIsEUD0+sOmGc003Gwv3FYbjrVjvsLNQ==",
-      "type": "package",
-      "path": "microsoft.identitymodel.logging/7.7.1",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/net461/Microsoft.IdentityModel.Logging.dll",
-        "lib/net461/Microsoft.IdentityModel.Logging.xml",
-=======
         "lib/net9.0/Microsoft.IdentityModel.JsonWebTokens.dll",
         "lib/net9.0/Microsoft.IdentityModel.JsonWebTokens.xml",
         "lib/netstandard2.0/Microsoft.IdentityModel.JsonWebTokens.dll",
@@ -2224,7 +2053,6 @@
         ".nupkg.metadata",
         ".signature.p7s",
         "README.md",
->>>>>>> iloveass-clean
         "lib/net462/Microsoft.IdentityModel.Logging.dll",
         "lib/net462/Microsoft.IdentityModel.Logging.xml",
         "lib/net472/Microsoft.IdentityModel.Logging.dll",
@@ -2233,17 +2061,11 @@
         "lib/net6.0/Microsoft.IdentityModel.Logging.xml",
         "lib/net8.0/Microsoft.IdentityModel.Logging.dll",
         "lib/net8.0/Microsoft.IdentityModel.Logging.xml",
-<<<<<<< HEAD
-        "lib/netstandard2.0/Microsoft.IdentityModel.Logging.dll",
-        "lib/netstandard2.0/Microsoft.IdentityModel.Logging.xml",
-        "microsoft.identitymodel.logging.7.7.1.nupkg.sha512",
-=======
         "lib/net9.0/Microsoft.IdentityModel.Logging.dll",
         "lib/net9.0/Microsoft.IdentityModel.Logging.xml",
         "lib/netstandard2.0/Microsoft.IdentityModel.Logging.dll",
         "lib/netstandard2.0/Microsoft.IdentityModel.Logging.xml",
         "microsoft.identitymodel.logging.8.3.1.nupkg.sha512",
->>>>>>> iloveass-clean
         "microsoft.identitymodel.logging.nuspec"
       ]
     },
@@ -2293,17 +2115,6 @@
         "microsoft.identitymodel.protocols.openidconnect.nuspec"
       ]
     },
-<<<<<<< HEAD
-    "Microsoft.IdentityModel.Tokens/7.7.1": {
-      "sha512": "fQ0VVCba75lknUHGldi3iTKAYUQqbzp1Un8+d9cm9nON0Gs8NAkXddNg8iaUB0qi/ybtAmNWizTR4avdkCJ9pQ==",
-      "type": "package",
-      "path": "microsoft.identitymodel.tokens/7.7.1",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/net461/Microsoft.IdentityModel.Tokens.dll",
-        "lib/net461/Microsoft.IdentityModel.Tokens.xml",
-=======
     "Microsoft.IdentityModel.Tokens/8.3.1": {
       "sha512": "77GXREJzIDiKAc/RR8YE267bwzrxM4cjMRCzMQa0Xk1MUUdjx/JwjDJpUh00vT4oxcX5rjsMP0KLd8YjgR3N3w==",
       "type": "package",
@@ -2312,7 +2123,6 @@
         ".nupkg.metadata",
         ".signature.p7s",
         "README.md",
->>>>>>> iloveass-clean
         "lib/net462/Microsoft.IdentityModel.Tokens.dll",
         "lib/net462/Microsoft.IdentityModel.Tokens.xml",
         "lib/net472/Microsoft.IdentityModel.Tokens.dll",
@@ -2321,14 +2131,6 @@
         "lib/net6.0/Microsoft.IdentityModel.Tokens.xml",
         "lib/net8.0/Microsoft.IdentityModel.Tokens.dll",
         "lib/net8.0/Microsoft.IdentityModel.Tokens.xml",
-<<<<<<< HEAD
-        "lib/netstandard2.0/Microsoft.IdentityModel.Tokens.dll",
-        "lib/netstandard2.0/Microsoft.IdentityModel.Tokens.xml",
-        "microsoft.identitymodel.tokens.7.7.1.nupkg.sha512",
-        "microsoft.identitymodel.tokens.nuspec"
-      ]
-    },
-=======
         "lib/net9.0/Microsoft.IdentityModel.Tokens.dll",
         "lib/net9.0/Microsoft.IdentityModel.Tokens.xml",
         "lib/netstandard2.0/Microsoft.IdentityModel.Tokens.dll",
@@ -2367,7 +2169,6 @@
         "runtime.json"
       ]
     },
->>>>>>> iloveass-clean
     "Microsoft.SqlServer.Server/1.0.0": {
       "sha512": "N4KeF3cpcm1PUHym1RmakkzfkEv3GRMyofVv40uXsQhCQeglr2OHNcUk2WOG51AKpGO8ynGpo9M/kFXSzghwug==",
       "type": "package",
@@ -2386,8 +2187,6 @@
         "microsoft.sqlserver.server.nuspec"
       ]
     },
-<<<<<<< HEAD
-=======
     "Microsoft.Web.Infrastructure/1.0.0": {
       "sha512": "FNmvLn5m2LTU/Rs2KWVo0SIIh9Ek+U0ojex7xeDaSHw/zgEP77A8vY5cVWgUtBGS8MJfDGNn8rpXJWEIQaPwTg==",
       "type": "package",
@@ -2400,7 +2199,6 @@
         "microsoft.web.infrastructure.nuspec"
       ]
     },
->>>>>>> iloveass-clean
     "Newtonsoft.Json/13.0.3": {
       "sha512": "HrC5BXdl00IP9zeV+0Z848QWPAoCr9P3bDEZguI+gkLcBKAOxix/tLEAAHC+UvDNPv4a2d18lOReHMOagPa+zQ==",
       "type": "package",
@@ -2450,8 +2248,6 @@
         "system.clientmodel.nuspec"
       ]
     },
-<<<<<<< HEAD
-=======
     "System.Collections.NonGeneric/4.3.0": {
       "sha512": "prtjIEMhGUnQq6RnPEYLpFt8AtLbp9yq2zxOSrY7KJJZrw25Fi97IzBqY7iqssbM61Ek5b8f3MG/sG1N2sN5KA==",
       "type": "package",
@@ -2530,7 +2326,6 @@
         "system.collections.specialized.nuspec"
       ]
     },
->>>>>>> iloveass-clean
     "System.Configuration.ConfigurationManager/9.0.4": {
       "sha512": "dvjqKp+2LpGid6phzrdrS/2mmEPxFl3jE1+L7614q4ZChKbLJCpHXg6sBILlCCED1t//EE+un/UdAetzIMpqnw==",
       "type": "package",
@@ -2559,8 +2354,6 @@
         "useSharedDesignerContext.txt"
       ]
     },
-<<<<<<< HEAD
-=======
     "System.Diagnostics.Debug/4.3.0": {
       "sha512": "ZUhUOdqmaG5Jk3Xdb8xi5kIyQYAA4PnTNlHx1mu9ZY3qv4ELIdKbnL/akbGaKi2RnNUWaZsAs31rvzFdewTj2g==",
       "type": "package",
@@ -2629,7 +2422,6 @@
         "system.diagnostics.debug.nuspec"
       ]
     },
->>>>>>> iloveass-clean
     "System.Diagnostics.DiagnosticSource/6.0.1": {
       "sha512": "KiLYDu2k2J82Q9BJpWiuQqCkFjRBWVq4jDzKKWawVi9KWzyD0XG3cmfX0vqTQlL14Wi9EufJrbL0+KCLTbqWiQ==",
       "type": "package",
@@ -2689,17 +2481,6 @@
         "useSharedDesignerContext.txt"
       ]
     },
-<<<<<<< HEAD
-    "System.IdentityModel.Tokens.Jwt/7.7.1": {
-      "sha512": "rQkO1YbAjLwnDJSMpRhRtrc6XwIcEOcUvoEcge+evurpzSZM3UNK+MZfD3sKyTlYsvknZ6eJjSBfnmXqwOsT9Q==",
-      "type": "package",
-      "path": "system.identitymodel.tokens.jwt/7.7.1",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/net461/System.IdentityModel.Tokens.Jwt.dll",
-        "lib/net461/System.IdentityModel.Tokens.Jwt.xml",
-=======
     "System.Globalization/4.3.0": {
       "sha512": "kYdVd2f2PAdFGblzFswE4hkNANJBKRmsfa2X5LG2AcWE1c7/4t0pYae1L8vfZ5xvE2nK/R9JprtToA61OSHWIg==",
       "type": "package",
@@ -2817,7 +2598,6 @@
         ".nupkg.metadata",
         ".signature.p7s",
         "README.md",
->>>>>>> iloveass-clean
         "lib/net462/System.IdentityModel.Tokens.Jwt.dll",
         "lib/net462/System.IdentityModel.Tokens.Jwt.xml",
         "lib/net472/System.IdentityModel.Tokens.Jwt.dll",
@@ -2826,14 +2606,6 @@
         "lib/net6.0/System.IdentityModel.Tokens.Jwt.xml",
         "lib/net8.0/System.IdentityModel.Tokens.Jwt.dll",
         "lib/net8.0/System.IdentityModel.Tokens.Jwt.xml",
-<<<<<<< HEAD
-        "lib/netstandard2.0/System.IdentityModel.Tokens.Jwt.dll",
-        "lib/netstandard2.0/System.IdentityModel.Tokens.Jwt.xml",
-        "system.identitymodel.tokens.jwt.7.7.1.nupkg.sha512",
-        "system.identitymodel.tokens.jwt.nuspec"
-      ]
-    },
-=======
         "lib/net9.0/System.IdentityModel.Tokens.Jwt.dll",
         "lib/net9.0/System.IdentityModel.Tokens.Jwt.xml",
         "lib/netstandard2.0/System.IdentityModel.Tokens.Jwt.dll",
@@ -2923,7 +2695,6 @@
         "system.io.nuspec"
       ]
     },
->>>>>>> iloveass-clean
     "System.Memory/4.5.5": {
       "sha512": "XIWiDvKPXaTveaB7HVganDlOCRoj03l+jrwNvcge/t8vhGYKvqV+dMv6G4SAX2NoNmN0wZfVPTAlFwZcZvVOUw==",
       "type": "package",
@@ -2977,8 +2748,6 @@
         "useSharedDesignerContext.txt"
       ]
     },
-<<<<<<< HEAD
-=======
     "System.Reflection/4.3.0": {
       "sha512": "KMiAFoW7MfJGa9nDFNcfu+FpEdiHpWgTcS2HdMpDvt9saK3y/G4GwprPyzqjFH9NTaGPQeWNHU+iDlDILj96aQ==",
       "type": "package",
@@ -3266,7 +3035,6 @@
         "system.runtime.nuspec"
       ]
     },
->>>>>>> iloveass-clean
     "System.Runtime.CompilerServices.Unsafe/6.0.0": {
       "sha512": "/iUeP3tq1S0XdNNoMz5C9twLSrM/TH+qElHkXWaPvuNOt+99G75NrV0OS2EqHx5wMN7popYjpc8oTjC1y16DLg==",
       "type": "package",
@@ -3292,8 +3060,6 @@
         "useSharedDesignerContext.txt"
       ]
     },
-<<<<<<< HEAD
-=======
     "System.Runtime.Extensions/4.3.0": {
       "sha512": "guW0uK0fn5fcJJ1tJVXYd7/1h5F+pea1r7FLSOz/f8vPEqbR2ZAknuRDvTQ8PzAilDveOxNjSfr0CHfIQfFk8g==",
       "type": "package",
@@ -3506,7 +3272,6 @@
         "system.runtime.interopservices.nuspec"
       ]
     },
->>>>>>> iloveass-clean
     "System.Security.Cryptography.Pkcs/9.0.4": {
       "sha512": "cUFTcMlz/Qw9s90b2wnWSCvHdjv51Bau9FQqhsr4TlwSe1OX+7SoXUqphis5G74MLOvMOCghxPPlEqOdCrVVGA==",
       "type": "package",
@@ -3574,8 +3339,6 @@
         "useSharedDesignerContext.txt"
       ]
     },
-<<<<<<< HEAD
-=======
     "System.Text.Encoding/4.3.0": {
       "sha512": "BiIg+KWaSDOITze6jGQynxg64naAPtqGHBwDrLaCtixsa5bKiR8dpPOHA7ge3C0JJQizJE+sfkz1wV+BAKAYZw==",
       "type": "package",
@@ -3644,7 +3407,6 @@
         "system.text.encoding.nuspec"
       ]
     },
->>>>>>> iloveass-clean
     "System.Text.Json/9.0.5": {
       "sha512": "rnP61ZfloTgPQPe7ecr36loNiGX3g1PocxlKHdY/FUpDSsExKkTxpMAlB4X35wNEPr1X7mkYZuQvW3Lhxmu7KA==",
       "type": "package",
@@ -3715,8 +3477,6 @@
         "system.text.json.nuspec",
         "useSharedDesignerContext.txt"
       ]
-<<<<<<< HEAD
-=======
     },
     "System.Threading/4.3.0": {
       "sha512": "VkUS0kOBcUf3Wwm0TSbrevDDZ6BlM+b/HRiapRFWjM5O0NS0LviG0glKmFK+hhPDd1XFeSdU1GmlLhb2CoVpIw==",
@@ -3920,19 +3680,11 @@
         "twilio.aspnet.mvc.8.1.2.nupkg.sha512",
         "twilio.aspnet.mvc.nuspec"
       ]
->>>>>>> iloveass-clean
     }
   },
   "projectFileDependencyGroups": {
     "net9.0": [
       "Microsoft.Data.SqlClient >= 6.1.1",
-<<<<<<< HEAD
-      "Newtonsoft.Json >= 13.0.3"
-    ]
-  },
-  "packageFolders": {
-    "C:\\Users\\USER\\.nuget\\packages\\": {},
-=======
       "Newtonsoft.Json >= 13.0.3",
       "Twilio >= 7.13.0",
       "Twilio.AspNet.Common >= 8.1.2",
@@ -3941,36 +3693,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\User\\.nuget\\packages\\": {},
->>>>>>> iloveass-clean
+    "C:\\Users\\USER\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-<<<<<<< HEAD
       "projectUniqueName": "E:\\RAHM.BD\\RAHM.BD\\RAHM.BD.csproj",
       "projectName": "RAHMBD",
       "projectPath": "E:\\RAHM.BD\\RAHM.BD\\RAHM.BD.csproj",
       "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
       "outputPath": "E:\\RAHM.BD\\RAHM.BD\\obj\\",
-=======
-      "projectUniqueName": "D:\\SD32\\RAHM.BD\\RAHM.BD.csproj",
-      "projectName": "RAHMBD",
-      "projectPath": "D:\\SD32\\RAHM.BD\\RAHM.BD.csproj",
-      "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "D:\\SD32\\RAHM.BD\\obj\\",
->>>>>>> iloveass-clean
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-<<<<<<< HEAD
         "C:\\Users\\USER\\AppData\\Roaming\\NuGet\\NuGet.Config",
-=======
-        "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
->>>>>>> iloveass-clean
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -4010,8 +3749,6 @@
           "Newtonsoft.Json": {
             "target": "Package",
             "version": "[13.0.3, )"
-<<<<<<< HEAD
-=======
           },
           "Twilio": {
             "target": "Package",
@@ -4028,7 +3765,6 @@
           "Twilio.AspNet.Mvc": {
             "target": "Package",
             "version": "[8.1.2, )"
->>>>>>> iloveass-clean
           }
         },
         "imports": [
@@ -4050,13 +3786,7 @@
             "privateAssets": "all"
           }
         },
-<<<<<<< HEAD
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
-      }
-    }
-  }
-=======
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
       }
     }
   },
@@ -4112,5 +3842,4 @@
       ]
     }
   ]
->>>>>>> iloveass-clean
 }

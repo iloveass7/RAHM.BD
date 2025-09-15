@@ -1,18 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-<<<<<<< HEAD
-using RAHM.BD.Models;
-using RAHM.BD.Services;
-using System.Collections.Generic;
-using Microsoft.Data.SqlClient;
-using System.Threading.Tasks;
-
-public class AdminController : Controller
-{
-    private readonly IDb _db;
-    public AdminController(IDb db)
-    {
-        _db = db;
-=======
 using Microsoft.Data.SqlClient;
 using RAHM.BD.Models;
 using RAHM.BD.Services;
@@ -29,7 +15,6 @@ public class AdminController : Controller
     {
         _db = db;
         _notificationService = notificationService;
->>>>>>> iloveass-clean
     }
 
     public IActionResult Login()
@@ -62,20 +47,11 @@ public class AdminController : Controller
     }
 
 
-<<<<<<< HEAD
-    public IActionResult Index()
-    {
-        if (!IsAdminLoggedIn()) return RedirectToLogin();
-        ViewData["Title"] = "Admin Dashboard";
-        return View();
-    }
-=======
     //public IActionResult Index()
     //{
     //    if (!IsAdminLoggedIn()) return RedirectToLogin();
     //    return RedirectToAction("Dashboard");
     //}
->>>>>>> iloveass-clean
 
     //public IActionResult Users()
     //{
@@ -91,21 +67,6 @@ public class AdminController : Controller
     //    return View();
     //}
 
-<<<<<<< HEAD
-    public IActionResult SendSms()
-    {
-        if (!IsAdminLoggedIn()) return RedirectToLogin();
-        ViewData["Title"] = "Send SMS";
-        return View();
-    }
-
-    public IActionResult SendMail()
-    {
-        if (!IsAdminLoggedIn()) return RedirectToLogin();
-        ViewData["Title"] = "Send Mail";
-        return View();
-    }
-=======
     //public IActionResult SendSms()
     //{
     //    if (!IsAdminLoggedIn()) return RedirectToLogin();
@@ -119,7 +80,6 @@ public class AdminController : Controller
     //    ViewData["Title"] = "Send Mail";
     //    return View();
     //}
->>>>>>> iloveass-clean
 
     public IActionResult UploadContent()
     {
@@ -402,7 +362,7 @@ public class AdminController : Controller
     // AJAX endpoint to get users by district
     public async Task<JsonResult> GetUsersByDistrict(string district)
     {
-        
+
         string sql = @"
         SELECT u.Id, u.Name
         FROM Users u
@@ -556,8 +516,6 @@ public class AdminController : Controller
         TempData["Message"] = "Vaccine added successfully!";
         return RedirectToAction("Vaccine");
     }
-<<<<<<< HEAD
-=======
     ///////////eta neew
     ///
     // GET: /Admin/SendSms
@@ -940,7 +898,6 @@ public class AdminController : Controller
             return View(emptyData);
         }
     }
->>>>>>> iloveass-clean
 
 }
 //public class UserWithLocation : User

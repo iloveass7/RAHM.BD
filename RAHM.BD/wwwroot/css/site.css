@@ -60,7 +60,7 @@ main {
     position: sticky;
     top: 0;
     z-index: 1000;
-    background: var(--navy); /* solid at the very top */
+    background: linear-gradient(135deg, #001f54 0%, #0066cc 100%); /* solid at the very top */
     box-shadow: 0 4px 14px rgba(0,0,0,.15);
     transition: background .25s ease, backdrop-filter .25s ease, box-shadow .25s ease, border-color .25s ease;
 }

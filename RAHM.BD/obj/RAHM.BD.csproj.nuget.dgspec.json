@@ -1,7 +1,6 @@
 {
   "format": 1,
   "restore": {
-<<<<<<< HEAD
     "E:\\RAHM.BD\\RAHM.BD\\RAHM.BD.csproj": {}
   },
   "projects": {
@@ -13,29 +12,12 @@
         "projectPath": "E:\\RAHM.BD\\RAHM.BD\\RAHM.BD.csproj",
         "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
         "outputPath": "E:\\RAHM.BD\\RAHM.BD\\obj\\",
-=======
-    "D:\\SD32\\RAHM.BD\\RAHM.BD.csproj": {}
-  },
-  "projects": {
-    "D:\\SD32\\RAHM.BD\\RAHM.BD.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "D:\\SD32\\RAHM.BD\\RAHM.BD.csproj",
-        "projectName": "RAHMBD",
-        "projectPath": "D:\\SD32\\RAHM.BD\\RAHM.BD.csproj",
-        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "D:\\SD32\\RAHM.BD\\obj\\",
->>>>>>> iloveass-clean
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-<<<<<<< HEAD
           "C:\\Users\\USER\\AppData\\Roaming\\NuGet\\NuGet.Config",
-=======
-          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
->>>>>>> iloveass-clean
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -75,8 +57,6 @@
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[13.0.3, )"
-<<<<<<< HEAD
-=======
             },
             "Twilio": {
               "target": "Package",
@@ -93,7 +73,6 @@
             "Twilio.AspNet.Mvc": {
               "target": "Package",
               "version": "[8.1.2, )"
->>>>>>> iloveass-clean
             }
           },
           "imports": [
@@ -115,11 +94,7 @@
               "privateAssets": "all"
             }
           },
-<<<<<<< HEAD
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
-=======
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
->>>>>>> iloveass-clean
         }
       }
     }

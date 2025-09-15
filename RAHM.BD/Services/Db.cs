@@ -15,11 +15,8 @@ public class Db : IDb
 
     private SqlConnection GetConnection() => new SqlConnection(_connectionString);
 
-<<<<<<< HEAD
-=======
     public string GetConnectionString() => _connectionString;
 
->>>>>>> iloveass-clean
     public async Task<T?> QuerySingleAsync<T>(string sql, Func<SqlDataReader, T> map, params SqlParameter[] parameters)
     {
         await using var conn = GetConnection();
