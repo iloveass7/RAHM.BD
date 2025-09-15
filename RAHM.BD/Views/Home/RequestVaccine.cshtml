@@ -448,8 +448,41 @@
     <!-- Message Area -->
     <div id="message"></div>
 </div>
+let userId = 0;
+
+async function fetchUserId() {
+    try {
+        const res = await fetch('/Account/CurrentUserId');
+        const data = await res.json();
+        userId = data.userId || 0; // 0 if not logged in
+        console.log('🔍 Logged-in user ID:', userId);
+    } catch (err) {
+        console.error('Failed to fetch UserId:', err);
+    }
+}
+
+// Fetch userId immediately
+fetchUserId();
 
 <script>
+    // Declare userId in the global scope
+    let userId = 0;
+
+    // Function to fetch user ID
+    async function fetchUserId() {
+        try {
+            const res = await fetch('/Account/CurrentUserId');
+            const data = await res.json();
+            userId = data.userId || 0; // 0 if not logged in
+            console.log('🔍 Logged-in user ID:', userId);
+        } catch (err) {
+            console.error('Failed to fetch UserId:', err);
+        }
+    }
+
+    // Fetch userId immediately when the page loads
+    fetchUserId();
+
     const diseaseSelect = document.getElementById("diseaseSelect");
     const vaccineOptions = document.getElementById("vaccineOptions");
     const vaccineList = document.getElementById("vaccineList");
@@ -577,8 +610,13 @@
 
     // Handle take vaccine
     async function handleTakeVaccine(event) {
+        // Check if user is logged in
+        if (!userId || userId === 0) {
+            alert("You must be logged in to book a vaccine.");
+            return;
+        }
+
         const btn = event.target;
-        const userId = 1; // Make sure this is a valid user ID from your database
         const vaccineId = parseInt(btn.dataset.vaccineId);
         const healthCenterId = parseInt(btn.dataset.centerId);
         const vaccineName = btn.dataset.vaccineName;

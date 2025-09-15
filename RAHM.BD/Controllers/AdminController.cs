@@ -35,17 +35,21 @@ public class AdminController : Controller
     [HttpPost]
     public IActionResult Login(string username, string password)
     {
-        if (username == "admin" && password == "123") // placeholder
+        if (username == "admin@rahm.bd" && password == "123") 
         {
-            HttpContext.Session.SetString("IsAdmin", "true"); // ✅ Save session
-            //TempData["Msg"] = "Welcome Admin!";
+            HttpContext.Session.SetString("IsAdmin", "true"); 
             return RedirectToAction("Index");
         }
 
         ViewBag.Error = "Invalid credentials.";
         return View();
     }
-
+public IActionResult Logout()
+{
+    HttpContext.Session.Clear();
+    TempData["Message"] = "Logout Successfully!";
+    return RedirectToAction("Login");
+}
 
     //public IActionResult Index()
     //{

@@ -36,10 +36,7 @@
                     <a asp-controller="Admin" asp-action="SendMail"
                        class="nav-link @(ViewData["Title"] == "Send Mail" ? "active" : "")">✉️ Send Mail</a>
                 </li>
-                <li>
-                    <a asp-controller="Admin" asp-action="UploadContent"
-                       class="nav-link @(ViewData["Title"] == "Upload Content" ? "active" : "")">📰 Upload Content</a>
-                </li>
+                
                 <li>
                     <a asp-controller="Admin" asp-action="HealthcareCenter"
                        class="nav-link @(ViewData["Title"] == "Healthcare Centers" ? "active" : "")">🏥 Healthcare Centers</a>
@@ -55,7 +52,7 @@
             </ul>
 
             <div class="logout">
-                <a href="/Account/Logout">↪ Logout</a>
+                <a href="/Admin/Logout">↪ Logout</a>
             </div>
         </aside>
 

@@ -69,6 +69,14 @@ namespace RAHM.BD.Controllers
         }
 
         [HttpGet]
+        public IActionResult CurrentUserId()
+        {
+            int? userId = HttpContext.Session.GetInt32("UserId");
+            return Ok(new { userId });
+        }
+
+
+        [HttpGet]
         public IActionResult Login() => View();
 
         [HttpPost]

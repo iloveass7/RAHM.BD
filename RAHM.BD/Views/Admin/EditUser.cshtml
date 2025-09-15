@@ -1,41 +1,101 @@
-﻿@model dynamic
-@{
-    Layout = "_Layout.Dashboard";  // 👈 Forces this page to use the Admin Dashboard layout
+﻿@{
+    Layout = "_Layout.Dashboard";
     ViewData["Title"] = "Edit User";
 }
 
+<h2 class="mb-4">Edit User</h2>
 
+<style>
+    .custom-btn {
+        padding: 10px 24px;
+        font-weight: 500;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        border: none;
+        box-sizing: border-box; /* Ensure padding and border are included in dimensions */
+        width: 120px; /* Fixed width for consistent size */
+        height: 40px; /* Fixed height for consistent size */
+        line-height: 1; /* Normalize line height */
+    }
 
-<h2>Edit User</h2>
+    .btn-save {
+        background-color: #001f54;
+        color: white;
+    }
 
-<form asp-action="EditUser" method="post">
+        .btn-save:hover {
+            background-color: #001f54;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+    .btn-cancel {
+        background-color: #f8f9fa;
+        color: #dc3545;
+        border: 2px solid #dc3545;
+    }
+
+        .btn-cancel:hover {
+            background-color: #dc3545;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+    /* Ensure buttons are aligned in the same row with top padding */
+    .button-container {
+        display: flex;
+        align-items: center; /* Vertically center buttons */
+        gap: 12px; /* Consistent spacing between buttons */
+        padding-top: 16px; /* Added padding at the top */
+    }
+</style>
+
+<form asp-action="EditUser" method="post" class="p-4 border rounded bg-light shadow-sm">
     <input type="hidden" name="Id" value="@Model.Id" />
 
-    <div class="mb-2">
-        <label>Name</label>
+    <div class="mb-3">
+        <label class="form-label fw-bold">Name</label>
         <input name="Name" value="@Model.Name" class="form-control" />
     </div>
-    <div class="mb-2">
-        <label>Email</label>
+
+    <div class="mb-3">
+        <label class="form-label fw-bold">Email</label>
         <input name="Email" value="@Model.Email" class="form-control" />
     </div>
-    <div class="mb-2">
-        <label>Phone</label>
+
+    <div class="mb-3">
+        <label class="form-label fw-bold">Phone</label>
         <input name="MobileNo" value="@Model.MobileNo" class="form-control" />
     </div>
-    <div class="mb-2">
-        <label>Road</label>
+
+    <div class="mb-3">
+        <label class="form-label fw-bold">Road</label>
         <input name="Road" value="@Model.Road" class="form-control" />
     </div>
-    <div class="mb-2">
-        <label>District</label>
+
+    <div class="mb-3">
+        <label class="form-label fw-bold">District</label>
         <input name="District" value="@Model.District" class="form-control" />
     </div>
-    <div class="mb-2">
-        <label>Division</label>
+
+    <div class="mb-4">
+        <label class="form-label fw-bold">Division</label>
         <input name="Division" value="@Model.Division" class="form-control" />
     </div>
 
-    <button type="submit" class="btn btn-success">Save</button>
-    <a asp-action="Users" class="btn btn-secondary">Cancel</a>
+    <!-- Buttons -->
+    <div class="button-container">
+        <button type="submit" class="custom-btn btn-save">
+            Save
+        </button>
+        <a asp-action="Users" class="custom-btn btn-cancel">
+            Cancel
+        </a>
+    </div>
 </form>
