@@ -14,7 +14,11 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RAHMBD")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
+<<<<<<< HEAD
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7018587d2c77da8febb8419afd03b59578307306")]
+=======
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7b1d998062c3c63818aedf7424992d627486f253")]
+>>>>>>> iloveass-clean
 [assembly: System.Reflection.AssemblyProductAttribute("RAHMBD")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RAHMBD")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

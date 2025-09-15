@@ -1,0 +1,61 @@
+﻿@model IEnumerable<dynamic>
+@{
+    ViewData["Title"] = "Vaccination Logs";
+    Layout = "~/Views/Shared/_Layout.Dashboard.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">💉 Vaccination Logs</h3>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>User Name</th>
+                                    <th>Contact</th>
+                                    <th>Vaccine</th>
+                                    <th>Disease</th>
+                                    <th>Healthcare Center</th>
+                                    <th>Location</th>
+                                    <th>Date</th>
+                                    <th>Days Ago</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var log in Model)
+                                {
+                                    <tr>
+                                        <td>@log.Id</td>
+                                        <td>@log.UserName</td>
+                                        <td>
+                                            @log.UserEmail<br>
+                                            <small>📱 @log.MobileNo</small>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-primary">@log.VaccineName</span>
+                                        </td>
+                                        <td>@log.DiseaseName</td>
+                                        <td>🏥 @log.HealthCenterName</td>
+                                        <td>📍 @log.District, @log.Division</td>
+                                        <td>@log.VaccinatedAt.ToString("yyyy-MM-dd HH:mm")</td>
+                                        <td>
+                                            <span class="badge @(log.DaysAgo == 0 ? "bg-success" : "bg-secondary")">
+                                                @(log.DaysAgo == 0 ? "Today" : $"{log.DaysAgo} days ago")
+                                            </span>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

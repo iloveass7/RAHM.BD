@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿@{
     Layout = "~/Views/Shared/_Layout.Dashboard.cshtml";
     ViewData["Title"] = "Send Mail";
@@ -20,3 +21,104 @@
 
     <button type="submit" class="btn">Send Mail</button>
 </form>
+=======
+﻿Views/Admin/SendMail.cshtml
+@{
+    Layout = "~/Views/Shared/_Layout.Dashboard.cshtml";
+    ViewData["Title"] = "Send Email";
+}
+
+<div class="container mt-4">
+    <h2>Send Email to Users</h2>
+
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["Message"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["Error"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <form method="post" class="card p-4">
+        <div class="mb-3">
+            <label class="form-label">Target Audience</label>
+            <div>
+                <input type="radio" id="all" name="targetType" value="all" checked>
+                <label for="all" class="form-check-label">Send to All Users</label>
+            </div>
+            <div>
+                <input type="radio" id="division" name="targetType" value="division">
+                <label for="division" class="form-check-label">Send to Specific Division</label>
+            </div>
+            <div>
+                <input type="radio" id="district" name="targetType" value="district">
+                <label for="district" class="form-check-label">Send to Specific District</label>
+            </div>
+        </div>
+
+        <div class="mb-3" id="divisionSection" style="display: none;">
+            <label for="divisionSelect" class="form-label">Choose Division:</label>
+            <select name="division" id="divisionSelect" class="form-select">
+                <option value="">Select Division</option>
+                @foreach (var div in ViewBag.Divisions ?? Enumerable.Empty<string>())
+                {
+                    <option value="@div">@div</option>
+                }
+            </select>
+        </div>
+
+        <div class="mb-3" id="districtSection" style="display: none;">
+            <label for="districtSelect" class="form-label">Choose District:</label>
+            <select name="district" id="districtSelect" class="form-select">
+                <option value="">Select District</option>
+                @foreach (var dist in ViewBag.Districts ?? Enumerable.Empty<string>())
+                {
+                    <option value="@dist">@dist</option>
+                }
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="subject" class="form-label">Email Subject:</label>
+            <input type="text" name="subject" id="subject" class="form-control" required
+                   placeholder="Enter email subject...">
+        </div>
+
+        <div class="mb-3">
+            <label for="message" class="form-label">Email Message:</label>
+            <textarea name="message" id="message" class="form-control" rows="6" required
+                      placeholder="Enter your email message here..."></textarea>
+        </div>
+
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary" onclick="return confirm('Are you sure you want to send this email?')">
+                Send Email
+            </button>
+            <a href="@Url.Action("Index")" class="btn btn-secondary ms-2">Cancel</a>
+        </div>
+    </form>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const targetTypeRadios = document.querySelectorAll('input[name="targetType"]');
+        const divisionSection = document.getElementById('divisionSection');
+        const districtSection = document.getElementById('districtSection');
+
+        targetTypeRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                divisionSection.style.display = this.value === 'division' ? 'block' : 'none';
+                districtSection.style.display = this.value === 'district' ? 'block' : 'none';
+            });
+        });
+    });
+</script>
+>>>>>>> iloveass-clean

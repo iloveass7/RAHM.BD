@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -86,10 +87,165 @@
                     <p>If you're experiencing severe symptoms, chest pain, difficulty breathing, or any life-threatening condition, seek immediate medical attention or call emergency services.</p>
                     <a href="tel:999" class="emergency-btn">Call Emergency: 999</a>
                 </div>
+=======
+﻿@{
+    ViewData["Title"] = "Medicine Lookup";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <style>
+        .medicine-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .disclaimer-card {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .disclaimer-icon {
+            font-size: 1.5rem;
+            margin-right: 1rem;
+        }
+
+        .medicine-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1rem;
+        }
+
+        .medication-item {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+            .medication-item:hover {
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                transform: translateY(-2px);
+            }
+
+        .medication-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        .emergency-card {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 2rem;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .emergency-icon {
+            font-size: 1.5rem;
+            margin-right: 1rem;
+        }
+
+        .emergency-btn {
+            background: #dc3545;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 0.5rem;
+        }
+
+        .loading-spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @@keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .subtitle {
+            margin-bottom: 0;
+            opacity: 0.9;
+        }
+    </style>
+}
+
+<div class="container mt-4">
+    <!-- Page Header -->
+    <div class="medicine-header">
+        <h1><i class="fas fa-pills"></i> Medicine Lookup</h1>
+        <p class="subtitle">Find appropriate medicines based on disease conditions</p>
+    </div>
+
+    <!-- Important Disclaimer -->
+    <div class="disclaimer-card">
+        <div class="disclaimer-icon">⚠️</div>
+        <div class="disclaimer-content">
+            <h5>Important Medical Disclaimer</h5>
+            <p>This tool provides general information only and should not replace professional medical advice. Always consult with a qualified healthcare provider before taking any medication.</p>
+        </div>
+    </div>
+
+    <!-- Disease Selection -->
+    <div class="medicine-card">
+        <h3><i class="fas fa-search"></i> Find Medications</h3>
+        <div class="mb-3">
+            <label for="diseaseSelect" class="form-label">Select Disease or Condition:</label>
+            <select id="diseaseSelect" class="form-select">
+                <option value="">-- Choose a Disease/Condition --</option>
+            </select>
+            <small class="text-muted">Select a condition to see available medications</small>
+        </div>
+    </div>
+
+    <!-- Loading State -->
+    <div id="loadingState" class="text-center" style="display: none;">
+        <div class="loading-spinner"></div>
+        <p>Loading medications...</p>
+    </div>
+
+    <!-- Medication Results -->
+    <div id="medicationResults" style="display: none;">
+        <div class="medicine-card">
+            <h4>Medications for <span id="diseaseName"></span></h4>
+            <div id="medicationList">
+                <!-- Medications will be populated here -->
+>>>>>>> iloveass-clean
             </div>
         </div>
     </div>
 
+<<<<<<< HEAD
     <script>
         // Navbar glass effect on scroll
         window.addEventListener('scroll', function() {
@@ -164,3 +320,120 @@
     </script>
 </body>
 </html>
+=======
+    <!-- Emergency Notice -->
+    <div class="emergency-card">
+        <div class="emergency-icon">🚨</div>
+        <div class="emergency-content">
+            <h5>Emergency Situations</h5>
+            <p>If you're experiencing severe symptoms, chest pain, difficulty breathing, or any life-threatening condition, seek immediate medical attention or call emergency services.</p>
+            <a href="tel:999" class="emergency-btn"><i class="fas fa-phone"></i> Call Emergency: 999</a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        const diseaseSelect = document.getElementById("diseaseSelect");
+        const medicationResults = document.getElementById("medicationResults");
+        const medicationList = document.getElementById("medicationList");
+        const loadingState = document.getElementById("loadingState");
+        const diseaseName = document.getElementById("diseaseName");
+
+        async function loadDiseases() {
+            try {
+                const res = await fetch("/api/medication/diseases");
+                const diseases = await res.json();
+
+                diseases.forEach(d => {
+                    const opt = document.createElement("option");
+                    opt.value = d.id;
+                    opt.textContent = `${d.name} (${d.medicationCount} medications)`;
+                    diseaseSelect.appendChild(opt);
+                });
+            } catch (error) {
+                console.error("Error loading diseases:", error);
+                showMessage("Error loading diseases", "danger");
+            }
+        }
+
+        diseaseSelect.addEventListener("change", async () => {
+            medicationResults.style.display = "none";
+            medicationList.innerHTML = "";
+
+            if (!diseaseSelect.value) return;
+
+            loadingState.style.display = "block";
+
+            try {
+                const [medicationsRes, diseaseInfoRes] = await Promise.all([
+                    fetch(`/api/medication/by-disease/${diseaseSelect.value}`),
+                    fetch(`/api/medication/disease-info/${diseaseSelect.value}`)
+                ]);
+
+                const medications = await medicationsRes.json();
+                const diseaseInfo = await diseaseInfoRes.json();
+
+                loadingState.style.display = "none";
+
+                if (medications.length > 0) {
+                    diseaseName.textContent = diseaseInfo.name;
+
+                    let html = "";
+                    medications.forEach(med => {
+                        html += `
+                            <div class="medication-item">
+                                <div class="medication-name">
+                                    <i class="fas fa-capsules text-primary"></i> ${med.medName}
+                                </div>
+                                <div class="text-muted">
+                                    <small><i class="fas fa-info-circle"></i> Medication for ${med.diseaseName}</small>
+                                </div>
+                                <div class="mt-2">
+                                    <small class="text-warning">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                        Always consult a doctor for proper dosage and usage instructions
+                                    </small>
+                                </div>
+                            </div>
+                        `;
+                    });
+
+                    medicationList.innerHTML = html;
+                    medicationResults.style.display = "block";
+                } else {
+                    showMessage(`No medications found for ${diseaseInfo.name}`, "info");
+                }
+            } catch (error) {
+                loadingState.style.display = "none";
+                console.error("Error loading medications:", error);
+                showMessage("Error loading medications", "danger");
+            }
+        });
+
+        function showMessage(text, type) {
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
+            alertDiv.innerHTML = `
+                ${text}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+
+            const disclaimer = document.querySelector('.disclaimer-card');
+            disclaimer.parentNode.insertBefore(alertDiv, disclaimer.nextSibling);
+
+            if (type === "success" || type === "info") {
+                setTimeout(() => {
+                    if (alertDiv.parentNode) {
+                        alertDiv.remove();
+                    }
+                }, 5000);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadDiseases();
+        });
+    </script>
+}
+>>>>>>> iloveass-clean
