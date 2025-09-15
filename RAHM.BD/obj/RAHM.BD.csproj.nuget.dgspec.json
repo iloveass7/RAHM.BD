@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Codes\\C#\\RAHM.BD\\RAHM.BD\\RAHM.BD.csproj": {}
+    "E:\\RAHM.BD\\RAHM.BD\\RAHM.BD.csproj": {}
   },
   "projects": {
-    "D:\\Codes\\C#\\RAHM.BD\\RAHM.BD\\RAHM.BD.csproj": {
+    "E:\\RAHM.BD\\RAHM.BD\\RAHM.BD.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Codes\\C#\\RAHM.BD\\RAHM.BD\\RAHM.BD.csproj",
+        "projectUniqueName": "E:\\RAHM.BD\\RAHM.BD\\RAHM.BD.csproj",
         "projectName": "RAHMBD",
-        "projectPath": "D:\\Codes\\C#\\RAHM.BD\\RAHM.BD\\RAHM.BD.csproj",
-        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "D:\\Codes\\C#\\RAHM.BD\\RAHM.BD\\obj\\",
+        "projectPath": "E:\\RAHM.BD\\RAHM.BD\\RAHM.BD.csproj",
+        "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
+        "outputPath": "E:\\RAHM.BD\\RAHM.BD\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\USER\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -57,6 +57,22 @@
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[13.0.3, )"
+            },
+            "Twilio": {
+              "target": "Package",
+              "version": "[7.13.0, )"
+            },
+            "Twilio.AspNet.Common": {
+              "target": "Package",
+              "version": "[8.1.2, )"
+            },
+            "Twilio.AspNet.Core": {
+              "target": "Package",
+              "version": "[8.1.2, )"
+            },
+            "Twilio.AspNet.Mvc": {
+              "target": "Package",
+              "version": "[8.1.2, )"
             }
           },
           "imports": [
@@ -78,7 +94,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

@@ -1,67 +1,550 @@
 ﻿@model RAHM.BD.Models.User
 @{
     ViewData["Title"] = "User Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="user-dashboard container">
-    <h2>User Dashboard</h2>
+<style>
+    .dashboard-container {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 20px;
+    }
 
-    <div class="user-profile">
-        <img src="~/images/user.png" alt="User Avatar" class="profile-pic" />
+    .modern-card {
+        background: white;
+        border-radius: 25px;
+        padding: 3rem;
+        margin-bottom: 2.5rem;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+        border: 1px solid rgba(0, 31, 84, 0.05);
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
 
-        <div class="profile-info">
-            <h3>@Model.Name</h3>
-            <p>Email: @Model.Email</p>
-            <p>Phone: @Model.MobileNo</p>
+        .modern-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(135deg, #001f54 0%, #0066cc 100%);
+        }
 
-            <div class="profile-actions">
-                <!-- Redirects to UserDashboard/Edit/{id} -->
-                <a asp-controller="UserDashboard" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit Profile</a>
+        .modern-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.12);
+        }
 
-                <!-- Logout goes to Home/Logout -->
-                <a asp-controller="Home" asp-action="Logout" class="btn btn-outline">↪ Logout</a>
+    .card-header {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        border-bottom: 2px solid #f8f9fa;
+    }
+
+    .card-icon {
+        background: linear-gradient(135deg, #001f54 0%, #0066cc 100%);
+        color: white;
+        width: 60px;
+        height: 60px;
+        border-radius: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.8rem;
+        box-shadow: 0 8px 25px rgba(0, 31, 84, 0.3);
+    }
+
+    .card-title {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #001f54;
+        margin: 0;
+    }
+
+    .card-subtitle {
+        color: #6c757d;
+        font-size: 1.1rem;
+        margin-top: 0.5rem;
+        line-height: 1.6;
+    }
+
+    .profile-section {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .profile-avatar-container {
+        position: relative;
+        flex-shrink: 0;
+    }
+
+    .profile-avatar {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        border: 5px solid #e9ecef;
+        object-fit: cover;
+        transition: all 0.3s ease;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+
+        .profile-avatar:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+        }
+
+    .profile-badge {
+        position: absolute;
+        bottom: 5px;
+        right: 5px;
+        background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        color: white;
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+        border: 3px solid white;
+        box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+    }
+
+    .profile-info {
+        flex: 1;
+    }
+
+    .profile-name {
+        font-size: 2.2rem;
+        font-weight: 700;
+        color: #001f54;
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .profile-welcome {
+        color: #6c757d;
+        font-size: 1.1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .profile-details {
+        display: grid;
+        gap: 0.8rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .profile-detail {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 0.8rem 0;
+        color: #495057;
+        font-size: 1rem;
+    }
+
+    .detail-icon {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        color: #001f54;
+        width: 40px;
+        height: 40px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+        flex-shrink: 0;
+    }
+
+    .detail-content {
+        flex: 1;
+    }
+
+    .detail-label {
+        font-size: 0.85rem;
+        color: #6c757d;
+        font-weight: 500;
+        margin-bottom: 2px;
+    }
+
+    .detail-value {
+        font-weight: 600;
+        color: #2c3e50;
+    }
+
+    .action-buttons {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .modern-button {
+        background: linear-gradient(135deg, #001f54 0%, #0066cc 100%);
+        border: none;
+        padding: 14px 28px;
+        border-radius: 50px;
+        color: white;
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        box-shadow: 0 8px 25px rgba(0, 31, 84, 0.3);
+        text-decoration: none;
+        border: 2px solid transparent;
+    }
+
+        .modern-button:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(0, 31, 84, 0.4);
+            color: white;
+            text-decoration: none;
+        }
+
+        .modern-button.outline {
+            background: transparent;
+            color: #001f54;
+            border: 2px solid #001f54;
+            box-shadow: 0 4px 15px rgba(0, 31, 84, 0.1);
+        }
+
+            .modern-button.outline:hover {
+                background: red;
+                color: white;
+                box-shadow: 0 8px 25px rgba(0, 31, 84, 0.3);
+            }
+
+        .modern-button:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+    .location-section {
+        background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
+        border: 2px solid #bbdefb;
+        border-radius: 18px;
+        padding: 2rem;
+        margin-top: 2rem;
+    }
+
+    .location-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 1.5rem;
+    }
+
+    .location-icon {
+        background: linear-gradient(135deg, #2196f3 0%, #1976d2 100%);
+        color: white;
+        width: 50px;
+        height: 50px;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.4rem;
+        box-shadow: 0 6px 20px rgba(33, 150, 243, 0.3);
+    }
+
+    .location-title {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: #001f54;
+    }
+
+    .location-subtitle {
+        color: #6c757d;
+        font-size: 1rem;
+        margin-top: 0.3rem;
+    }
+
+    .alert {
+        border-radius: 15px;
+        padding: 1rem 1.5rem;
+        margin-bottom: 1rem;
+        border: none;
+        display: none;
+        animation: slideIn 0.5s ease;
+    }
+
+    .alert-success {
+        background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+        color: #155724;
+        border-left: 5px solid #28a745;
+    }
+
+    .alert-danger {
+        background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+        color: #721c24;
+        border-left: 5px solid #dc3545;
+    }
+
+    @@keyframes slideIn {
+        0%
+
+    {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    }
+
+    @@media (max-width: 768px) {
+        .dashboard-container
+
+    {
+        padding: 15px;
+    }
+
+   
+
+    .modern-card {
+        padding: 2rem;
+    }
+
+    .profile-section {
+        flex-direction: column;
+        text-align: center;
+        gap: 1.5rem;
+    }
+
+    .action-buttons {
+        justify-content: center;
+    }
+
+    .profile-details {
+        gap: 1rem;
+    }
+
+    }
+</style>
+
+<div class="dashboard-container">
+    <!-- Profile Information Card -->
+    <div class="modern-card">
+        <div class="card-header">
+            <div class="card-icon">
+                <i class="fas fa-user"></i>
+            </div>
+            <div>
+                <h3 class="card-title">Profile Information</h3>
+                <p class="card-subtitle">View and manage your personal details</p>
             </div>
         </div>
+
+        <div class="profile-section">
+            <div class="profile-avatar-container">
+                <img src="~/images/user.png" alt="User Avatar" class="profile-avatar" />
+                <div class="profile-badge">
+                    <i class="fas fa-check"></i>
+                </div>
+            </div>
+
+            <div class="profile-info">
+                <h2 class="profile-name">
+                    @Model.Name
+                    <i class="fas fa-star" style="color: #ffc107; font-size: 1.2rem;"></i>
+                </h2>
+                <p class="profile-welcome">Welcome back! Here's your account overview.</p>
+
+                <div class="profile-details">
+                    <div class="profile-detail">
+                        <div class="detail-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="detail-content">
+                            <div class="detail-label">Email Address</div>
+                            <div class="detail-value">@Model.Email</div>
+                        </div>
+                    </div>
+
+                    <div class="profile-detail">
+                        <div class="detail-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="detail-content">
+                            <div class="detail-label">Phone Number</div>
+                            <div class="detail-value">@Model.MobileNo</div>
+                        </div>
+                    </div>
+
+                    <div class="profile-detail">
+                        <div class="detail-icon">
+                            <i class="fas fa-user-tag"></i>
+                        </div>
+                        <div class="detail-content">
+                            <div class="detail-label">User ID</div>
+                            <div class="detail-value">#@Model.Id</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <a asp-controller="UserDashboard" asp-action="Edit" asp-route-id="@Model.Id" class="modern-button">
+                        <i class="fas fa-edit"></i>
+                        Edit Profile
+                    </a>
+                    <a asp-controller="Account" asp-action="Logout" class="modern-button outline">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Location Settings Section -->
+        <div class="location-section">
+            <div class="location-header">
+                <div class="location-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <div>
+                    <div class="location-title">Location Services</div>
+                    <div class="location-subtitle">Set your current location to find nearby healthcare centers</div>
+                </div>
+            </div>
+
+            <div id="locationAlerts"></div>
+
+            <button id="setLocationBtn" class="modern-button">
+                <i class="fas fa-crosshairs"></i>
+                Set Current Location
+            </button>
+        </div>
     </div>
-
-    @if (TempData["Message"] != null)
-    {
-        <div class="alert alert-success">@TempData["Message"]</div>
-    }
-    <button id="setLocationBtn" class="btn btn-primary">📍 Set Location</button>
-
-    <script>
-        document.getElementById("setLocationBtn").addEventListener("click", function () {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(
-                    function (position) {
-                        const lat = position.coords.latitude;
-                        const lng = position.coords.longitude;
-
-                        fetch('/UserDashboard/SetLocation', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ lat: lat, lng: lng })
-                        })
-                        .then(res => res.json())
-                        .then(data => {
-                            if (data.success) {
-                                alert("Location saved successfully!");
-                            } else {
-                                alert("Failed to save location.");
-                            }
-                        })
-                        .catch(err => alert("Error: " + err));
-                    },
-                    function (error) {
-                        alert("Unable to get location. Please allow location access.");
-                    },
-                    { enableHighAccuracy: true }
-                );
-            } else {
-                alert("Geolocation is not supported by your browser.");
-            }
-        });
-    </script>
-
 </div>
+
+<script>
+    document.getElementById("setLocationBtn").addEventListener("click", function () {
+        const button = this;
+        const originalText = button.innerHTML;
+        const alertContainer = document.getElementById("locationAlerts");
+
+        // Clear previous alerts
+        alertContainer.innerHTML = "";
+
+        if (!navigator.geolocation) {
+            showAlert("Geolocation is not supported by your browser.", "danger");
+            return;
+        }
+
+        // Update button state
+        button.disabled = true;
+        button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Getting Location...';
+
+        navigator.geolocation.getCurrentPosition(
+            function (position) {
+                const lat = position.coords.latitude;
+                const lng = position.coords.longitude;
+
+                console.log(`User location: [${lat}, ${lng}]`);
+
+                fetch('/UserDashboard/SetLocation', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ lat: lat, lng: lng })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        showAlert(`✅ Location saved successfully! Coordinates: ${lat.toFixed(6)}, ${lng.toFixed(6)}`, "success");
+                    } else {
+                        showAlert("❌ Failed to save location. Please try again.", "danger");
+                    }
+                })
+                .catch(err => {
+                    console.error('Error saving location:', err);
+                    showAlert("❌ Error occurred while saving location.", "danger");
+                })
+                .finally(() => {
+                    button.disabled = false;
+                    button.innerHTML = originalText;
+                });
+            },
+            function (error) {
+                let errorMsg = "❌ Unable to get your location. ";
+                switch(error.code) {
+                    case error.PERMISSION_DENIED:
+                        errorMsg += "Please allow location access and try again.";
+                        break;
+                    case error.POSITION_UNAVAILABLE:
+                        errorMsg += "Location information is unavailable.";
+                        break;
+                    case error.TIMEOUT:
+                        errorMsg += "Location request timed out.";
+                        break;
+                    default:
+                        errorMsg += "Unknown error occurred.";
+                }
+
+                console.error('Geolocation error:', error);
+                showAlert(errorMsg, "danger");
+
+                button.disabled = false;
+                button.innerHTML = originalText;
+            },
+            {
+                enableHighAccuracy: true,
+                timeout: 15000,
+                maximumAge: 300000
+            }
+        );
+    });
+
+    function showAlert(message, type) {
+        const alertContainer = document.getElementById("locationAlerts");
+        const alertDiv = document.createElement('div');
+        alertDiv.className = `alert alert-${type}`;
+        alertDiv.style.display = 'block';
+        alertDiv.innerHTML = `
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
+                ${message}
+            </div>
+        `;
+
+        alertContainer.appendChild(alertDiv);
+
+        // Auto-hide success messages
+        if (type === "success") {
+            setTimeout(() => {
+                alertDiv.style.animation = 'slideOut 0.5s ease';
+                setTimeout(() => {
+                    if (alertDiv.parentNode) {
+                        alertDiv.remove();
+                    }
+                }, 500);
+            }, 5000);
+        }
+    }
+
+    // Add slide out animation
+    const style = document.createElement('style');
+    style.textContent = `
+        @@keyframes slideOut {
+            0% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-20px); }
+        }
+    `;
+    document.head.appendChild(style);
+</script>

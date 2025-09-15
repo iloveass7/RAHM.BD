@@ -8,7 +8,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>RAHMBD</title>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    @RenderSection("Styles", required: false)
 </head>
+@if (ViewData["Title"]?.ToString() == "Home")
+{
+    <button class="emergency-fab"
+            onclick="location.href='@Url.Action("Ambulance", "Home")'"
+            title="Emergency Services">
+        🚨
+    </button>
+}
+<style>
+    /* Emergency floating action button */
+    .emergency-fab {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(45deg, #ff4757, #ff6b7d);
+        border: none;
+        border-radius: 50%;
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+        box-shadow: 0 10px 25px rgba(255, 71, 87, 0.3);
+        transition: all 0.3s ease;
+        z-index: 1000;
+    }
+
+        .emergency-fab:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 35px rgba(255, 71, 87, 0.4);
+        }
+</style>
 <body>
     <div class="layout-wrapper">
         <!-- Top Navbar -->
@@ -21,7 +55,8 @@
                     <a asp-controller="Home" asp-action="Index" class="nav-link">Home</a>
                     <a asp-controller="Home" asp-action="RequestCenter" class="nav-link">Request</a>
                     <a asp-controller="Home" asp-action="RequestVaccine" class="nav-link">Vaccine</a>
-                    <a asp-controller="Health" asp-action="Tips" class="nav-link">Tips</a>
+                    <a asp-controller="Home" asp-action="Medicine" class="nav-link">Medicine</a>
+                    <a asp-controller="Health" asp-action="Tips" class="nav-link">Symptoms</a>
                 </nav>
                 <div class="nav-cta">
                     @if (Context.Session.GetInt32("UserId") != null)
@@ -31,7 +66,6 @@
                             <img src="~/images/user.png" alt="Profile"
                                  style="width:32px;height:32px;border-radius:50%; border:2px solid #fff; background:#eee; padding:2px;" />
                         </a>
-
                     }
                     else
                     {
@@ -39,24 +73,13 @@
                         <a asp-controller="Account" asp-action="Signup" class="btn btn-light">Signup</a>
                         <a asp-controller="Account" asp-action="Login" class="btn btn-light">Login</a>
                     }
-
                 </div>
-
-
-
-
             </div>
         </header>
-
         <!-- Page Content -->
         <main class="container page">
-            @if (TempData["Msg"] != null)
-            {
-                <div class="toast">@TempData["Msg"]</div>
-            }
             @RenderBody()
         </main>
-
         <!-- Footer -->
         <footer class="footer">
             <div class="container footer-inner">
@@ -70,7 +93,13 @@
         </footer>
     </div>
 
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        // Emergency modal function
+        function showEmergencyModal() {
+            alert('🚨 EMERGENCY SERVICES ACTIVATED!\n\n📞 Emergency Hotline: 999\n🏥 Connecting to nearest medical facility...\n📍 GPS location shared with emergency services\n\nHelp is on the way!');
+        }
+    </script>
+
     @RenderSection("Scripts", required: false)
 </body>
 </html>

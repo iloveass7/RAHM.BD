@@ -4,6 +4,10 @@
 }
 
 <h2>@ViewData["Title"]</h2>
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success" style="display: none;">@TempData["Message"]</div>
+}
 
 <form asp-action="AssignDisease" method="post">
     <div class="row mb-3">

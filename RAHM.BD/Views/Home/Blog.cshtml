@@ -1,0 +1,450 @@
+﻿@{
+    ViewData["Title"] = "Blog Post";
+}
+
+<article class="blog-post">
+    <!-- Hero Image Section -->
+    <div class="blog-hero">
+        <img id="blogHeroImage" src="" alt="Blog post image" />
+        <div class="blog-hero-overlay">
+            <div class="container">
+                <div class="blog-hero-content">
+                    <h1 id="blogTitle"></h1>
+                    <div class="blog-meta">
+                        <span class="blog-date" id="blogDate"></span>
+                        <span class="blog-category" id="blogCategory"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Blog Content -->
+    <div class="container">
+        <div class="blog-content">
+            <div class="blog-body" id="blogBody">
+                <!-- Content will be loaded here -->
+            </div>
+
+            <!-- Related Articles -->
+            <div class="related-articles">
+                <h3>Related Articles</h3>
+                <div class="related-grid">
+                    <a href="#" class="related-card">
+                        <img src="https://www.chenmed.com/sites/default/files/styles/blog_post_teaser/public/2024-10/Promoting%20Preventive%20Healthcare_%20Wellness_%20and%20Longevity%20for%20Senior%20Patients.jpg?itok=bz4RVkoJ" alt="Health tip" />
+                        <div class="related-content">
+                            <h4>Preventive Care Tips</h4>
+                            <p>Essential practices for maintaining good health</p>
+                        </div>
+                    </a>
+                    <a href="#" class="related-card">
+                        <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&q=80&auto=format&fit=crop" alt="Nutrition" />
+                        <div class="related-content">
+                            <h4>Nutrition Guidelines</h4>
+                            <p>Balanced diet recommendations for better health</p>
+                        </div>
+                    </a>
+                    <a href="#" class="related-card">
+                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&q=80&auto=format&fit=crop" alt="Exercise" />
+                        <div class="related-content">
+                            <h4>Exercise Benefits</h4>
+                            <p>How regular activity improves overall wellbeing</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Back to Home -->
+            <div class="blog-navigation">
+                <a href="/" class="btn btn-outline">
+                    <span>←</span>
+                    Back to Home
+                </a>
+            </div>
+        </div>
+    </div>
+</article>
+
+<style>
+    /* Blog Post Styles */
+    .blog-post {
+        margin-bottom: 2rem;
+    }
+
+    .blog-hero {
+        position: relative;
+        height: 60vh;
+        min-height: 400px;
+        overflow: hidden;
+        border-radius: 0 0 24px 24px;
+    }
+
+        .blog-hero img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: contrast(105%) saturate(105%);
+        }
+
+    .blog-hero-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(0,0,0,.3) 0%, rgba(0,0,0,.6) 100%);
+        display: flex;
+        align-items: flex-end;
+    }
+
+    .blog-hero-content {
+        padding: 3rem 0;
+        color: white;
+    }
+
+        .blog-hero-content h1 {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 700;
+            margin: 0 0 1rem 0;
+            line-height: 1.2;
+        }
+
+    .blog-meta {
+        display: flex;
+        gap: 1.5rem;
+        font-size: 1rem;
+        opacity: 0.9;
+    }
+
+    .blog-date {
+        font-weight: 500;
+    }
+
+    .blog-category {
+        background: var(--red);
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-weight: 600;
+        font-size: 0.9rem;
+    }
+
+    /* Blog Content */
+    .blog-content {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 3rem 0;
+    }
+
+    .blog-body {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        color: var(--ink);
+        margin-bottom: 3rem;
+    }
+
+        .blog-body h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 2.5rem 0 1rem 0;
+            color: var(--ink);
+        }
+
+        .blog-body h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin: 2rem 0 0.8rem 0;
+            color: var(--ink);
+        }
+
+        .blog-body p {
+            margin: 0 0 1.5rem 0;
+        }
+
+        .blog-body ul, .blog-body ol {
+            margin: 0 0 1.5rem 0;
+            padding-left: 2rem;
+        }
+
+        .blog-body li {
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-body blockquote {
+            background: #f8fafc;
+            border-left: 4px solid var(--red);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 12px 12px 0;
+            font-style: italic;
+        }
+
+        .blog-body strong {
+            color: var(--red);
+            font-weight: 600;
+        }
+
+    /* Related Articles */
+    .related-articles {
+        margin: 3rem 0;
+        padding: 2rem 0;
+        border-top: 1px solid #e5e7eb;
+    }
+
+        .related-articles h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 0 1.5rem 0;
+            color: var(--ink);
+        }
+
+    .related-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .related-card {
+        background: var(--card);
+        border: 1px solid #e5e7eb;
+        border-radius: 16px;
+        overflow: hidden;
+        text-decoration: none;
+        color: inherit;
+        transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    }
+
+        .related-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--red);
+            box-shadow: 0 12px 28px rgba(229,9,20,.15);
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .related-card img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+        }
+
+    .related-content {
+        padding: 1.2rem;
+    }
+
+        .related-content h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 0 0 0.5rem 0;
+            color: var(--ink);
+        }
+
+        .related-content p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+    /* Blog Navigation */
+    .blog-navigation {
+        margin-top: 3rem;
+        padding-top: 2rem;
+        border-top: 1px solid #e5e7eb;
+    }
+
+        .blog-navigation .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+   
+</style>
+
+<script>
+    // Navbar glass effect on scroll
+    window.addEventListener('scroll', function() {
+        const nav = document.querySelector('.nav');
+        if (nav) {
+            if (window.scrollY > 50) {
+                nav.classList.add('nav--glass');
+            } else {
+                nav.classList.remove('nav--glass');
+            }
+        }
+    });
+
+    // Blog content data
+    const blogData = {
+        'seasonal-flu': {
+            title: 'Seasonal Flu Advisory',
+            category: 'Health Alert',
+            date: 'September 1, 2025',
+            image: 'https://images.unsplash.com/photo-1584036561566-baf8f5f1b144?w=1600&q=80&auto=format&fit=crop',
+            content: `
+                <h2>Understanding Seasonal Flu</h2>
+                <p>The seasonal flu is a respiratory illness caused by influenza viruses that infect the nose, throat, and sometimes the lungs. It can cause mild to severe illness, and at times can lead to death.</p>
+
+                <h3>Common Symptoms</h3>
+                <p>Flu symptoms usually come on suddenly and may include:</p>
+                <ul>
+                    <li><strong>Fever</strong> or feeling feverish/chills</li>
+                    <li><strong>Cough</strong></li>
+                    <li><strong>Sore throat</strong></li>
+                    <li><strong>Runny or stuffy nose</strong></li>
+                    <li><strong>Muscle or body aches</strong></li>
+                    <li><strong>Headaches</strong></li>
+                    <li><strong>Fatigue</strong> (tiredness)</li>
+                </ul>
+
+                <h3>When to Seek Medical Care</h3>
+                <p>Most people with flu can recover at home with rest and fluids. However, seek immediate medical attention if you experience:</p>
+                <ul>
+                    <li>Difficulty breathing or shortness of breath</li>
+                    <li>Persistent pain or pressure in chest or abdomen</li>
+                    <li>Persistent dizziness, confusion, inability to arouse</li>
+                    <li>Seizures</li>
+                    <li>Not urinating</li>
+                    <li>Severe muscle pain</li>
+                </ul>
+
+                <blockquote>
+                    Remember: The best way to prevent flu is by getting vaccinated each year. The flu vaccine is safe and effective.
+                </blockquote>
+
+                <h3>Prevention Tips</h3>
+                <p>Protect yourself and others by following these guidelines:</p>
+                <ul>
+                    <li>Get vaccinated annually</li>
+                    <li>Wash your hands frequently with soap and water</li>
+                    <li>Avoid touching your eyes, nose, and mouth</li>
+                    <li>Stay home when you're sick</li>
+                    <li>Cover your cough or sneeze with a tissue</li>
+                </ul>
+            `
+        },
+        'vaccine-updates': {
+            title: 'Vaccine Updates',
+            category: 'Vaccination',
+            date: 'August 30, 2025',
+            image: 'https://www.fda.gov/files/iStock-157317886.jpg',
+            content: `
+                <h2>Latest Vaccine Information</h2>
+                <p>Staying up to date with vaccinations is one of the most important steps you can take to protect your health and the health of your community.</p>
+
+                <h3>Available Vaccines</h3>
+                <p>We currently offer the following vaccines:</p>
+                <ul>
+                    <li><strong>COVID-19 vaccines</strong> - Updated formulations available</li>
+                    <li><strong>Seasonal influenza vaccine</strong> - Annual flu shot</li>
+                    <li><strong>Routine adult vaccines</strong> - Including hepatitis, pneumonia, and others</li>
+                    <li><strong>Travel vaccines</strong> - For international travel requirements</li>
+                </ul>
+
+                <h3>Eligibility and Scheduling</h3>
+                <p>Most vaccines are available to all adults. Some vaccines may have specific recommendations based on:</p>
+                <ul>
+                    <li>Age group</li>
+                    <li>Health conditions</li>
+                    <li>Pregnancy status</li>
+                    <li>Travel plans</li>
+                    <li>Occupation or lifestyle factors</li>
+                </ul>
+
+                <blockquote>
+                    Consult with healthcare providers to determine which vaccines are right for you based on your individual health profile.
+                </blockquote>
+
+                <h3>What to Expect</h3>
+                <p>When you come for vaccination:</p>
+                <ul>
+                    <li>Bring a valid ID and insurance card</li>
+                    <li>Wear clothing that allows easy access to your upper arm</li>
+                    <li>Inform staff of any allergies or previous adverse reactions</li>
+                    <li>Plan to wait 15-20 minutes after vaccination for observation</li>
+                </ul>
+            `
+        },
+        'heart-health': {
+            title: 'Heart Health Tips',
+            category: 'Wellness',
+            date: 'August 28, 2025',
+            image: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=1600&q=80&auto=format&fit=crop',
+            content: `
+                <h2>Building a Heart-Healthy Lifestyle</h2>
+                <p>Heart disease remains the leading cause of death globally, but many cases are preventable through lifestyle choices. Small, consistent changes can make a significant impact on your cardiovascular health.</p>
+
+                <h3>Daily Movement Matters</h3>
+                <p>Regular physical activity strengthens your heart muscle and improves circulation:</p>
+                <ul>
+                    <li><strong>Aim for 150 minutes</strong> of moderate-intensity exercise weekly</li>
+                    <li><strong>Take the stairs</strong> instead of elevators when possible</li>
+                    <li><strong>Walk during breaks</strong> at work or after meals</li>
+                    <li><strong>Try strength training</strong> 2-3 times per week</li>
+                    <li><strong>Find activities you enjoy</strong> - dancing, swimming, cycling</li>
+                </ul>
+
+                <h3>Nutrition for Your Heart</h3>
+                <p>A heart-healthy diet focuses on whole foods and limits processed options:</p>
+                <ul>
+                    <li>Eat plenty of fruits and vegetables</li>
+                    <li>Choose whole grains over refined grains</li>
+                    <li>Include lean proteins like fish, poultry, and legumes</li>
+                    <li>Limit saturated fats and trans fats</li>
+                    <li>Reduce sodium intake</li>
+                    <li>Stay hydrated with water</li>
+                </ul>
+
+                <blockquote>
+                    Remember: Even small improvements in diet and exercise can reduce your risk of heart disease by up to 30%.
+                </blockquote>
+
+                <h3>Managing Stress</h3>
+                <p>Chronic stress can negatively impact heart health. Try these stress-reduction techniques:</p>
+                <ul>
+                    <li>Practice deep breathing exercises</li>
+                    <li>Get adequate sleep (7-9 hours nightly)</li>
+                    <li>Maintain social connections</li>
+                    <li>Consider meditation or mindfulness practices</li>
+                    <li>Limit alcohol consumption</li>
+                    <li>Avoid tobacco products</li>
+                </ul>
+            `
+        }
+    };
+
+    // Get blog post ID from URL parameters
+    function getBlogPostId() {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get('post') || 'seasonal-flu'; // default to seasonal flu
+    }
+
+    // Load blog content
+    function loadBlogContent() {
+        const postId = getBlogPostId();
+        const post = blogData[postId];
+
+        if (post) {
+            document.getElementById('blogTitle').textContent = post.title;
+            document.getElementById('blogDate').textContent = post.date;
+            document.getElementById('blogCategory').textContent = post.category;
+            document.getElementById('blogHeroImage').src = post.image;
+            document.getElementById('blogHeroImage').alt = post.title;
+            document.getElementById('blogBody').innerHTML = post.content;
+
+            // Update page title
+            document.title = post.title + ' - RAHMBD';
+        }
+    }
+
+    // Navbar glass effect on scroll
+    window.addEventListener('scroll', function() {
+        const nav = document.querySelector('.nav');
+        if (nav) {
+            if (window.scrollY > 50) {
+                nav.classList.add('nav--glass');
+            } else {
+                nav.classList.remove('nav--glass');
+            }
+        }
+    });
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', loadBlogContent);
+</script>

@@ -65,6 +65,70 @@
     background: #f9fafb;
 }
 
+/* Header alignment fix - ensure title and button are in same row */
+.d-flex.justify-content-between.align-items-center {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    margin-bottom: 1.5rem !important;
+}
+
+    .d-flex.justify-content-between.align-items-center h2 {
+        margin: 0 !important;
+        flex: 1;
+    }
+
+/* Remove underlines from all buttons */
+.btn,
+.btn:hover,
+.btn:focus,
+.btn:active,
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-danger,
+.btn-danger:hover,
+.btn-danger:focus,
+.btn-danger:active,
+.btn-sm,
+.btn-sm:hover,
+.btn-sm:focus,
+.btn-sm:active {
+    text-decoration: none !important;
+}
+
+/* Ensure buttons in action column are side by side */
+.d-flex.gap-2 {
+    display: flex !important;
+    gap: 0.5rem !important;
+    align-items: center !important;
+}
+
+    /* Fix for the form inside the flex container */
+    .d-flex.gap-2 form {
+        margin: 0 !important;
+        padding: 0 !important;
+        display: inline-block !important;
+    }
+
+    /* Make Edit and Delete buttons exactly the same size */
+    .d-flex.gap-2 .btn-sm {
+        min-width: 70px !important;
+        width: 70px !important;
+        height: 32px !important;
+        padding: 6px 8px !important;
+        font-size: 0.875rem !important;
+        font-weight: 500 !important;
+        text-align: center !important;
+        line-height: 1.2 !important;
+        border-radius: 6px !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        box-sizing: border-box !important;
+    }
+
 /* Cards */
 .cards {
     display: grid;
@@ -127,10 +191,12 @@
     border-radius: 8px;
     border: none;
     cursor: pointer;
+    text-decoration: none !important;
 }
 
     .btn:hover {
         background: #1e40af;
+        text-decoration: none !important;
     }
 
 /* Search */
@@ -140,4 +206,312 @@
     border: 1px solid #ccc;
     margin-bottom: 12px;
     width: 300px;
+}
+
+/* Healthcare Center Management Page Improvements */
+.card {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0,0,0,.08);
+    transition: transform .15s, box-shadow .2s, border-color .2s;
+}
+
+    .card:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 12px 28px rgba(0,0,0,.12);
+    }
+
+    .card h5 {
+        color: var(--ink, #0f172a);
+        font-weight: 700;
+        margin-bottom: 1rem;
+        font-size: 1.2rem;
+    }
+
+/* Form styling improvements */
+.form-control {
+    padding: 12px 14px !important;
+    border-radius: 12px !important;
+    border: 1px solid #e5e7eb !important;
+    outline: none !important;
+    transition: border-color .2s, box-shadow .2s !important;
+}
+
+    .form-control:focus {
+        border-color: var(--red, #e50914) !important;
+        box-shadow: 0 0 0 4px rgba(229,9,20,.25) !important;
+    }
+
+/* Label styling */
+label {
+    font-weight: 600 !important;
+    color: var(--ink, #0f172a) !important;
+    margin-bottom: 6px !important;
+    display: block !important;
+}
+
+/* Button improvements */
+.btn-success {
+    background: #2563eb;
+    border-color: var(--red-700, #c40812) !important;
+    color: #fff !important;
+    font-weight: 700 !important;
+    padding: 10px 20px !important;
+    border-radius: 12px !important;
+    text-decoration: none !important;
+}
+
+    .btn-success:hover {
+        background: #2563eb;
+        filter: brightness(0.97) !important;
+        text-decoration: none !important;
+    }
+
+/* Page title styling */
+h2.mb-3 {
+    color: var(--ink, #0f172a) !important;
+    font-weight: 700 !important;
+    font-size: 1.8rem !important;
+    margin-bottom: 1.5rem !important;
+}
+
+/* Table improvements */
+.table-responsive {
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0,0,0,.08);
+}
+
+.table {
+    margin: 0 !important;
+    border-radius: 0 !important;
+}
+
+    .table thead th {
+        background: var(--ink, #0f172a) !important;
+        color: #fff !important;
+        font-weight: 600 !important;
+        border: none !important;
+        padding: 16px 12px !important;
+    }
+
+    .table tbody td {
+        padding: 14px 12px !important;
+        border-bottom: 1px solid #f3f4f6 !important;
+        vertical-align: middle !important;
+    }
+
+    .table tbody tr:hover {
+        background-color: #f9fafb !important;
+    }
+
+/* Alert styling */
+.alert-success {
+    background: rgba(34, 197, 94, 0.1) !important;
+    border: 1px solid rgba(34, 197, 94, 0.3) !important;
+    color: #15803d !important;
+    border-radius: 12px !important;
+    font-weight: 500 !important;
+}
+
+/* Row spacing improvements */
+.row.mb-2 {
+    margin-bottom: 1rem !important;
+}
+
+.mt-2 {
+    margin-top: 1rem !important;
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+    .card {
+        margin-bottom: 1rem;
+    }
+
+    .table-responsive {
+        font-size: 0.9rem;
+    }
+
+    .btn {
+        font-size: 0.8rem !important;
+        padding: 8px 12px !important;
+    }
+}
+
+/* Toast Notification System */
+.toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    pointer-events: none;
+}
+
+.toast-notification {
+    background: #fff;
+    border-left: 6px solid #22c55e;
+    padding: 16px 20px;
+    border-radius: 12px;
+    box-shadow: 0 10px 32px rgba(0,0,0,.15);
+    margin-bottom: 10px;
+    min-width: 300px;
+    max-width: 400px;
+    pointer-events: auto;
+    transform: translateX(100%);
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+    .toast-notification.show {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    .toast-notification.hide {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+.toast-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.toast-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #22c55e;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+.toast-message {
+    flex: 1;
+    font-weight: 500;
+    color: #0f172a;
+    line-height: 1.4;
+}
+
+.toast-close {
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: #6b7280;
+    cursor: pointer;
+    padding: 0;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+    .toast-close:hover {
+        background: #f3f4f6;
+        color: #374151;
+    }
+
+/* Different toast types */
+.toast-notification.toast-success {
+    border-left-color: #22c55e;
+}
+
+    .toast-notification.toast-success .toast-icon {
+        background: #22c55e;
+    }
+
+.toast-notification.toast-error {
+    border-left-color: #ef4444;
+}
+
+    .toast-notification.toast-error .toast-icon {
+        background: #ef4444;
+    }
+
+.toast-notification.toast-warning {
+    border-left-color: #f59e0b;
+}
+
+    .toast-notification.toast-warning .toast-icon {
+        background: #f59e0b;
+    }
+
+.toast-notification.toast-info {
+    border-left-color: #3b82f6;
+}
+
+    .toast-notification.toast-info .toast-icon {
+        background: #3b82f6;
+    }
+
+/* Hide Bootstrap alerts when using toast system */
+.alert {
+    display: none !important;
+}
+
+@media (max-width: 768px) {
+    .messaging-container {
+        padding: 15px;
+    }
+
+    .modern-card {
+        padding: 25px;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+    }
+
+    .btn-modern {
+        width: 100%;
+    }
+
+    .toolbar {
+        gap: 5px;
+    }
+
+    .toolbar-btn {
+        font-size: 0.8rem;
+        padding: 5px 8px;
+    }
+
+}
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .messaging-container {
+        padding: 15px;
+    }
+
+    .modern-card {
+        padding: 25px;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+    }
+
+   
 }

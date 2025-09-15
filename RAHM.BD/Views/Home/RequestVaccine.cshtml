@@ -1,7 +1,691 @@
 ﻿@{
     ViewData["Title"] = "Request Vaccine";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<section class="page-section">
-    <h1>Request Vaccine</h1>
-    <p>Hard‑coded for now. Hook this up to your backend later.</p>
-</section>
+
+<style>
+    .vaccine-container {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .page-hero {
+        background: linear-gradient(135deg, #001f54 0%, #0066cc 100%);
+        color: white;
+        padding: 4rem 2rem;
+        border-radius: 25px;
+        margin-bottom: 3rem;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 15px 45px rgba(0, 31, 84, 0.3);
+    }
+
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .page-hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -20%;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            animation: float 10s ease-in-out infinite reverse;
+        }
+
+    @@keyframes float {
+        0%, 100%
+
+    {
+        transform: translateY(0px) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-30px) rotate(180deg);
+    }
+
+    }
+
+    .page-hero h1 {
+        font-size: 3rem;
+        font-weight: 800;
+        margin-bottom: 1rem;
+        position: relative;
+        z-index: 2;
+    }
+
+    .page-hero p {
+        font-size: 1.3rem;
+        opacity: 0.9;
+        margin-bottom: 0;
+        position: relative;
+        z-index: 2;
+    }
+
+    .modern-card {
+        background: white;
+        border-radius: 25px;
+        padding: 3rem;
+        margin-bottom: 2.5rem;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+        border: 1px solid rgba(0, 31, 84, 0.05);
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+
+        .modern-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(135deg, #001f54 0%, #0066cc 100%);
+        }
+
+        .modern-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.12);
+        }
+
+    .card-header {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        border-bottom: 2px solid #f8f9fa;
+    }
+
+    .card-icon {
+        background: linear-gradient(135deg, #001f54 0%, #0066cc 100%);
+        color: white;
+        width: 60px;
+        height: 60px;
+        border-radius: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.8rem;
+        box-shadow: 0 8px 25px rgba(0, 31, 84, 0.3);
+    }
+
+    .card-title {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #001f54;
+        margin: 0;
+    }
+
+    .card-subtitle {
+        color: #6c757d;
+        font-size: 1.1rem;
+        margin-top: 0.5rem;
+        line-height: 1.6;
+    }
+
+    .input-section {
+        position: relative;
+        margin-bottom: 2rem;
+    }
+
+    .input-label {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 1rem;
+        display: block;
+    }
+
+    .modern-select {
+        width: 100%;
+        padding: 18px 24px;
+        border: 3px solid #e9ecef;
+        border-radius: 15px;
+        font-size: 1.1rem;
+        background: white;
+        transition: all 0.3s ease;
+        margin-bottom: 1.5rem;
+        appearance: none;
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right 20px center;
+        background-size: 20px;
+    }
+
+        .modern-select:focus {
+            outline: none;
+            border-color: #001f54;
+            box-shadow: 0 0 0 4px rgba(0, 31, 84, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .modern-select:hover {
+            border-color: #001f54;
+        }
+
+    .vaccine-options {
+        display: none;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.5s ease;
+    }
+
+        .vaccine-options.show {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+    .results-title {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: #001f54;
+        margin-bottom: 2rem;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .vaccine-card {
+        background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+        border: 2px solid #e9ecef;
+        border-radius: 18px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+        .vaccine-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 6px;
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            transition: width 0.3s ease;
+        }
+
+        .vaccine-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.1);
+            border-color: #28a745;
+        }
+
+            .vaccine-card:hover::before {
+                width: 12px;
+            }
+
+    .vaccine-header {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+        border-bottom: 2px solid #f1f3f4;
+    }
+
+    .vaccine-icon {
+        background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        color: white;
+        width: 50px;
+        height: 50px;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        box-shadow: 0 6px 20px rgba(40, 167, 69, 0.3);
+    }
+
+    .vaccine-name {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #28a745;
+        margin: 0;
+    }
+
+    .centers-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+        margin-top: 1rem;
+    }
+
+    .center-card {
+        background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+        border: 2px solid #e9ecef;
+        border-radius: 15px;
+        padding: 1.5rem;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+        .center-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border-color: #001f54;
+        }
+
+    .center-name {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #001f54;
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .center-location {
+        color: #6c757d;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .stock-badge {
+        background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        color: white;
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        display: inline-block;
+    }
+
+    .modern-button {
+        background: linear-gradient(135deg, #001f54 0%, #0066cc 100%);
+        border: none;
+        padding: 14px 28px;
+        border-radius: 50px;
+        color: white;
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        box-shadow: 0 8px 25px rgba(0, 31, 84, 0.3);
+        width: 100%;
+        justify-content: center;
+    }
+
+        .modern-button:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(0, 31, 84, 0.4);
+        }
+
+        .modern-button:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+    .alert {
+        border-radius: 15px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        border: none;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .alert-success {
+        background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+        color: #155724;
+        border-left: 5px solid #28a745;
+    }
+
+    .alert-danger {
+        background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+        color: #721c24;
+        border-left: 5px solid #dc3545;
+    }
+
+    .alert-info {
+        background: linear-gradient(135deg, #d1ecf1 0%, #bee5eb 100%);
+        color: #0c5460;
+        border-left: 5px solid #17a2b8;
+    }
+
+    .no-results {
+        text-align: center;
+        padding: 3rem 2rem;
+        background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+        border-radius: 18px;
+        border-left: 5px solid #ffc107;
+    }
+
+    .no-results-icon {
+        font-size: 3rem;
+        color: #ffc107;
+        margin-bottom: 1rem;
+    }
+
+    @@media (max-width: 768px) {
+        .vaccine-container
+
+    {
+        padding: 15px;
+    }
+
+    .page-hero {
+        padding: 2.5rem 1.5rem;
+    }
+
+        .page-hero h1 {
+            font-size: 2.2rem;
+        }
+
+    .modern-card {
+        padding: 2rem;
+    }
+
+    .centers-grid {
+        grid-template-columns: 1fr;
+    }
+
+    }
+</style>
+
+<div class="vaccine-container">
+    <!-- Page Header -->
+    <div class="page-hero">
+        <h1><i class="fas fa-syringe"></i> Vaccine Request Center</h1>
+        <p>Find and book vaccines at nearby healthcare centers with real-time availability</p>
+    </div>
+
+    <!-- Vaccine Selection Section -->
+    <div class="modern-card">
+        <div class="card-header">
+            <div class="card-icon">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <div>
+                <h3 class="card-title">Select Disease & Find Vaccines</h3>
+                <p class="card-subtitle">Choose a disease to view available vaccines and healthcare centers in your area</p>
+            </div>
+        </div>
+
+        <div class="input-section">
+            <label for="diseaseSelect" class="input-label">Choose Disease for Vaccination:</label>
+            <select id="diseaseSelect" class="modern-select">
+                <option value="">-- Select a Disease --</option>
+            </select>
+        </div>
+
+        <div id="vaccineOptions" class="vaccine-options">
+            <div class="results-title">
+                <i class="fas fa-hospital"></i>
+                Available Vaccines & Healthcare Centers
+            </div>
+            <div id="vaccineList"></div>
+        </div>
+    </div>
+
+    <!-- Message Area -->
+    <div id="message"></div>
+</div>
+
+<script>
+    const diseaseSelect = document.getElementById("diseaseSelect");
+    const vaccineOptions = document.getElementById("vaccineOptions");
+    const vaccineList = document.getElementById("vaccineList");
+    const message = document.getElementById("message");
+
+    // Load diseases
+    async function loadDiseases() {
+        try {
+            const res = await fetch("/Vaccine/Diseases");
+            const diseases = await res.json();
+
+            diseases.forEach(d => {
+                const opt = document.createElement("option");
+                opt.value = d.id;
+                opt.textContent = d.name;
+                diseaseSelect.appendChild(opt);
+            });
+        } catch (error) {
+            console.error("Error loading diseases:", error);
+            showMessage("Error loading diseases. Please refresh the page to try again.", "danger");
+        }
+    }
+
+    // Disease selection handler
+    diseaseSelect.addEventListener("change", async () => {
+        vaccineOptions.classList.remove("show");
+        vaccineList.innerHTML = "";
+
+        if (!diseaseSelect.value) return;
+
+        // Add loading state
+        vaccineList.innerHTML = `
+            <div style="text-align: center; padding: 2rem;">
+                <div style="width: 50px; height: 50px; border: 4px solid #f3f4f6; border-top: 4px solid #001f54; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 1rem;"></div>
+                <p style="color: #001f54; font-weight: 600;">Loading available vaccines...</p>
+            </div>
+        `;
+        vaccineOptions.classList.add("show");
+
+        try {
+            const res = await fetch(`/Vaccine/ByDisease/${diseaseSelect.value}`);
+            const vaccines = await res.json();
+
+            setTimeout(() => {
+                if (vaccines.length > 0) {
+                    let html = "";
+
+                    vaccines.forEach((vaccine, index) => {
+                        html += `
+                            <div class="vaccine-card" style="animation-delay: ${index * 0.1}s">
+                                <div class="vaccine-header">
+                                    <div class="vaccine-icon">
+                                        <i class="fas fa-syringe"></i>
+                                    </div>
+                                    <div class="vaccine-name">${vaccine.vaccineName}</div>
+                                </div>
+
+                                <div class="centers-grid">
+                        `;
+
+                        vaccine.centers.forEach((center, centerIndex) => {
+                            html += `
+                                <div class="center-card" style="animation-delay: ${(index * 0.1) + (centerIndex * 0.05)}s">
+                                    <div class="center-name">
+                                        <i class="fas fa-hospital"></i>
+                                        ${center.centerName}
+                                    </div>
+                                    <div class="center-location">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        ${center.location}
+                                    </div>
+                                    <div class="stock-badge">
+                                        <i class="fas fa-boxes"></i>
+                                        Stock Available: ${center.quantityAvailable}
+                                    </div>
+                                    <button class="modern-button take-vaccine-btn"
+                                            data-vaccine-id="${vaccine.vaccineId}"
+                                            data-center-id="${center.centerId}"
+                                            data-vaccine-name="${vaccine.vaccineName}"
+                                            data-center-name="${center.centerName}">
+                                        <i class="fas fa-calendar-check"></i>
+                                        Book Vaccination
+                                    </button>
+                                </div>
+                            `;
+                        });
+
+                        html += `
+                                </div>
+                            </div>
+                        `;
+                    });
+
+                    vaccineList.innerHTML = html;
+
+                    // Add click handlers to all take vaccine buttons
+                    document.querySelectorAll('.take-vaccine-btn').forEach(btn => {
+                        btn.addEventListener('click', handleTakeVaccine);
+                    });
+                } else {
+                    vaccineList.innerHTML = `
+                        <div class="no-results">
+                            <div class="no-results-icon">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <h4 style="color: #ffc107; margin-bottom: 1rem;">No Vaccines Available</h4>
+                            <p style="margin: 0;">Currently, there are no vaccines available for the selected disease. Please check back later or contact your healthcare provider.</p>
+                        </div>
+                    `;
+                }
+            }, 800);
+        } catch (error) {
+            console.error("Error loading vaccines:", error);
+            vaccineList.innerHTML = `
+                <div class="no-results">
+                    <div class="no-results-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <h4 style="color: #dc3545; margin-bottom: 1rem;">Error Loading Vaccines</h4>
+                    <p style="margin: 0;">Unable to load vaccine information. Please try again or refresh the page.</p>
+                </div>
+            `;
+        }
+    });
+
+    // Handle take vaccine
+    async function handleTakeVaccine(event) {
+        const btn = event.target;
+        const userId = 1; // Make sure this is a valid user ID from your database
+        const vaccineId = parseInt(btn.dataset.vaccineId);
+        const healthCenterId = parseInt(btn.dataset.centerId);
+        const vaccineName = btn.dataset.vaccineName;
+        const centerName = btn.dataset.centerName;
+
+        console.log('🔍 Debug - Request data:', { userId, vaccineId, healthCenterId });
+
+        if (!confirm(`Are you sure you want to book ${vaccineName} at ${centerName}?`)) {
+            return;
+        }
+
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+
+        try {
+            const response = await fetch("/Vaccine/Take", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    userId: userId,
+                    vaccineId: vaccineId,
+                    healthCenterId: healthCenterId
+                })
+            });
+
+            console.log('🔍 Debug - Response status:', response.status);
+            console.log('🔍 Debug - Response headers:', [...response.headers.entries()]);
+
+            const responseText = await response.text();
+            console.log('🔍 Debug - Raw response:', responseText);
+
+            let result;
+            try {
+                result = JSON.parse(responseText);
+                console.log('🔍 Debug - Parsed JSON:', result);
+            } catch (jsonError) {
+                console.error('❌ JSON Parse Error:', jsonError);
+                console.error('❌ Raw response that failed to parse:', responseText);
+                showMessage("Server returned invalid response. Check console for details.", "danger");
+                return;
+            }
+
+            if (response.ok && result.success) {
+                showMessage(`✅ ${result.message}`, "success");
+                diseaseSelect.dispatchEvent(new Event('change'));
+            } else {
+                showMessage(`❌ ${result.message || 'An error occurred'}`, "danger");
+            }
+        } catch (error) {
+            console.error("❌ Network error:", error);
+            showMessage("❌ Network error occurred. Please try again.", "danger");
+        } finally {
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-calendar-check"></i> Book Vaccination';
+        }
+    }
+
+    function showMessage(text, type) {
+        message.innerHTML = `
+            <div class="alert alert-${type}" style="animation: slideIn 0.5s ease">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'danger' ? 'exclamation-circle' : 'info-circle'}"></i>
+                    ${text}
+                </div>
+            </div>
+        `;
+
+        message.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+        // Auto-hide success messages
+        if (type === "success") {
+            setTimeout(() => {
+                const alert = message.querySelector('.alert');
+                if (alert) {
+                    alert.style.animation = 'slideOut 0.5s ease';
+                    setTimeout(() => {
+                        message.innerHTML = "";
+                    }, 500);
+                }
+            }, 5000);
+        }
+    }
+
+    // Add CSS animations
+    const style = document.createElement('style');
+    style.textContent = `
+        @@keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @@keyframes slideIn {
+            0% { opacity: 0; transform: translateY(-20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        @@keyframes slideOut {
+            0% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-20px); }
+        }
+        .vaccine-card, .center-card {
+            opacity: 0;
+            animation: slideIn 0.6s ease forwards;
+        }
+    `;
+    document.head.appendChild(style);
+
+    // Initialize
+    loadDiseases();
+</script>

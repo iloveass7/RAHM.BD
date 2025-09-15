@@ -1,6 +1,184 @@
 ﻿@{
     ViewData["Title"] = "Home";
 }
+<style>
+    .actions {
+        margin-bottom: 3rem;
+    }
+
+    .section-header {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .section-title {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: #001f54;
+        margin-bottom: 1rem;
+        position: relative;
+    }
+
+    .section-subtitle {
+        font-size: 1.2rem;
+        color: #6c757d;
+        max-width: 600px;
+        margin: 0 auto;
+        line-height: 1.6;
+    }
+
+    .cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .card {
+        background: white;
+        border-radius: 25px;
+        padding: 3rem 2.5rem;
+        text-decoration: none;
+        color: inherit;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
+        border: 1px solid rgba(0, 31, 84, 0.05);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--card-gradient, linear-gradient(135deg, #001f54 0%, #0066cc 100%));
+            transition: height 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.15);
+            text-decoration: none;
+            color: inherit;
+        }
+
+            .card:hover::before {
+                height: 8px;
+            }
+
+    .card-icon {
+        width: 80px;
+        height: 80px;
+        border-radius: 20px;
+        background: var(--icon-gradient, linear-gradient(135deg, #001f54 0%, #0066cc 100%));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.5rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 10px 30px rgba(0, 31, 84, 0.3);
+        transition: all 0.3s ease;
+    }
+
+    .card:hover .card-icon {
+        transform: scale(1.1) rotate(5deg);
+        box-shadow: 0 15px 40px rgba(0, 31, 84, 0.4);
+    }
+
+    .card h3 {
+        font-size: 1.6rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: #001f54;
+    }
+
+    .card p {
+        font-size: 1rem;
+        line-height: 1.6;
+        color: #6c757d;
+        margin-bottom: 2rem;
+        flex-grow: 1;
+    }
+
+    .card-cta {
+        background: linear-gradient(135deg, #001f54 0%, #0066cc 100%);
+        color: white;
+        padding: 12px 24px;
+        border-radius: 50px;
+        font-weight: 600;
+        font-size: 0.95rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0, 31, 84, 0.2);
+    }
+
+    .card:hover .card-cta {
+        background: linear-gradient(135deg, #0066cc 0%, #4a90e2 100%);
+        transform: translateX(5px);
+        box-shadow: 0 6px 20px rgba(0, 31, 84, 0.3);
+    }
+
+    /* Custom styling for each card */
+    .card:nth-child(1) {
+        --card-gradient: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        --icon-gradient: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    }
+
+    .card:nth-child(2) {
+        --card-gradient: linear-gradient(135deg, #dc3545 0%, #e74c3c 100%);
+        --icon-gradient: linear-gradient(135deg, #dc3545 0%, #e74c3c 100%);
+    }
+
+    .card:nth-child(3) {
+        --card-gradient: linear-gradient(135deg, #ffc107 0%, #f39c12 100%);
+        --icon-gradient: linear-gradient(135deg, #ffc107 0%, #f39c12 100%);
+    }
+
+    @@media (max-width: 768px) {
+        .cards
+
+    {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .card {
+        padding: 2rem;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    }
+
+    @@media (max-width: 480px) {
+        .cards
+
+    {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .card {
+        padding: 1.5rem;
+    }
+
+    .card-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 2rem;
+    }
+
+    }
+</style>
 <section class="hero hero-tight">
     <div class="slider" id="heroSlider">
         <div class="slides">
@@ -12,7 +190,7 @@
                 </div>
             </article>
             <article class="slide">
-                <img src="https://images.unsplash.com/photo-1587502536263-3e1cf0a0b5a0?w=1600&q=80&auto=format&fit=crop" alt="Vaccination info" />
+                <img src="https://www.fda.gov/files/iStock-157317886.jpg" alt="Vaccination info" />
                 <div class="caption">
                     <h2>Vaccine Updates</h2>
                     <p>Find the latest vaccine availability, eligibility, and reminders.</p>
@@ -30,27 +208,121 @@
     </div>
 </section>
 
+<!-- Services Section -->
 <section class="actions">
+    <div class="section-header">
+        <h2 class="section-title">Our Healthcare Services</h2>
+        <p class="section-subtitle">
+            Access comprehensive healthcare services designed to keep you and your family healthy and informed
+        </p>
+    </div>
+
     <div class="cards">
         <a asp-controller="Home" asp-action="RequestCenter" class="card">
             <div class="card-icon">🏥</div>
-            <h3>Request healthcare center</h3>
-            <p>Locate and request contact from a nearby healthcare center.</p>
-            <span class="card-cta">Go →</span>
+            <h3>Request Healthcare Center</h3>
+            <p>Locate and request contact from a nearby healthcare center with real-time directions and availability.</p>
+            <span class="card-cta">Find Centers →</span>
         </a>
 
         <a asp-controller="Home" asp-action="RequestVaccine" class="card">
             <div class="card-icon">💉</div>
             <h3>Request Vaccine</h3>
-            <p>Check eligibility and request a vaccine appointment.</p>
-            <span class="card-cta">Go →</span>
+            <p>Check eligibility and request a vaccine appointment at convenient locations near you.</p>
+            <span class="card-cta">Book Vaccine →</span>
         </a>
 
         <a asp-controller="Health" asp-action="Tips" class="card">
             <div class="card-icon">💡</div>
-            <h3>Tips</h3>
-            <p>Evidence‑based articles on staying healthy and safe.</p>
-            <span class="card-cta">Go →</span>
+            <h3>Health Tips & Checker</h3>
+            <p>Evidence-based articles on staying healthy and AI-powered symptom analysis tools.</p>
+            <span class="card-cta">Get Tips →</span>
         </a>
     </div>
 </section>
+<script>
+        // Add this JavaScript to your homepage to make slider items clickable
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Slider functionality with click navigation
+        const slider = document.getElementById('heroSlider');
+        const slides = slider.querySelector('.slides');
+        const dotsContainer = document.getElementById('heroDots');
+
+        // Slide data with corresponding blog post IDs
+        const slideData = [
+            {
+                id: 'seasonal-flu',
+                title: 'Seasonal Flu Advisory'
+            },
+            {
+                id: 'vaccine-updates',
+                title: 'Vaccine Updates'
+            },
+            {
+                id: 'heart-health',
+                title: 'Heart Health Tips'
+            }
+        ];
+
+        let currentSlide = 0;
+        const totalSlides = slides.children.length;
+
+        // Create dots
+        function createDots() {
+            dotsContainer.innerHTML = '';
+            for (let i = 0; i < totalSlides; i++) {
+                const dot = document.createElement('button');
+                dot.addEventListener('click', () => goToSlide(i));
+                if (i === 0) dot.classList.add('active');
+                dotsContainer.appendChild(dot);
+            }
+        }
+
+        // Update slider position
+        function updateSlider() {
+            slides.style.transform = `translateX(-${currentSlide * 100}%)`;
+
+            // Update dots
+            dotsContainer.querySelectorAll('button').forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+        }
+
+        // Go to specific slide
+        function goToSlide(index) {
+            currentSlide = index;
+            updateSlider();
+        }
+
+        // Auto-advance slides
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateSlider();
+        }
+
+        // Make slides clickable
+        function makeSlicesClickable() {
+            const slideElements = slides.querySelectorAll('.slide');
+            slideElements.forEach((slide, index) => {
+                slide.style.cursor = 'pointer';
+                slide.addEventListener('click', function() {
+                    const blogId = slideData[index]?.id;
+                    if (blogId) {
+                        // Navigate to blog page with post parameter
+                        window.location.href = `/Home/Blog?post=${blogId}`;
+                        // If using ASP.NET Core routing, you might use:
+                        // window.location.href = `@Url.Action("Blog", "Home")?post=${blogId}`;
+                    }
+                });
+            });
+        }
+
+        // Initialize slider
+        createDots();
+        makeSlicesClickable();
+
+        // Auto-advance every 5 seconds
+        setInterval(nextSlide, 5000);
+    });
+</script>
